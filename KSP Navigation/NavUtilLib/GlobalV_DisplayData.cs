@@ -313,12 +313,12 @@ namespace NavUtilLib
                 float pxOffset = 0;
                 float partImgPer = 0.0015625f;
 
-                Vector3d surfVesRight = Vector3d.Cross((var.FlightData.currentVessel.findWorldCenterOfMass() - var.FlightData.currentVessel.mainBody.position).normalized, var.FlightData.currentVessel.ReferenceTransform.up).normalized;
+				Vector3d surfVesRight = Vector3d.Cross((var.FlightData.currentVessel.CurrentCoM - var.FlightData.currentVessel.mainBody.position).normalized, var.FlightData.currentVessel.ReferenceTransform.up).normalized;
 
 
                 float roll = (float)Vector3d.Angle(surfVesRight, var.FlightData.currentVessel.ReferenceTransform.right) * Math.Sign(Vector3d.Dot(surfVesRight, var.FlightData.currentVessel.ReferenceTransform.forward));
 
-                float pitch = (float)(90 - Vector3d.Angle((var.FlightData.currentVessel.findWorldCenterOfMass() - var.FlightData.currentVessel.mainBody.position).normalized, var.FlightData.currentVessel.ReferenceTransform.up));
+				float pitch = (float)(90 - Vector3d.Angle((var.FlightData.currentVessel.CurrentCoM - var.FlightData.currentVessel.mainBody.position).normalized, var.FlightData.currentVessel.ReferenceTransform.up));
 
                 if(pitch > 0)
                 {
@@ -342,11 +342,11 @@ namespace NavUtilLib
                 screen = NavUtilLib.Graphics.drawMovedImage(var.Materials.Instance.AI_overlay, screen, new Vector2(0, 0), false, false);
 
                 NavUtilLib.TextWriter.addTextToRT(
-screen, "Pitch: " +
-string.Format("{0:F0}", pitch) + "   Roll: " + string.Format("{0:F0}", roll),
-new Vector2(20 + 2, 600 + 2),
-NavUtilLib.GlobalVariables.Materials.Instance.whiteFont,
-.5f);
+					screen, "Pitch: " +
+					string.Format("{0:F0}", pitch) + "   Roll: " + string.Format("{0:F0}", roll),
+					new Vector2(20 + 2, 600 + 2),
+					NavUtilLib.GlobalVariables.Materials.Instance.whiteFont,
+					.5f);
 
                 //Throttle
                 screen = NavUtilLib.Graphics.drawMovedImagePortion(var.Materials.Instance.AI_throttleBar, 0, var.FlightData.currentVessel.ctrlState.mainThrottle, 0, 1, screen, new Vector2(partImgPer * 23, partImgPer * 239), false);

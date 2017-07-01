@@ -120,6 +120,8 @@ namespace NavUtilLib
             public static float locDeviation;
             public static float gsDeviation;
             public static float runwayHeading;
+
+			private static Waypoint prevWaypoint = null;
             
             public static bool isINSMode() {
             	return (selectedRwy != null) && selectedRwy.isINSTarget;
@@ -135,20 +137,32 @@ namespace NavUtilLib
                     selectedRwy = rwyList[rwyIdx];
 
                     //Since there seems to be no callback methods to determine whether waypoint has been set or changed, we have to refresh INS data on every update  
-                    NavWaypoint waypoint = NavWaypoint.fetch;
-                    if ((waypoint != null) && waypoint.IsActive)
-                    {
+					NavWaypoint navWaypoint = NavWaypoint.fetch;
+					if ((navWaypoint != null) && navWaypoint.IsActive) {
+						Waypoint waypoint = null;
+						if (prevWaypoint != null && navWaypoint.Latitude == prevWaypoint.latitude && navWaypoint.Longitude == prevWaypoint.longitude) {
+							waypoint = prevWaypoint;
+						} else {
+							foreach (Waypoint wp in FinePrint.WaypointManager.Instance().Waypoints) {
+								if (navWaypoint.Latitude == wp.latitude && navWaypoint.Longitude == wp.longitude) {
+									waypoint = wp;
+									break;
+								}
+							}
+							prevWaypoint = waypoint;
+						}
+
                         //If waypoint is fine then generate fake target runway every time
                         Runway insTarget = new Runway();
                         insTarget.isINSTarget = true;
-                        insTarget.ident = waypoint.name;
-                        insTarget.body = waypoint.Body.name;
+						insTarget.ident = waypoint != null ? waypoint.name : navWaypoint.name;
+                        insTarget.body = navWaypoint.Body.name;
                         insTarget.hdg = selectedRwy != null ? selectedRwy.hdg : 0;
-                        insTarget.altMSL = (float)(waypoint.Height + waypoint.Altitude);
-                        insTarget.locLatitude = (float)waypoint.Latitude;
-                        insTarget.locLongitude = (float)waypoint.Longitude;
-                        insTarget.gsLatitude = (float)waypoint.Latitude;
-                        insTarget.gsLongitude = (float)waypoint.Longitude;
+                        insTarget.altMSL = (float)(navWaypoint.Height + navWaypoint.Altitude);
+                        insTarget.locLatitude = (float)navWaypoint.Latitude;
+                        insTarget.locLongitude = (float)navWaypoint.Longitude;
+                        insTarget.gsLatitude = (float)navWaypoint.Latitude;
+                        insTarget.gsLongitude = (float)navWaypoint.Longitude;
                         selectedRwy = insTarget;
                     }
 

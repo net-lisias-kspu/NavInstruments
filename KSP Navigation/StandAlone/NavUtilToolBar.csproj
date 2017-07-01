@@ -3,8 +3,6 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{837BDF09-DB12-45B3-B32A-0F557BAD2856}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -32,14 +30,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\..\..\..\Desktop\KSP Modding\Assemblies\Assembly-CSharp.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="System" />
+    <Reference Include="Assembly-CSharp">
+      <HintPath>..\..\..\Managed\Assembly-CSharp.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine">
-      <HintPath>..\..\..\..\..\Desktop\KSP Modding\Assemblies\UnityEngine.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\..\Managed\UnityEngine.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -49,7 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NavUtilLib\NavUtilLib.csproj">
-      <Project>{647510f3-2dff-43be-9b31-86d83e540bb9}</Project>
+      <Project>{647510F3-2DFF-43BE-9B31-86D83E540BB9}</Project>
       <Name>NavUtilLib</Name>
     </ProjectReference>
   </ItemGroup>
