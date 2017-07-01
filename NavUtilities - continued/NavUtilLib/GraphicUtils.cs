@@ -5,12 +5,13 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using KSP;
+using System.IO;
 
 using mat = NavUtilLib.GlobalVariables.Materials;
 
 namespace NavUtilLib
 {
-    public static class Graphics
+    public static class NavUtilGraphics
     {
         public static RenderTexture drawCenterRotatedImage(float headingDeg, Vector2 centerPercent, Material mat, RenderTexture screen, float xOffset, float yOffset)
         {
@@ -136,7 +137,7 @@ namespace NavUtilLib
         
 
         public static Material loadMaterial(string fileName, Material mat, int width, int height)
-        {
+		{
             if (GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtilLib: Loading Material " + fileName);
 
             //Shader unlit = Shader.Find("KSP/Alpha/Unlit Transparent");
@@ -145,16 +146,15 @@ namespace NavUtilLib
 
             mat = new Material(unlit);
            
-            mat.color = new Color(1, 1, 1, 1);
             mat.color = Color.white;
-            mat.mainTexture = texFile(fileName, width, height);
+            mat.mainTexture = loadTexture(fileName, width, height);
             return mat;
         }
 
-        private static Texture2D texFile(string fileName, int w, int h)
+        public static Texture2D loadTexture(string fileName, int w, int h)
         {
             Texture2D t = new Texture2D(w, h);
-            t.LoadImage(KSP.IO.File.ReadAllBytes<NavUtilLibApp>(fileName, null));
+            t.LoadImage(File.ReadAllBytes(fileName));
             return t;
         }
     }

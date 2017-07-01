@@ -292,7 +292,7 @@ namespace NavUtilLib
         void AddButton()
         {
             if (KSP.UI.Screens.ApplicationLauncher.Ready && !NavUtilLib.GlobalVariables.Settings.useBlizzy78ToolBar)
-            {
+			{
                 appButton = KSP.UI.Screens.ApplicationLauncher.Instance.AddModApplication(
                     onAppLaunchToggleOn,
                     onAppLaunchToggleOff,
@@ -301,7 +301,8 @@ namespace NavUtilLib
                     onAppLaunchEnable,
                     onAppLaunchDisable,
                     KSP.UI.Screens.ApplicationLauncher.AppScenes.FLIGHT,
-                    (Texture)GameDatabase.Instance.GetTexture("KerbalScienceFoundation/NavInstruments/CommonTextures/toolbarButton3838", false)
+					/*(Texture)GameDatabase.Instance.GetTexture(GlobalVariables.Settings.getPathFor("Textures/Toolbar/", "toolbarButton3838.png")*/
+					NavUtilGraphics.loadTexture(GlobalVariables.Settings.getPathFor("Textures", "Toolbar/toolbarButton3838.png"), 0, 0)
                   );
                 ;
                 app = this;
@@ -311,7 +312,7 @@ namespace NavUtilLib
 
 
         void Awake()
-        {
+		{
             if (NavUtilLib.GlobalVariables.Settings.enableDebugging)
             {
                 Debug.Log("NavUtils: NavUtilLibApp.Awake()");

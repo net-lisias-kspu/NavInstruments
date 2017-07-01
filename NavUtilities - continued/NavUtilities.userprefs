@@ -1,0 +1,22 @@
+﻿<Properties StartupItem="NavUtilLib\NavUtilLib.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="NavUtilLib\GlobalVariables.cs">
+    <Files>
+      <File FileName="NavUtilLib\Properties\AssemblyInfo.cs" Line="1" Column="1" />
+      <File FileName="NavUtilLib\NavUtilLibHelper.cs" Line="314" Column="6" />
+      <File FileName="NavUtilLib\GlobalVariables.cs" Line="233" Column="52" />
+      <File FileName="RPM\Properties\AssemblyInfo.cs" Line="1" Column="1" />
+      <File FileName="StandAlone\Properties\AssemblyInfo.cs" Line="1" Column="1" />
+      <File FileName="NavUtilLib\ConfigLoader.cs" Line="111" Column="51" />
+      <File FileName="NavUtilLib\AnalogGauges.cs" Line="208" Column="145" />
+      <File FileName="NavUtilLib\GlobalV_DisplayData.cs" Line="191" Column="48" />
+      <File FileName="NavUtilLib\RunwaysEditor.cs" Line="12" Column="31" />
+      <File FileName="NavUtilLib\SettingsGUI.cs" Line="11" Column="30" />
+      <File FileName="NavUtilLib\Runway.cs" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

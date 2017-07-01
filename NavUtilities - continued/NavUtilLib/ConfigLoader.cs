@@ -13,7 +13,7 @@ namespace NavUtilLib
             System.Collections.Generic.List<Runway> runwayList = new System.Collections.Generic.List<Runway>();
             runwayList.Clear();
 
-            ConfigNode runways = ConfigNode.Load(KSPUtil.ApplicationRootPath + sSettingURL);
+            ConfigNode runways = ConfigNode.Load(sSettingURL);
             foreach (ConfigNode node in runways.GetNodes("Runway"))
             {
                 if (GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtil: Found Runway Node");
@@ -108,7 +108,7 @@ namespace NavUtilLib
         {
             Debug.Log("NavUtil: Loading Settings");
 
-            ConfigNode settings = ConfigNode.Load(KSPUtil.ApplicationRootPath + sSettingURL);
+            ConfigNode settings = ConfigNode.Load(sSettingURL);
 
             foreach (ConfigNode node in settings.GetNodes("NavUtilSettings"))
             {
@@ -318,7 +318,7 @@ namespace NavUtilLib
 
             settings.AddNode(sN);
 
-            settings.Save(KSPUtil.ApplicationRootPath + sSettingURL, "NavUtil Setting File");
+            settings.Save(sSettingURL, "NavUtil Setting File");
 
 
             //ConfigNode settings = ConfigNode.Load();

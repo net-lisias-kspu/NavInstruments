@@ -1,0 +1,13 @@
+﻿<Properties StartupItem="NavUtilLib.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="C:\Windows\Microsoft.NET\Framework\v3.5\Microsoft.Common.targets">
+    <Files>
+      <File FileName="GlobalV_DisplayData.cs" Line="321" Column="86" />
+      <File FileName="C:\Windows\Microsoft.NET\Framework\v3.5\Microsoft.Common.targets" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

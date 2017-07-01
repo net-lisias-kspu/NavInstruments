@@ -191,7 +191,7 @@ namespace NavUtilLib.Analog
 
             rwyLabel.SetText(NavUtilLib.GlobalVariables.FlightData.rwyList[NavUtilLib.GlobalVariables.FlightData.rwyIdx].shortID);
 
-            NavUtilLib.GlobalVariables.Audio.markerAudio.PlayOneShot(GameDatabase.Instance.GetAudioClip("KerbalScienceFoundation/NavInstruments/CommonAudio/click"));
+			NavUtilLib.GlobalVariables.Audio.markerAudio.PlayOneShot(GameDatabase.Instance.GetAudioClip(GlobalVariables.Settings.getPathFor("Audio","click.ogg")));
         }
 
         private void OnCrsBtnClick()
@@ -205,7 +205,7 @@ namespace NavUtilLib.Analog
 
             crsKnob.localRotation = crsKnobInit * Quaternion.AngleAxis(((float)NavUtilLib.GlobalVariables.FlightData.gsIdx / (float)NavUtilLib.GlobalVariables.FlightData.gsList.Count()) * 360, Vector3.forward);
 
-            NavUtilLib.GlobalVariables.Audio.markerAudio.PlayOneShot(GameDatabase.Instance.GetAudioClip("KerbalScienceFoundation/NavInstruments/CommonAudio/click"));
+			NavUtilLib.GlobalVariables.Audio.markerAudio.PlayOneShot(GameDatabase.Instance.GetAudioClip(GlobalVariables.Settings.getPathFor("Audio", "click.ogg")));
         }
 
         private void RunOnce()

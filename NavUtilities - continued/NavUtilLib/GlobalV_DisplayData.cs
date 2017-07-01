@@ -59,7 +59,7 @@ namespace NavUtilLib
 
                 if (NavUtilLib.GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtils: " + var.Materials.Instance.overlay.mainTexture.height + " " + var.Materials.Instance.overlay.mainTexture.width);
 
-                screen = NavUtilLib.Graphics.drawMovedImage(var.Materials.Instance.overlay, screen, new Vector2(0, 0), false, false);
+                screen = NavUtilLib.NavUtilGraphics.drawMovedImage(var.Materials.Instance.overlay, screen, new Vector2(0, 0), false, false);
 
                 GL.PopMatrix();
 
@@ -96,10 +96,10 @@ namespace NavUtilLib
 
                 if (NavUtilLib.GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtils: DrawHSI() EndGL");
 
-                screen = NavUtilLib.Graphics.drawMovedImage(var.Materials.Instance.back, screen, new Vector2(0, 0), false, true);
-                screen = NavUtilLib.Graphics.drawCenterRotatedImage(360 - FlightGlobals.ship_heading, new Vector2(.5f, .5f), var.Materials.Instance.headingCard, screen, 0, 0);
-                screen = NavUtilLib.Graphics.drawCenterRotatedImage(360 - FlightGlobals.ship_heading + (float)var.FlightData.bearing, new Vector2(.5f, .5f), var.Materials.Instance.NDBneedle, screen, 0, 0);
-                screen = NavUtilLib.Graphics.drawCenterRotatedImage(360 - FlightGlobals.ship_heading + (float)var.FlightData.selectedRwy.hdg, new Vector2(.5f, .5f), var.Materials.Instance.course, screen, 0, 0);
+                screen = NavUtilLib.NavUtilGraphics.drawMovedImage(var.Materials.Instance.back, screen, new Vector2(0, 0), false, true);
+                screen = NavUtilLib.NavUtilGraphics.drawCenterRotatedImage(360 - FlightGlobals.ship_heading, new Vector2(.5f, .5f), var.Materials.Instance.headingCard, screen, 0, 0);
+                screen = NavUtilLib.NavUtilGraphics.drawCenterRotatedImage(360 - FlightGlobals.ship_heading + (float)var.FlightData.bearing, new Vector2(.5f, .5f), var.Materials.Instance.NDBneedle, screen, 0, 0);
+                screen = NavUtilLib.NavUtilGraphics.drawCenterRotatedImage(360 - FlightGlobals.ship_heading + (float)var.FlightData.selectedRwy.hdg, new Vector2(.5f, .5f), var.Materials.Instance.course, screen, 0, 0);
 
                 if (NavUtilLib.GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtils: DrawHSI() EndBasicDraws");
 
@@ -117,7 +117,7 @@ namespace NavUtilLib
                     if (bcFlag)
                     {
                         deviationCorrection = ((360 + var.FlightData.locDeviation) % 360 - 180) * 0.078125f;
-                        screen = NavUtilLib.Graphics.drawMovedImagePortion(var.Materials.Instance.flag, 0, .3125f, 0, 1, screen, new Vector2(.821875f, .1703125f), false);
+                        screen = NavUtilLib.NavUtilGraphics.drawMovedImagePortion(var.Materials.Instance.flag, 0, .3125f, 0, 1, screen, new Vector2(.821875f, .1703125f), false);
                     }
                     else //not backcourse
                     {
@@ -154,17 +154,17 @@ namespace NavUtilLib
                     deviationCorrection = Mathf.Clamp(deviationCorrection, -0.234375f, 0.234375f);
 
 
-                    screen = NavUtilLib.Graphics.drawCenterRotatedImage(360 - FlightGlobals.ship_heading + (float)var.FlightData.selectedRwy.hdg, new Vector2(.5f, .5f), var.Materials.Instance.localizer, screen, deviationCorrection, 0);
+                    screen = NavUtilLib.NavUtilGraphics.drawCenterRotatedImage(360 - FlightGlobals.ship_heading + (float)var.FlightData.selectedRwy.hdg, new Vector2(.5f, .5f), var.Materials.Instance.localizer, screen, deviationCorrection, 0);
                 }
                 else //draw flag
                 {
-                    screen = NavUtilLib.Graphics.drawMovedImagePortion(var.Materials.Instance.flag, .34375f, .65625f, 0, 1, screen, new Vector2(.821875f, 0.2046875f), false);
+                    screen = NavUtilLib.NavUtilGraphics.drawMovedImagePortion(var.Materials.Instance.flag, .34375f, .65625f, 0, 1, screen, new Vector2(.821875f, 0.2046875f), false);
                 }
 
                 if(locFlag || !fineLoc || var.FlightData.isINSMode())
                     NavUtilLib.GlobalVariables.Materials.Instance.NDBneedle.color = Color.white;
 
-                screen = NavUtilLib.Graphics.drawMovedImage(var.Materials.Instance.overlay, screen, new Vector2(0, 0), false, false);
+                screen = NavUtilLib.NavUtilGraphics.drawMovedImage(var.Materials.Instance.overlay, screen, new Vector2(0, 0), false, false);
                 //marker beacons
                 //imageBox takes bottom x, 
                 if ((var.FlightData.dme < 200000) && !var.FlightData.isINSMode())
@@ -193,15 +193,15 @@ namespace NavUtilLib
                         switch (bcnCode)
                         {
                             case 1:
-                                var.Audio.markerAudio.PlayOneShot(GameDatabase.Instance.GetAudioClip("KerbalScienceFoundation/NavInstruments/CommonAudio/outer"));
+						var.Audio.markerAudio.PlayOneShot(GameDatabase.Instance.GetAudioClip(GlobalVariables.Settings.getPathFor("Audio", "outer.ogg")));
                                 break;
 
                             case 2:
-                                var.Audio.markerAudio.PlayOneShot(GameDatabase.Instance.GetAudioClip("KerbalScienceFoundation/NavInstruments/CommonAudio/middle"));
+						var.Audio.markerAudio.PlayOneShot(GameDatabase.Instance.GetAudioClip(GlobalVariables.Settings.getPathFor("Audio", "middle.ogg")));
                                 break;
 
                             case 3:
-                                var.Audio.markerAudio.PlayOneShot(GameDatabase.Instance.GetAudioClip("KerbalScienceFoundation/NavInstruments/CommonAudio/inner"));
+						var.Audio.markerAudio.PlayOneShot(GameDatabase.Instance.GetAudioClip(GlobalVariables.Settings.getPathFor("Audio", "inner.ogg")));
                                 break;
 
                             default:
@@ -242,22 +242,22 @@ namespace NavUtilLib
 
                     if (drawUnlit || bcnCode == 0)
                     {
-                        screen = NavUtilLib.Graphics.drawMovedImagePortion(var.Materials.Instance.mkrbcn, .75f, 1, 0, 1, screen, new Vector2(.046875f, .0203125f), false); ;
+                        screen = NavUtilLib.NavUtilGraphics.drawMovedImagePortion(var.Materials.Instance.mkrbcn, .75f, 1, 0, 1, screen, new Vector2(.046875f, .0203125f), false); ;
                     }
                     else
                     {
                         switch (bcnCode)
                         {
                             case 1:
-                                screen = NavUtilLib.Graphics.drawMovedImagePortion(var.Materials.Instance.mkrbcn, .5f, .75f, 0, 1, screen, new Vector2(.046875f, .0203125f), false);
+                                screen = NavUtilLib.NavUtilGraphics.drawMovedImagePortion(var.Materials.Instance.mkrbcn, .5f, .75f, 0, 1, screen, new Vector2(.046875f, .0203125f), false);
                                 break;
 
                             case 2:
-                                screen = NavUtilLib.Graphics.drawMovedImagePortion(var.Materials.Instance.mkrbcn, .25f, .5f, 0, 1, screen, new Vector2(.046875f, .0203125f), false);
+                                screen = NavUtilLib.NavUtilGraphics.drawMovedImagePortion(var.Materials.Instance.mkrbcn, .25f, .5f, 0, 1, screen, new Vector2(.046875f, .0203125f), false);
                                 break;
 
                             case 3:
-                                screen = NavUtilLib.Graphics.drawMovedImagePortion(var.Materials.Instance.mkrbcn, 0f, .25f, 0, 1, screen, new Vector2(.046875f, .0203125f), false);
+                                screen = NavUtilLib.NavUtilGraphics.drawMovedImagePortion(var.Materials.Instance.mkrbcn, 0f, .25f, 0, 1, screen, new Vector2(.046875f, .0203125f), false);
                                 break;
 
                             default:
@@ -267,7 +267,7 @@ namespace NavUtilLib
                 }
                 else
                 {
-                    screen = NavUtilLib.Graphics.drawMovedImagePortion(var.Materials.Instance.mkrbcn, .75f, 1, 0, 1, screen, new Vector2(.046875f, .0203125f), false);
+                    screen = NavUtilLib.NavUtilGraphics.drawMovedImagePortion(var.Materials.Instance.mkrbcn, .75f, 1, 0, 1, screen, new Vector2(.046875f, .0203125f), false);
                 }
 
                 if (NavUtilLib.GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtils: DrawHSI() PreGS");
@@ -282,9 +282,9 @@ namespace NavUtilLib
                 if (NavUtilLib.GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtils: DrawHSI() PreGS Flag");
 
                 if (gsFlag)
-                    screen = NavUtilLib.Graphics.drawMovedImagePortion(var.Materials.Instance.flag, .65625f, 1, 0, 1, screen, new Vector2(.821875f, 0.2390625f), false);
+                    screen = NavUtilLib.NavUtilGraphics.drawMovedImagePortion(var.Materials.Instance.flag, .65625f, 1, 0, 1, screen, new Vector2(.821875f, 0.2390625f), false);
                 else
-                    screen = NavUtilLib.Graphics.drawMovedImage(var.Materials.Instance.pointer, screen, new Vector2(0.5f, yO), true, false);
+                    screen = NavUtilLib.NavUtilGraphics.drawMovedImage(var.Materials.Instance.pointer, screen, new Vector2(0.5f, yO), true, false);
 
                 GL.PopMatrix();
 
@@ -305,7 +305,7 @@ namespace NavUtilLib
                 GL.Viewport(new Rect(0, 0, screen.width, screen.height));
                 GL.Clear(true, true, Color.black);
 
-                screen = NavUtilLib.Graphics.drawMovedImage(var.Materials.Instance.back, screen, new Vector2(0, 0), false, true);
+                screen = NavUtilLib.NavUtilGraphics.drawMovedImage(var.Materials.Instance.back, screen, new Vector2(0, 0), false, true);
 
 
 
@@ -336,10 +336,10 @@ namespace NavUtilLib
 
                 //screen = NavUtilLib.Graphics.drawMovedImage(var.Materials.Instance.AI_Ladder, screen, new Vector2(0.5f, pxOffset), true, false);
 
-                screen = NavUtilLib.Graphics.drawCenterRotatedImage(roll,new Vector2(0.5f, 0.5f),var.Materials.Instance.AI_Ladder,screen,0,pxOffset);
+                screen = NavUtilLib.NavUtilGraphics.drawCenterRotatedImage(roll,new Vector2(0.5f, 0.5f),var.Materials.Instance.AI_Ladder,screen,0,pxOffset);
 
 
-                screen = NavUtilLib.Graphics.drawMovedImage(var.Materials.Instance.AI_overlay, screen, new Vector2(0, 0), false, false);
+                screen = NavUtilLib.NavUtilGraphics.drawMovedImage(var.Materials.Instance.AI_overlay, screen, new Vector2(0, 0), false, false);
 
                 NavUtilLib.TextWriter.addTextToRT(
 					screen, "Pitch: " +
@@ -349,7 +349,7 @@ namespace NavUtilLib
 					.5f);
 
                 //Throttle
-                screen = NavUtilLib.Graphics.drawMovedImagePortion(var.Materials.Instance.AI_throttleBar, 0, var.FlightData.currentVessel.ctrlState.mainThrottle, 0, 1, screen, new Vector2(partImgPer * 23, partImgPer * 239), false);
+                screen = NavUtilLib.NavUtilGraphics.drawMovedImagePortion(var.Materials.Instance.AI_throttleBar, 0, var.FlightData.currentVessel.ctrlState.mainThrottle, 0, 1, screen, new Vector2(partImgPer * 23, partImgPer * 239), false);
 
                 //VSI
                 //nominal y 318
@@ -375,7 +375,7 @@ namespace NavUtilLib
                 pxOffset = Mathf.Clamp(pxOffset, -130, 130);
                 pxOffset += 318;
 
-                screen = NavUtilLib.Graphics.drawMovedImagePortion(var.Materials.Instance.AI_VSILine, 0, 1, 0, 1, screen, new Vector2(partImgPer * 587, partImgPer * pxOffset), false);
+                screen = NavUtilLib.NavUtilGraphics.drawMovedImagePortion(var.Materials.Instance.AI_VSILine, 0, 1, 0, 1, screen, new Vector2(partImgPer * 587, partImgPer * pxOffset), false);
 
 
                 //DigitalSpeed
@@ -444,8 +444,8 @@ namespace NavUtilLib
 
                     //Debug.Log("AI rdrAlt: " + rdrAlt.ToString() + " Ctr: " + counter.ToString() + " Rot: " + dialRot.ToString());
 
-                    screen = NavUtilLib.Graphics.drawMovedImage(var.Materials.Instance.AI_Radar, screen, new Vector2(partImgPer * 461, partImgPer * 2), false, false);
-                    screen = NavUtilLib.Graphics.drawCenterRotatedImage(dialRot, new Vector2(partImgPer * 549, partImgPer * 91), var.Materials.Instance.AI_RadarDial, screen, partImgPer * -26, partImgPer * 0);
+                    screen = NavUtilLib.NavUtilGraphics.drawMovedImage(var.Materials.Instance.AI_Radar, screen, new Vector2(partImgPer * 461, partImgPer * 2), false, false);
+                    screen = NavUtilLib.NavUtilGraphics.drawCenterRotatedImage(dialRot, new Vector2(partImgPer * 549, partImgPer * 91), var.Materials.Instance.AI_RadarDial, screen, partImgPer * -26, partImgPer * 0);
                     ;
                     
                 }
