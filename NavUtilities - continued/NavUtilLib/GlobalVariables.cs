@@ -19,6 +19,15 @@ namespace NavUtilLib
 					.Replace("/", System.IO.Path.DirectorySeparatorChar.ToString());
 			}
 
+			public static string getCustomRunwaysFile() {
+				string fullName = getPathFor("", "JustAnAnchor");
+				return fullName.Substring(0, fullName.IndexOf("PluginData"))
+					+ System.IO.Path.DirectorySeparatorChar.ToString()
+					+ "Runways"
+					+ System.IO.Path.DirectorySeparatorChar.ToString()
+					+ "customRunways.cfg";
+			}
+
 			public static string settingsFileURL = getPathFor("", "settings.cfg");
             //public static string gsFileURL = "GameData/KerbalScienceFoundation/NavInstruments/glideslopes.cfg";
 
@@ -48,17 +57,44 @@ namespace NavUtilLib
 
             public static bool enableDebugging = false;
 
+			public static void loadNavAids_not_working() {
+				FlightData.rwyList.Clear();
+				ConfigNode[] nodes = GameDatabase.Instance.GetConfigNodes("Runway");
+				KSPLog.print("^^^^ NODES: " + nodes.Length);
+				foreach (ConfigNode node in nodes) {
+					Runway runway = new Runway();
+					ConfigNode.LoadObjectFromConfig(runway, node);
+					KSPLog.print("^^^^ RUNWAY: " + runway);
+					FlightData.rwyList.Add(runway);
+				}
+
+				nodes = GameDatabase.Instance.GetConfigNodes("Glideslope");
+				KSPLog.print("^^^^ GLIDE NODES: " + nodes.Length);
+				foreach (ConfigNode node in nodes) {
+					KSPLog.print("^^^^ GLIDE NODE: " + node);
+					Glideslope glideslope = new Glideslope();
+					KSPLog.print("^^^^ LOADED " + ConfigNode.LoadObjectFromConfig(glideslope, node));
+					KSPLog.print("^^^^ GLIDESLOPE: " + glideslope);
+					FlightData.gsList.Add(glideslope);
+				}
+			}
+
             public static void loadNavAids()
             {
                 if (enableDebugging) Debug.Log("NavUtil: Loading NavAid database...");
                 FlightData.rwyList.Clear();
-                FlightData.rwyList = ConfigLoader.GetRunwayListFromConfig("GameData/KerbalScienceFoundation/NavInstruments/defaultRunways.cfg");
+                FlightData.rwyList = ConfigLoader.GetRunwayListFromConfig();
                 FlightData.gsList.Clear();
-                FlightData.gsList = ConfigLoader.GetGlideslopeListFromConfig("GameData/KerbalScienceFoundation/NavInstruments/glideslopes.cfg");
+                FlightData.gsList = ConfigLoader.GetGlideslopeListFromConfig();
 
                 FlightData.customRunways.Clear();
+				FlightData.rwyList.ForEach(runway => {
+					if (runway.custom) {
+						FlightData.customRunways.Add(runway);
+					}
+				});
 
-                DirectoryInfo folder = new DirectoryInfo(KSPUtil.ApplicationRootPath + "GameData/KerbalScienceFoundation/NavInstruments/Runways");
+                /*DirectoryInfo folder = new DirectoryInfo(KSPUtil.ApplicationRootPath + "GameData/KerbalScienceFoundation/NavInstruments/Runways");
 
                 if (folder.Exists)
                 {
@@ -83,11 +119,11 @@ namespace NavUtilLib
                             if (enableDebugging) Debug.Log("NavUtil: Found " + f.Name);
 
                             FlightData.rwyList.AddRange(NavUtilLib.ConfigLoader.GetRunwayListFromConfig("GameData/KerbalScienceFoundation/NavInstruments/Runways/" + f.Name));
-                            FlightData.gsList.AddRange(NavUtilLib.ConfigLoader.GetGlideslopeListFromConfig("GameData/KerbalScienceFoundation/NavInstruments/Runways/" + f.Name));
+                            //! FlightData.gsList.AddRange(NavUtilLib.ConfigLoader.GetGlideslopeListFromConfig("GameData/KerbalScienceFoundation/NavInstruments/Runways/" + f.Name));
                             //}
                         }
                     }
-                }
+                }*/
 
                 navAidsIsLoaded = true;
             }
@@ -98,14 +134,14 @@ namespace NavUtilLib
             public static List<Runway> rwyList = new List<Runway>();
             public static int rwyIdx;
 
-            public static List<float> gsList = new List<float>();
+			public static List<Glideslope> gsList = new List<Glideslope>();
             public static int gsIdx;
 
             public static List<Runway> customRunways = new List<Runway>();
             public static int cRwyIdx;
 
             public static Runway selectedRwy;
-            public static float selectedGlideSlope;
+            public static Glideslope selectedGlideSlope;
             public static Vessel currentVessel;
             /// <summary>
             /// /////////
@@ -179,7 +215,7 @@ namespace NavUtilLib
                     elevationAngle = NavUtilLib.Utils.CalcElevationAngle(currentVessel, selectedRwy);
                     //locDeviation = NavUtilLib.Utils.CalcLocalizerDeviation(bearing, selectedRwy);
                     locDeviation = (float)NavUtilLib.Utils.CalcLocalizerDeviation(currentVessel, selectedRwy);
-                    gsDeviation = NavUtilLib.Utils.CalcGlideslopeDeviation(elevationAngle, selectedGlideSlope);
+					gsDeviation = NavUtilLib.Utils.CalcGlideslopeDeviation(elevationAngle, selectedGlideSlope.glideslope);
 
                     //
                     runwayHeading = (float)NavUtilLib.Utils.CalcProjectedRunwayHeading(currentVessel, selectedRwy);
@@ -231,7 +267,6 @@ namespace NavUtilLib
                 if (GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtilLib: Updating materials...");
                 string texName;
                 texName = "hsi_overlay.png";
-				KSPLog.print("[NavUtilities] ^^^^^ " + GlobalVariables.Settings.getPathFor("Textures", texName));
 				Materials.Instance.overlay = NavUtilGraphics.loadMaterial(GlobalVariables.Settings.getPathFor("Textures", texName), Materials.Instance.overlay, 640, 640);
 
 				texName = "hsi_gs_pointer.png";

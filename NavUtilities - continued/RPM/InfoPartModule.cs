@@ -44,7 +44,7 @@ namespace NavUtilRPM
             switch (s)
             {
                 case "SELECTEDGLIDESLOPE":
-                    return FlightData.selectedGlideSlope;
+				return FlightData.selectedGlideSlope.glideslope;
 
                 case "BEARING":
                     return FlightData.bearing;

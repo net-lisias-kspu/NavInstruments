@@ -8,13 +8,13 @@ namespace NavUtilLib
 {
     public static class ConfigLoader
     {
-        public static System.Collections.Generic.List<Runway> GetRunwayListFromConfig(string sSettingURL)
+        public static System.Collections.Generic.List<Runway> GetRunwayListFromConfig()
         {
             System.Collections.Generic.List<Runway> runwayList = new System.Collections.Generic.List<Runway>();
-            runwayList.Clear();
 
-            ConfigNode runways = ConfigNode.Load(sSettingURL);
-            foreach (ConfigNode node in runways.GetNodes("Runway"))
+            //ConfigNode runways = ConfigNode.Load(sSettingURL);
+            //foreach (ConfigNode node in runways.GetNodes("Runway"))
+			foreach (ConfigNode node in GameDatabase.Instance.GetConfigNodes("Runway"))
             {
                 if (GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtil: Found Runway Node");
 
@@ -30,6 +30,9 @@ namespace NavUtilLib
                     rwy.shortID = node.GetValue("shortID");
                     if (rwy.shortID.Length > 4)
                         rwy.shortID.Remove(4);
+
+					string customValue = node.GetValue("custom");
+					rwy.custom = customValue != null && bool.Parse(customValue);
 
                     rwy.hdg = float.Parse(node.GetValue("hdg"));
                     rwy.body = node.GetValue("body");
@@ -62,10 +65,12 @@ namespace NavUtilLib
         {
             ConfigNode runways = new ConfigNode();
             foreach (Runway r in runwayList)
-            {
-                ConfigNode rN = new ConfigNode();
+			{
+				ConfigNode rN = new ConfigNode();
 
                 rN.name = "Runway";
+
+				rN.AddValue("custom", true);
 
                 rN.AddValue("ident", r.ident);
                 rN.AddValue("shortID", r.shortID);
@@ -84,22 +89,21 @@ namespace NavUtilLib
                 runways.AddNode(rN);
             }
 
-            runways.Save(KSPUtil.ApplicationRootPath + "GameData/KerbalScienceFoundation/NavInstruments/Runways/" + fileName, "CustomRunways");
+			runways.Save(GlobalVariables.Settings.getCustomRunwaysFile(), "CustomRunways");
         }
 
-        public static System.Collections.Generic.List<float> GetGlideslopeListFromConfig(string sSettingURL)
+        public static System.Collections.Generic.List<Glideslope> GetGlideslopeListFromConfig()
         {
-            System.Collections.Generic.List<float> gsList = new System.Collections.Generic.List<float>();
-            gsList.Clear();
+            System.Collections.Generic.List<Glideslope> gsList = new System.Collections.Generic.List<Glideslope>();
 
-            ConfigNode gs = ConfigNode.Load(KSPUtil.ApplicationRootPath + sSettingURL);
-            foreach (ConfigNode node in gs.GetNodes("Glideslope"))
+            //ConfigNode gs = ConfigNode.Load(KSPUtil.ApplicationRootPath + sSettingURL);
+            foreach (ConfigNode node in GameDatabase.Instance.GetConfigNodes("Glideslope"))
             {
-                float f = new float();
+				Glideslope gs = new Glideslope();
 
-                f = float.Parse(node.GetValue("glideslope"));
+				gs.glideslope = float.Parse(node.GetValue("glideslope"));
 
-                gsList.Add(f);
+                gsList.Add(gs);
             }
             return gsList;
         }

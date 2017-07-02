@@ -275,7 +275,7 @@ namespace NavUtilLib.Analog
             compass.localRotation = compassInit * Quaternion.AngleAxis(-FlightGlobals.ship_heading, Vector3.forward);
 
             //Rotate the course bug (not subject to rate limits)?
-            crsBug.localRotation = crsBugInt * Quaternion.AngleAxis(-FlightGlobals.ship_heading + NavUtilLib.GlobalVariables.FlightData.selectedRwy.hdg, Vector3.forward);
+			crsBug.localRotation = crsBugInt * Quaternion.AngleAxis(-FlightGlobals.ship_heading + (float)NavUtilLib.GlobalVariables.FlightData.selectedRwy.hdg, Vector3.forward);
 
             //BRG
             brgBug.localRotation = brgBugInt * Quaternion.AngleAxis(-FlightGlobals.ship_heading + (float)NavUtilLib.GlobalVariables.FlightData.bearing, Vector3.forward);
