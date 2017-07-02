@@ -249,7 +249,7 @@ namespace NavUtilLib
                     NavUtilLib.GlobalVariables.FlightData.rwyIdx--;
                 }
 
-                NavUtilLib.GlobalVariables.FlightData.rwyIdx = NavUtilLib.Utils.indexChecker(NavUtilLib.GlobalVariables.FlightData.rwyIdx, NavUtilLib.GlobalVariables.FlightData.rwyList.Count - 1, 0);
+                NavUtilLib.GlobalVariables.FlightData.rwyIdx = NavUtilLib.Utils.indexChecker(NavUtilLib.GlobalVariables.FlightData.rwyIdx, NavUtilLib.GlobalVariables.FlightData.currentBodyRunways.Count - 1, 0);
             }
 
             if (GUI.tooltip == "rwyOn")

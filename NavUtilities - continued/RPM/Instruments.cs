@@ -106,7 +106,7 @@ namespace KSFRPMHSI
 
             //Debug.Log("ButtonID: " + buttonID);
 
-            var.FlightData.rwyIdx = Utils.indexChecker(var.FlightData.rwyIdx, var.FlightData.rwyList.Count - 1, 0);
+            var.FlightData.rwyIdx = Utils.indexChecker(var.FlightData.rwyIdx, var.FlightData.currentBodyRunways.Count - 1, 0);
             var.FlightData.gsIdx = Utils.indexChecker(var.FlightData.gsIdx, var.FlightData.gsList.Count - 1, 0);
 
             if (buttonID == btnDefaultRwyGS)

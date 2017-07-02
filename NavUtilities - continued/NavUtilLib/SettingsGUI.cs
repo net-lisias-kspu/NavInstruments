@@ -49,13 +49,13 @@ namespace NavUtilLib
             if(GUI.Button(new Rect(5,15,115,20),"Previous Runway"))
             {
                 NavUtilLib.GlobalVariables.FlightData.rwyIdx--;
-                NavUtilLib.GlobalVariables.FlightData.rwyIdx = NavUtilLib.Utils.indexChecker(NavUtilLib.GlobalVariables.FlightData.rwyIdx, NavUtilLib.GlobalVariables.FlightData.rwyList.Count()-1, 0);
+                NavUtilLib.GlobalVariables.FlightData.rwyIdx = NavUtilLib.Utils.indexChecker(NavUtilLib.GlobalVariables.FlightData.rwyIdx, NavUtilLib.GlobalVariables.FlightData.currentBodyRunways.Count()-1, 0);
             }
 
             if (GUI.Button(new Rect(130, 15, 115, 20), "Next Runway"))
             {
                 NavUtilLib.GlobalVariables.FlightData.rwyIdx++;
-                NavUtilLib.GlobalVariables.FlightData.rwyIdx = NavUtilLib.Utils.indexChecker(NavUtilLib.GlobalVariables.FlightData.rwyIdx, NavUtilLib.GlobalVariables.FlightData.rwyList.Count() - 1, 0);
+                NavUtilLib.GlobalVariables.FlightData.rwyIdx = NavUtilLib.Utils.indexChecker(NavUtilLib.GlobalVariables.FlightData.rwyIdx, NavUtilLib.GlobalVariables.FlightData.currentBodyRunways.Count() - 1, 0);
             }
 
             if (GUI.Button(new Rect(5, 40, 115, 20), "Previous G/S"))

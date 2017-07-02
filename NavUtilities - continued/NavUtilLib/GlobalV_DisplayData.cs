@@ -105,12 +105,12 @@ namespace NavUtilLib
 
                 bool fineLoc = false;
 
-                if (!locFlag)
+			if (!locFlag && !GlobalVariables.FlightData.fallback)
                 {
 
                     if (NavUtilLib.GlobalVariables.Settings.enableFineLoc && NavUtilLib.GlobalVariables.FlightData.dme < 7500)
                     {
-                            fineLoc = true;
+                        fineLoc = true;
                     }
 
                     float deviationCorrection;

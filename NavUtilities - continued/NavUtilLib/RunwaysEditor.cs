@@ -215,7 +215,7 @@ namespace NavUtilGUI
 
 
                     Rwy.customRunways.Add(tempRwy);
-                    Rwy.rwyList.Add(tempRwy);
+                    Rwy.currentBodyRunways.Add(tempRwy);
 
                     Rwy.cRwyIdx = Rwy.customRunways.FindIndex(r => r.ident == tempRwy.ident);
 
@@ -229,7 +229,10 @@ namespace NavUtilGUI
                 //show delete button
                 if(GUI.Button(new Rect(170, 250, 200, 20),"Delete This Runway"))
                 {
-                    Rwy.rwyList.Remove(Rwy.customRunways[Rwy.cRwyIdx]);
+					Rwy.allRunways.Remove(Rwy.customRunways[Rwy.cRwyIdx]);
+					if (Rwy.currentBodyRunways.Contains(Rwy.customRunways[Rwy.cRwyIdx])) {
+						Rwy.currentBodyRunways.Remove(Rwy.customRunways[Rwy.cRwyIdx]);
+					}
                     Rwy.customRunways.Remove(Rwy.customRunways[Rwy.cRwyIdx]);
 
                     WriteCustomRwys();

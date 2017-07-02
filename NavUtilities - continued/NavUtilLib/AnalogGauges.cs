@@ -176,20 +176,21 @@ namespace NavUtilLib.Analog
 
         private void OnHdgBtnClick()
         {
-            if (Event.current.button == 0)
-                NavUtilLib.GlobalVariables.FlightData.rwyIdx++;
-            else
-                NavUtilLib.GlobalVariables.FlightData.rwyIdx--;
+			if (Event.current.button == 0) {
+				NavUtilLib.GlobalVariables.FlightData.rwyIdx++;
+			} else {
+				NavUtilLib.GlobalVariables.FlightData.rwyIdx--;
+			}
 
-            NavUtilLib.GlobalVariables.FlightData.rwyIdx = NavUtilLib.Utils.indexChecker(NavUtilLib.GlobalVariables.FlightData.rwyIdx, NavUtilLib.GlobalVariables.FlightData.rwyList.Count() - 1, 0);
+            NavUtilLib.GlobalVariables.FlightData.rwyIdx = NavUtilLib.Utils.indexChecker(NavUtilLib.GlobalVariables.FlightData.rwyIdx, NavUtilLib.GlobalVariables.FlightData.currentBodyRunways.Count() - 1, 0);
 
-            float rotAmt = ((float)NavUtilLib.GlobalVariables.FlightData.rwyIdx / (float)NavUtilLib.GlobalVariables.FlightData.rwyList.Count()) * 360;
+            float rotAmt = ((float)NavUtilLib.GlobalVariables.FlightData.rwyIdx / (float)NavUtilLib.GlobalVariables.FlightData.currentBodyRunways.Count()) * 360;
 
             //if (GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtil: hdgKnob Rot " + rotAmt);
 
             hdgKnob.localRotation = hdgKnobInit * Quaternion.AngleAxis(rotAmt, Vector3.forward);
 
-            rwyLabel.SetText(NavUtilLib.GlobalVariables.FlightData.rwyList[NavUtilLib.GlobalVariables.FlightData.rwyIdx].shortID);
+            rwyLabel.SetText(NavUtilLib.GlobalVariables.FlightData.currentBodyRunways[NavUtilLib.GlobalVariables.FlightData.rwyIdx].shortID);
 
 			NavUtilLib.GlobalVariables.Audio.markerAudio.PlayOneShot(GameDatabase.Instance.GetAudioClip(GlobalVariables.Settings.getPathFor("Audio","click.ogg")));
         }
@@ -220,7 +221,7 @@ namespace NavUtilLib.Analog
 
             if (NavUtilLib.GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtil: iM Cast!");
 
-            rwyLabel.SetText(NavUtilLib.GlobalVariables.FlightData.rwyList[NavUtilLib.GlobalVariables.FlightData.rwyIdx].shortID);
+            rwyLabel.SetText(NavUtilLib.GlobalVariables.FlightData.currentBodyRunways[NavUtilLib.GlobalVariables.FlightData.rwyIdx].shortID);
 
             NavUtilLib.GlobalVariables.Audio.initializeAudio();
 

@@ -45,5 +45,22 @@ namespace NavUtilLib
 		public bool custom = false;
         
         public bool isINSTarget = false; //true indicates that the runway is not the actual runway and is used as a target point for INS 
+
+		public static Runway fallback() {
+			Runway runway = new Runway();
+			runway.ident = "---";
+			runway.shortID = "---";
+			runway.hdg = 0;
+			runway.body = "";
+			runway.altMSL = 0;
+			runway.gsLatitude = 0;
+			runway.gsLongitude = 0;
+			runway.locLatitude = 0;
+			runway.locLongitude = 0;
+			runway.outerMarkerDist = 0;
+			runway.middleMarkerDist = 0;
+			runway.innerMarkerDist = 0;
+			return runway;
+		}
     }
 }

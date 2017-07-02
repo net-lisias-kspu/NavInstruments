@@ -20,8 +20,8 @@ namespace NavUtilLib
 			}
 
 			public static string getCustomRunwaysFile() {
-				string fullName = getPathFor("", "JustAnAnchor");
-				return fullName.Substring(0, fullName.IndexOf("PluginData"))
+				string fullPath = getPathFor("", "JustAnAnchor");
+				return fullPath.Substring(0, fullPath.IndexOf("PluginData"))
 					+ System.IO.Path.DirectorySeparatorChar.ToString()
 					+ "Runways"
 					+ System.IO.Path.DirectorySeparatorChar.ToString()
@@ -57,7 +57,7 @@ namespace NavUtilLib
 
             public static bool enableDebugging = false;
 
-			public static void loadNavAids_not_working() {
+			/*public static void loadNavAids_not_working() {
 				FlightData.rwyList.Clear();
 				ConfigNode[] nodes = GameDatabase.Instance.GetConfigNodes("Runway");
 				KSPLog.print("^^^^ NODES: " + nodes.Length);
@@ -77,18 +77,18 @@ namespace NavUtilLib
 					KSPLog.print("^^^^ GLIDESLOPE: " + glideslope);
 					FlightData.gsList.Add(glideslope);
 				}
-			}
+			}*/
 
             public static void loadNavAids()
             {
                 if (enableDebugging) Debug.Log("NavUtil: Loading NavAid database...");
-                FlightData.rwyList.Clear();
-                FlightData.rwyList = ConfigLoader.GetRunwayListFromConfig();
+                FlightData.allRunways.Clear();
+                FlightData.allRunways = ConfigLoader.GetRunwayListFromConfig();
                 FlightData.gsList.Clear();
                 FlightData.gsList = ConfigLoader.GetGlideslopeListFromConfig();
 
                 FlightData.customRunways.Clear();
-				FlightData.rwyList.ForEach(runway => {
+				FlightData.currentBodyRunways.ForEach(runway => {
 					if (runway.custom) {
 						FlightData.customRunways.Add(runway);
 					}
@@ -131,7 +131,8 @@ namespace NavUtilLib
 
         public static class FlightData
         {
-            public static List<Runway> rwyList = new List<Runway>();
+			public static List<Runway> allRunways = new List<Runway>();
+			public static List<Runway> currentBodyRunways = new List<Runway>();
             public static int rwyIdx;
 
 			public static List<Glideslope> gsList = new List<Glideslope>();
@@ -143,6 +144,7 @@ namespace NavUtilLib
             public static Runway selectedRwy;
             public static Glideslope selectedGlideSlope;
             public static Vessel currentVessel;
+			public static CelestialBody currentBody = null;
             /// <summary>
             /// /////////
             /// </summary>
@@ -163,6 +165,8 @@ namespace NavUtilLib
             public static float gsDeviation;
             public static float runwayHeading;
 
+			public static bool fallback = false;
+
 			private static Waypoint prevWaypoint = null;
             
             public static bool isINSMode() {
@@ -174,13 +178,30 @@ namespace NavUtilLib
                 //see if information is current
                 if (GetLastNavUpdateUT() != Planetarium.GetUniversalTime())
                 {
-
+					if (currentBody == null || FlightGlobals.currentMainBody != currentBody) {
+						rwyIdx = 0;
+						currentBody = FlightGlobals.currentMainBody;
+						currentBodyRunways.Clear();
+						for (int i = 0; i < allRunways.Count; i++) {
+							if (allRunways[i].body == currentBody.name) {
+								currentBodyRunways.Add(allRunways[i]);
+							}
+						}
+					}
                     selectedGlideSlope = gsList[gsIdx];
-                    selectedRwy = rwyList[rwyIdx];
+					if (currentBodyRunways.Count == 0) {
+						selectedRwy = null;
+						rwyIdx = 0;
+						fallback = true;
+					} else {
+						selectedRwy = currentBodyRunways[rwyIdx];
+						fallback = false;
+					}
+                    
 
                     //Since there seems to be no callback methods to determine whether waypoint has been set or changed, we have to refresh INS data on every update  
 					NavWaypoint navWaypoint = NavWaypoint.fetch;
-					if ((navWaypoint != null) && navWaypoint.IsActive) {
+					if ((navWaypoint != null) && navWaypoint.IsActive && navWaypoint.Body == FlightGlobals.currentMainBody) {
 						Waypoint waypoint = null;
 						if (prevWaypoint != null && navWaypoint.Latitude == prevWaypoint.latitude && navWaypoint.Longitude == prevWaypoint.longitude) {
 							waypoint = prevWaypoint;
@@ -209,16 +230,25 @@ namespace NavUtilLib
                     }
 
                     currentVessel = FlightGlobals.ActiveVessel;
+					if (selectedRwy != null) {
+						bearing = NavUtilLib.Utils.CalcBearingToBeacon(currentVessel, selectedRwy);
+						dme = NavUtilLib.Utils.CalcDistanceToBeacon(currentVessel, selectedRwy);
+						elevationAngle = NavUtilLib.Utils.CalcElevationAngle(currentVessel, selectedRwy);
+						//locDeviation = NavUtilLib.Utils.CalcLocalizerDeviation(bearing, selectedRwy);
+						locDeviation = (float)NavUtilLib.Utils.CalcLocalizerDeviation(currentVessel, selectedRwy);
+						gsDeviation = NavUtilLib.Utils.CalcGlideslopeDeviation(elevationAngle, selectedGlideSlope.glideslope);
 
-                    bearing = NavUtilLib.Utils.CalcBearingToBeacon(currentVessel, selectedRwy);
-                    dme = NavUtilLib.Utils.CalcDistanceToBeacon(currentVessel, selectedRwy);
-                    elevationAngle = NavUtilLib.Utils.CalcElevationAngle(currentVessel, selectedRwy);
-                    //locDeviation = NavUtilLib.Utils.CalcLocalizerDeviation(bearing, selectedRwy);
-                    locDeviation = (float)NavUtilLib.Utils.CalcLocalizerDeviation(currentVessel, selectedRwy);
-					gsDeviation = NavUtilLib.Utils.CalcGlideslopeDeviation(elevationAngle, selectedGlideSlope.glideslope);
-
-                    //
-                    runwayHeading = (float)NavUtilLib.Utils.CalcProjectedRunwayHeading(currentVessel, selectedRwy);
+						//
+						runwayHeading = (float)NavUtilLib.Utils.CalcProjectedRunwayHeading(currentVessel, selectedRwy);
+					} else {
+						bearing = 0;
+						dme = 0;
+						elevationAngle = 0;
+						locDeviation = 0;
+						gsDeviation = 0;
+						runwayHeading = 0;
+						selectedRwy = Runway.fallback();
+					}
 
                     SetLastNavUpdateUT();
                 }
