@@ -84,7 +84,9 @@ namespace NavUtilLib
 
             //GUI.Label(new Rect(125, 150, 90, 20), "Popup in IVA?");
 
-            GlobalVariables.Settings.enableWindowsInIVA = GUI.Toggle(new Rect(125, 150, 120, 20), GlobalVariables.Settings.enableWindowsInIVA, "Popup in IVA?");
+			GlobalVariables.Settings.hideNavBallWaypoint = GUI.Toggle(new Rect(30, 120, 240, 20), GlobalVariables.Settings.hideNavBallWaypoint, "Hide NavBall waypoint icon");
+
+            GlobalVariables.Settings.enableWindowsInIVA = GUI.Toggle(new Rect(125, 150, 120, 20), GlobalVariables.Settings.enableWindowsInIVA, "Popup in IVA");
 
 
             NavUtilLib.GlobalVariables.Settings.hsiGUIscale = GUI.HorizontalSlider(new Rect(5, 105, 240, 30),NavUtilLib.GlobalVariables.Settings.hsiGUIscale, 0.1f, 1.0f);

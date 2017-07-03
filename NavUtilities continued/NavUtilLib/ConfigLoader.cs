@@ -264,6 +264,14 @@ namespace NavUtilLib
                     Debug.Log("NavUtil: Error loading settingsGUIY from config");
                     throw;
                 }
+
+				try {
+					GlobalVariables.Settings.hideNavBallWaypoint = bool.Parse(node.GetValue("hideNavBallWaypoint"));
+				}
+				catch (Exception) {
+					Debug.Log("NavUtil: Error loading hideNavBallWaypoint from config");
+					throw;
+				}
                 //try
                 //{
                 //    GlobalVariables.Settings.settingsGUI.width = float.Parse(node.GetValue("settingsGUIWidth"));
@@ -288,17 +296,11 @@ namespace NavUtilLib
         public static void SaveSettings(string sSettingURL)
         {
             Debug.Log("NavUtil: Saving Settings");
-
-            ConfigNode settings = new ConfigNode();
-
+			ConfigNode settings = new ConfigNode();
             //settings.name = "NavUtilSettings";
 
-
-
-            ConfigNode sN = new ConfigNode();
-
+			ConfigNode sN = new ConfigNode();
             sN.name = "NavUtilSettings";
-
 
             sN.AddValue("guiScale", GlobalVariables.Settings.hsiGUIscale);
             sN.AddValue("enableFineLoc", GlobalVariables.Settings.enableFineLoc);
@@ -306,8 +308,7 @@ namespace NavUtilLib
             sN.AddValue("loadCustom_rwyCFG", GlobalVariables.Settings.loadCustom_rwyCFG);
             sN.AddValue("useBlizzy78ToolBar", GlobalVariables.Settings.useBlizzy78ToolBar);
 
-
-            sN.AddValue("hsiPositionX", GlobalVariables.Settings.hsiPosition.x);
+			sN.AddValue("hsiPositionX", GlobalVariables.Settings.hsiPosition.x);
             sN.AddValue("hsiPositionY", GlobalVariables.Settings.hsiPosition.y);
             //sN.AddValue("hsiPositionWidth", GlobalVariables.Settings.hsiPosition.width);
             //sN.AddValue("hsiPositionHeight", GlobalVariables.Settings.hsiPosition.height);
@@ -319,6 +320,7 @@ namespace NavUtilLib
             sN.AddValue("settingsGUIY", GlobalVariables.Settings.settingsGUI.y);
             //sN.AddValue("settingsGUIWidth", GlobalVariables.Settings.settingsGUI.width);
             //sN.AddValue("settingsGUIHeight", GlobalVariables.Settings.settingsGUI.height);
+			sN.AddValue("hideNavBallWaypoint", GlobalVariables.Settings.hideNavBallWaypoint);
 
             settings.AddNode(sN);
 

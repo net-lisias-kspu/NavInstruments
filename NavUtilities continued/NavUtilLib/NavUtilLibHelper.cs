@@ -67,6 +67,9 @@ namespace NavUtilLib
         private bool gsHover = false;
         private bool closeHover = false;
 
+		private Vector3 originalNavBallWaypointSize = Vector3.zero;
+		private Vector3 originalIVANavBallWaypointSize = Vector3.zero;
+
         public void displayHSI()
         {
             if (NavUtilLib.GlobalVariables.Settings.enableDebugging)
@@ -92,8 +95,8 @@ namespace NavUtilLib
 
 
 
-        public void Activate(bool state)
-        {
+		public void Activate(bool state)
+		{
             if (NavUtilLib.GlobalVariables.Settings.enableDebugging)
             {
                 Debug.Log("NavUtils: NavUtilLibApp.Activate()");
@@ -344,8 +347,46 @@ namespace NavUtilLib
             NavUtilLib.GlobalVariables.Settings.appInstance = this.GetInstanceID();
             NavUtilLib.GlobalVariables.Settings.appReference = this;
 
-
         }
+
+		void Update() {
+
+			NavWaypoint navWaypoint = NavWaypoint.fetch;
+
+			//TODO optimize these searches
+			if (navWaypoint.IsActive && CameraManager.Instance.currentCameraMode == CameraManager.CameraMode.IVA) {
+				InternalNavBall navBall = null;
+				foreach (InternalProp prop in CameraManager.Instance.IVACameraActiveKerbal.InPart.internalModel.props) {
+					navBall = (InternalNavBall)prop.internalModules.Find(module => module.GetType().Equals(typeof(InternalNavBall))); 
+					if (navBall != null) {
+						break;
+					}
+				}
+				if (navBall != null) {
+					if (originalIVANavBallWaypointSize.Equals(Vector3.zero)) {
+						originalIVANavBallWaypointSize = navBall.navWaypointVector.localScale;
+					}
+					navBall.navWaypointVector.localScale = GlobalVariables.Settings.hideNavBallWaypoint ? Vector3.zero : originalIVANavBallWaypointSize;
+				}
+			}
+
+			if (originalNavBallWaypointSize.Equals(Vector3.zero)) {
+				originalNavBallWaypointSize = navWaypoint.Visual.transform.localScale;
+			}
+			navWaypoint.Visual.transform.localScale = GlobalVariables.Settings.hideNavBallWaypoint ? Vector3.zero : originalNavBallWaypointSize;
+		}
+
+		/*private Transform findWaypointVisual() {
+			Transform navBall = FlightUIModeController.Instance.navBall.transform.FindChild("IVAEVACollapseGroup");
+			if (navBall == null) {
+				return null;
+			}
+			Transform navBallVectors = navBall.FindChild("NavBallVectorsPivot");
+			if (navBallVectors == null) {
+				return null;
+			}
+			return navBallVectors.FindChild("NavWaypointVisual");
+		}*/
 
         void ShowGUI()
         {

@@ -51,6 +51,8 @@ namespace NavUtilLib
 
             public static bool enableWindowsInIVA = true;
 
+			public static bool hideNavBallWaypoint = false;
+
             public static int appInstance;
 
             public static NavUtilLibApp appReference;
@@ -203,11 +205,11 @@ namespace NavUtilLib
 					NavWaypoint navWaypoint = NavWaypoint.fetch;
 					if ((navWaypoint != null) && navWaypoint.IsActive && navWaypoint.Body == FlightGlobals.currentMainBody) {
 						Waypoint waypoint = null;
-						if (prevWaypoint != null && navWaypoint.Latitude == prevWaypoint.latitude && navWaypoint.Longitude == prevWaypoint.longitude) {
+						if (prevWaypoint != null && navWaypoint.IsUsing(prevWaypoint)) {
 							waypoint = prevWaypoint;
 						} else {
 							foreach (Waypoint wp in FinePrint.WaypointManager.Instance().Waypoints) {
-								if (navWaypoint.Latitude == wp.latitude && navWaypoint.Longitude == wp.longitude) {
+								if (navWaypoint.IsUsing(wp)) {
 									waypoint = wp;
 									break;
 								}
