@@ -13,35 +13,36 @@ namespace NavUtilLib
         public string shortID = "sID4";
 
         [KSPField]
-        public double hdg = 90;
+        public float hdg = 90;
 
         [KSPField]
         public string body = "Kerbin";
 
         [KSPField]
-        public double altMSL = 100;
+        public float altMSL = 100;
 
         [KSPField]
-        public double gsLatitude;
+		public float gsLatitude;
 
         [KSPField]
-        public double gsLongitude;
+		public float gsLongitude;
 
         [KSPField]
-        public double locLatitude;
+		public float locLatitude;
 
         [KSPField]
-        public double locLongitude;
+		public float locLongitude;
 
         [KSPField]
-        public double outerMarkerDist = 10000;
+		public float outerMarkerDist = 10000;
 
         [KSPField]
-        public double middleMarkerDist = 2200;
+		public float middleMarkerDist = 2200;
 
         [KSPField]
-        public double innerMarkerDist = 200;
+		public float innerMarkerDist = 200;
 
+		[KSPField]
 		public bool custom = false;
         
         public bool isINSTarget = false; //true indicates that the runway is not the actual runway and is used as a target point for INS 

@@ -14,13 +14,13 @@ namespace NavUtilLib
 
             //ConfigNode runways = ConfigNode.Load(sSettingURL);
             //foreach (ConfigNode node in runways.GetNodes("Runway"))
-			foreach (ConfigNode node in GameDatabase.Instance.GetConfigNodes("Runway"))
+			foreach (ConfigNode node in GameDatabase.Instance.GetConfigNodes("NavUtilRunway"))
             {
                 if (GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtil: Found Runway Node");
 
                 try
                 {
-                    Runway rwy = new Runway();
+					Runway rwy = new Runway();
 
                     rwy.ident = node.GetValue("ident");
 
@@ -68,7 +68,7 @@ namespace NavUtilLib
 			{
 				ConfigNode rN = new ConfigNode();
 
-                rN.name = "Runway";
+                rN.name = "NavUtilRunway";
 
 				rN.AddValue("custom", true);
 
@@ -92,17 +92,12 @@ namespace NavUtilLib
 			runways.Save(GlobalVariables.Settings.getCustomRunwaysFile(), "CustomRunways");
         }
 
-        public static System.Collections.Generic.List<Glideslope> GetGlideslopeListFromConfig()
+        public static System.Collections.Generic.List<float> GetGlideslopeListFromConfig()
         {
-            System.Collections.Generic.List<Glideslope> gsList = new System.Collections.Generic.List<Glideslope>();
-
-            //ConfigNode gs = ConfigNode.Load(KSPUtil.ApplicationRootPath + sSettingURL);
+            System.Collections.Generic.List<float> gsList = new System.Collections.Generic.List<float>();
             foreach (ConfigNode node in GameDatabase.Instance.GetConfigNodes("Glideslope"))
             {
-				Glideslope gs = new Glideslope();
-
-				gs.glideslope = float.Parse(node.GetValue("glideslope"));
-
+				float gs = float.Parse(node.GetValue("glideslope"));
                 gsList.Add(gs);
             }
             return gsList;
@@ -306,6 +301,7 @@ namespace NavUtilLib
             sN.AddValue("enableFineLoc", GlobalVariables.Settings.enableFineLoc);
             sN.AddValue("enableWindowsInIVA", GlobalVariables.Settings.enableWindowsInIVA);
             sN.AddValue("loadCustom_rwyCFG", GlobalVariables.Settings.loadCustom_rwyCFG);
+			sN.AddValue("hideNavBallWaypoint", GlobalVariables.Settings.hideNavBallWaypoint);
             sN.AddValue("useBlizzy78ToolBar", GlobalVariables.Settings.useBlizzy78ToolBar);
 
 			sN.AddValue("hsiPositionX", GlobalVariables.Settings.hsiPosition.x);
@@ -320,7 +316,7 @@ namespace NavUtilLib
             sN.AddValue("settingsGUIY", GlobalVariables.Settings.settingsGUI.y);
             //sN.AddValue("settingsGUIWidth", GlobalVariables.Settings.settingsGUI.width);
             //sN.AddValue("settingsGUIHeight", GlobalVariables.Settings.settingsGUI.height);
-			sN.AddValue("hideNavBallWaypoint", GlobalVariables.Settings.hideNavBallWaypoint);
+
 
             settings.AddNode(sN);
 

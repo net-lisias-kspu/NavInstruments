@@ -6,6 +6,7 @@ using KSP;
 using UnityEngine.UI;
 using NavUtilLib;
 using var = NavUtilLib.GlobalVariables;
+//using ToolbarWrapper;
 
 
 namespace NavUtilLib
@@ -59,7 +60,7 @@ namespace NavUtilLib
 
 
 
-
+		private IButton toolbarButton = null;
         private Rect windowPosition;
         private RenderTexture rt;
 
@@ -294,22 +295,20 @@ namespace NavUtilLib
 
         void AddButton()
         {
-            if (KSP.UI.Screens.ApplicationLauncher.Ready && !NavUtilLib.GlobalVariables.Settings.useBlizzy78ToolBar)
-			{
-                appButton = KSP.UI.Screens.ApplicationLauncher.Instance.AddModApplication(
-                    onAppLaunchToggleOn,
-                    onAppLaunchToggleOff,
-                    onAppLaunchHoverOn,
-                    onAppLaunchHoverOff,
-                    onAppLaunchEnable,
-                    onAppLaunchDisable,
-                    KSP.UI.Screens.ApplicationLauncher.AppScenes.FLIGHT,
-					/*(Texture)GameDatabase.Instance.GetTexture(GlobalVariables.Settings.getPathFor("Textures/Toolbar/", "toolbarButton3838.png")*/
-					NavUtilGraphics.loadTexture(GlobalVariables.Settings.getPathFor("Textures", "Toolbar/toolbarButton3838.png"), 0, 0)
-                  );
-                ;
-                app = this;
-            }
+			if (KSP.UI.Screens.ApplicationLauncher.Ready) {
+				appButton = KSP.UI.Screens.ApplicationLauncher.Instance.AddModApplication(
+					onAppLaunchToggleOn,
+					onAppLaunchToggleOff,
+					onAppLaunchHoverOn,
+					onAppLaunchHoverOff,
+					onAppLaunchEnable,
+					onAppLaunchDisable,
+					KSP.UI.Screens.ApplicationLauncher.AppScenes.FLIGHT,
+					NavUtilGraphics.loadTexture(GlobalVariables.Settings.getLauncherTextureFile(), 0, 0)
+				);
+				;
+				app = this;
+			}
         }
 
 
@@ -326,12 +325,22 @@ namespace NavUtilLib
 
             if(NavUtilLib.GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtil: useBlizzy? " + NavUtilLib.GlobalVariables.Settings.useBlizzy78ToolBar);
 
-            if (!NavUtilLib.GlobalVariables.Settings.useBlizzy78ToolBar)
-            {
-
-
+			if (NavUtilLib.GlobalVariables.Settings.useBlizzy78ToolBar && ToolbarManager.ToolbarAvailable) {
+				IToolbarManager toolbar = ToolbarManager.Instance;
+				toolbarButton = toolbar.add("NavUtilities", "NavUtilButton");
+				//string path = GlobalVariables.Settings.getPathFor("Textures", "Toolbar/toolbarButton3838.png").Replace("\\", "/");
+				//toolbarButton.TexturePath = path.Substring(0, path.Length - 4);
+				toolbarButton.TexturePath = GlobalVariables.Settings.getToolbarTextureFile();
+				//toolbarButton.TexturePath = "NavUtilities continued/Toolbar/toolbarButton";
+				//toolbarButton.TexturePath = "NavUtilities continued/PluginData/NavUtilLib/Textures/Toolbar/toolbarButton";
+				toolbarButton.OnClick += (clickEvent => {
+					isHovering = true;
+					onAppLaunchToggleOn();
+				});
+				toolbarButton.Visible = true;
+				toolbarButton.ToolTip = "NavUtilities HSI / Hold Alt to open settings";
+			} else {
                 //GameEvents.onGUIApplicationLauncherReady.Add(OnGUIReady);
-
 
                 if (appButton == null)
                 GameEvents.onGUIApplicationLauncherReady.Add(AddButton);

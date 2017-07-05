@@ -19,13 +19,34 @@ namespace NavUtilLib
 					.Replace("/", System.IO.Path.DirectorySeparatorChar.ToString());
 			}
 
-			public static string getCustomRunwaysFile() {
+			private static string getPluginDataParentPath() {
 				string fullPath = getPathFor("", "JustAnAnchor");
-				return fullPath.Substring(0, fullPath.IndexOf("PluginData"))
+				return fullPath.Substring(0, fullPath.IndexOf("PluginData"));
+			}
+
+			public static string getCustomRunwaysFile() {
+				return getPluginDataParentPath()
 					+ System.IO.Path.DirectorySeparatorChar.ToString()
 					+ "Runways"
 					+ System.IO.Path.DirectorySeparatorChar.ToString()
 					+ "customRunways.cfg";
+			}
+
+			public static string getLauncherTextureFile() {
+				return getPluginDataParentPath()
+					+ System.IO.Path.DirectorySeparatorChar.ToString()
+					+ "Toolbar"
+					+ System.IO.Path.DirectorySeparatorChar.ToString()
+					+ "toolbarButton3838.png";
+			}
+
+			//Blizzy's toolbar plugin wants texture path relative to GameData, not in PluginData, separated by / and without extension
+			public static string getToolbarTextureFile() {
+				string path = getPluginDataParentPath().Replace("\\", "/");
+				string startOfRelative = "/gamedata/";
+				int ind = path.ToLower().LastIndexOf(startOfRelative);
+				path = path.Substring(ind + startOfRelative.Length);
+				return path.Substring(0, path.IndexOf("/")) + "/Toolbar/toolbarButton";
 			}
 
 			public static string settingsFileURL = getPathFor("", "settings.cfg");
@@ -137,14 +158,14 @@ namespace NavUtilLib
 			public static List<Runway> currentBodyRunways = new List<Runway>();
             public static int rwyIdx;
 
-			public static List<Glideslope> gsList = new List<Glideslope>();
+			public static List<float> gsList = new List<float>();
             public static int gsIdx;
 
             public static List<Runway> customRunways = new List<Runway>();
             public static int cRwyIdx;
 
             public static Runway selectedRwy;
-            public static Glideslope selectedGlideSlope;
+            public static float selectedGlideSlope;
             public static Vessel currentVessel;
 			public static CelestialBody currentBody = null;
             /// <summary>
@@ -238,7 +259,7 @@ namespace NavUtilLib
 						elevationAngle = NavUtilLib.Utils.CalcElevationAngle(currentVessel, selectedRwy);
 						//locDeviation = NavUtilLib.Utils.CalcLocalizerDeviation(bearing, selectedRwy);
 						locDeviation = (float)NavUtilLib.Utils.CalcLocalizerDeviation(currentVessel, selectedRwy);
-						gsDeviation = NavUtilLib.Utils.CalcGlideslopeDeviation(elevationAngle, selectedGlideSlope.glideslope);
+						gsDeviation = NavUtilLib.Utils.CalcGlideslopeDeviation(elevationAngle, selectedGlideSlope);
 
 						//
 						runwayHeading = (float)NavUtilLib.Utils.CalcProjectedRunwayHeading(currentVessel, selectedRwy);
