@@ -328,11 +328,7 @@ namespace NavUtilLib
 			if (NavUtilLib.GlobalVariables.Settings.useBlizzy78ToolBar && ToolbarManager.ToolbarAvailable) {
 				IToolbarManager toolbar = ToolbarManager.Instance;
 				toolbarButton = toolbar.add("NavUtilities", "NavUtilButton");
-				//string path = GlobalVariables.Settings.getPathFor("Textures", "Toolbar/toolbarButton3838.png").Replace("\\", "/");
-				//toolbarButton.TexturePath = path.Substring(0, path.Length - 4);
 				toolbarButton.TexturePath = GlobalVariables.Settings.getToolbarTextureFile();
-				//toolbarButton.TexturePath = "NavUtilities continued/Toolbar/toolbarButton";
-				//toolbarButton.TexturePath = "NavUtilities continued/PluginData/NavUtilLib/Textures/Toolbar/toolbarButton";
 				toolbarButton.OnClick += (clickEvent => {
 					isHovering = true;
 					onAppLaunchToggleOn();
