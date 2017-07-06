@@ -193,15 +193,15 @@ namespace NavUtilLib
                         switch (bcnCode)
                         {
                             case 1:
-						var.Audio.markerAudio.PlayOneShot(GameDatabase.Instance.GetAudioClip(GlobalVariables.Settings.getPathFor("Audio", "outer.ogg")));
+						var.Audio.markerAudio.PlayOneShot(GameDatabase.Instance.GetAudioClip(GlobalVariables.Settings.getAudioPath() + "outer"));
                                 break;
 
                             case 2:
-						var.Audio.markerAudio.PlayOneShot(GameDatabase.Instance.GetAudioClip(GlobalVariables.Settings.getPathFor("Audio", "middle.ogg")));
+						var.Audio.markerAudio.PlayOneShot(GameDatabase.Instance.GetAudioClip(GlobalVariables.Settings.getAudioPath() + "middle"));
                                 break;
 
                             case 3:
-						var.Audio.markerAudio.PlayOneShot(GameDatabase.Instance.GetAudioClip(GlobalVariables.Settings.getPathFor("Audio", "inner.ogg")));
+						var.Audio.markerAudio.PlayOneShot(GameDatabase.Instance.GetAudioClip(GlobalVariables.Settings.getAudioPath() + "inner"));
                                 break;
 
                             default:
