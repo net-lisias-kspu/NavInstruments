@@ -24,6 +24,7 @@ namespace NavUtilLib
                 if (NavUtilLib.GlobalVariables.Settings.hsiState) OnDraw();
                 if (NavUtilLib.SettingsGUI.isActive) NavUtilLib.SettingsGUI.OnDraw();
                 if (NavUtilLib.GlobalVariables.Settings.rwyEditorState) NavUtilGUI.RunwaysEditor.OnDraw();
+				if (RunwayListGUI.isActive)	RunwayListGUI.OnDraw();
             }
         }
 
@@ -244,16 +245,18 @@ namespace NavUtilLib
 
             if (GUI.Button(rwyBtn, new GUIContent("Next Runway", "rwyOn")) && !var.FlightData.isINSMode()) //doesn't let runway to be switched in INS mode
             {
-                if (Event.current.button == 0)
-                {
-                    NavUtilLib.GlobalVariables.FlightData.rwyIdx++;
-                }
-                else
-                {
-                    NavUtilLib.GlobalVariables.FlightData.rwyIdx--;
-                }
+				if (Event.current.alt) {
+					RunwayListGUI.show(windowPosition);
+				} else {
 
-                NavUtilLib.GlobalVariables.FlightData.rwyIdx = NavUtilLib.Utils.indexChecker(NavUtilLib.GlobalVariables.FlightData.rwyIdx, NavUtilLib.GlobalVariables.FlightData.currentBodyRunways.Count - 1, 0);
+					if (Event.current.button == 0) {
+						NavUtilLib.GlobalVariables.FlightData.rwyIdx++;
+					} else {
+						NavUtilLib.GlobalVariables.FlightData.rwyIdx--;
+					}
+
+					NavUtilLib.GlobalVariables.FlightData.rwyIdx = NavUtilLib.Utils.indexChecker(NavUtilLib.GlobalVariables.FlightData.rwyIdx, NavUtilLib.GlobalVariables.FlightData.currentBodyRunways.Count - 1, 0);
+				}
             }
 
             if (GUI.tooltip == "rwyOn")

@@ -20,7 +20,7 @@ namespace NavUtilLib
 			}
 
 			public static string getPluginDataParentPath(string subdir) {
-				string fullPath = getPathFor("");
+				string fullPath = getPathFor("JustAnAnchor");
 				return fullPath.Substring(0, fullPath.IndexOf("PluginData"))
 					+ subdir + System.IO.Path.DirectorySeparatorChar.ToString();
 			}
@@ -114,7 +114,13 @@ namespace NavUtilLib
                 FlightData.gsList = ConfigLoader.GetGlideslopeListFromConfig();
 
                 FlightData.customRunways.Clear();
-				FlightData.currentBodyRunways.ForEach(runway => {
+				FlightData.allRunways.ForEach(runway => {
+					if (FlightGlobals.currentMainBody == null) {
+						return;
+					}
+					if (FlightGlobals.currentMainBody.name == runway.body) {
+						FlightData.currentBodyRunways.Add(runway);
+					}
 					if (runway.custom) {
 						FlightData.customRunways.Add(runway);
 					}

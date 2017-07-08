@@ -176,6 +176,7 @@ namespace NavUtilLib.Analog
 
         private void OnHdgBtnClick()
         {
+
 			if (Event.current.button == 0) {
 				NavUtilLib.GlobalVariables.FlightData.rwyIdx++;
 			} else {

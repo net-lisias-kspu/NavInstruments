@@ -61,7 +61,7 @@ namespace NavUtilLib
             return runwayList;
         }
 
-        public static void WriteCustomRunwaysToConfig(System.Collections.Generic.List<Runway> runwayList, string fileName)
+        public static void WriteCustomRunwaysToConfig(System.Collections.Generic.List<Runway> runwayList)
         {
             ConfigNode runways = new ConfigNode();
             foreach (Runway r in runwayList)
