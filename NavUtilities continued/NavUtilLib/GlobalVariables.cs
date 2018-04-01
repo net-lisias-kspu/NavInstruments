@@ -420,7 +420,7 @@ namespace NavUtilLib
                 markerAudio.bypassEffects = true;
                 markerAudio.loop = true;
                 markerAudio.rolloffMode = AudioRolloffMode.Linear;
-                markerAudio.transform.SetParent(FlightCamera.fetch.mainCamera.transform);
+                //markerAudio.transform.SetParent(FlightCamera.fetch.mainCamera.transform);
 
                 //playOnce = audioplayer.AddComponent<AudioSource>();
                 //playOnce.volume = GameSettings.VOICE_VOLUME;
