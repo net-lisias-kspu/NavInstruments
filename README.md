@@ -1,11 +1,22 @@
-NavUtilities continued Unofficial
+NavUtilities Unofficial
 =================================
+
+This is a continuation of NavInstruments mod by kujuman. This is an **unofficial** fork by Lisias.
+
+
+In a Hurry
+----------
+Propeller plane and helicopter part modules for Kerbal Space Program.
+
+* [Latest Release](https://github.com/net-lisias-kspu/Firespitter/releases)
+* [Source](https://github.com/net-lisias-kspu/Firespitter)
+* [Binaries](https://github.com/net-lisias-kspu/NavInstruments/tree/Archive)
+* [Change Log](./CHANGE_LOG.md)
+
+Description
+-----------
 This mod for KSP is intended to provide navigation instruments in both IVA and external views
 
-This is a continuation of NavInstruments mod by kujuman
-
-* [Binaries](./Archive)
-* [Change Long](./CHANGE_LOG.md)
 
 UPSTREAM
 --------
