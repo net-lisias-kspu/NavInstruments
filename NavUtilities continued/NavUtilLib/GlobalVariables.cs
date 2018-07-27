@@ -3,6 +3,7 @@
 using System;
 using System.IO;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using KSP;
 using FinePrint;
@@ -13,34 +14,32 @@ namespace NavUtilLib
     {
         public static class Settings
         {
-
+			private static readonly String ROOT = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "..");
 			public static string getPathFor(string subdir) {
-				return KSP.IO.IOUtils.GetFilePathFor(typeof(Settings), subdir, null)
-					.Replace("/", System.IO.Path.DirectorySeparatorChar.ToString());
+				return Path.Combine(ROOT, subdir)
+					       + System.IO.Path.DirectorySeparatorChar.ToString();
 			}
 
 			public static string getPluginDataParentPath(string subdir) {
-				string fullPath = getPathFor("JustAnAnchor");
-				return fullPath.Substring(0, fullPath.IndexOf("PluginData"))
-					+ subdir + System.IO.Path.DirectorySeparatorChar.ToString();
+				return Path.Combine(
+						Path.Combine(KSPUtil.ApplicationRootPath, "PluginData"),
+						Path.Combine(Assembly.GetExecutingAssembly().GetName().Name, subdir)
+				);
+			}
+
+			private static string getPathRelativeToGameData(string subdir) {
+				string path = getPathFor(subdir);
+				return path + System.IO.Path.DirectorySeparatorChar.ToString();
 			}
 
 			public static string getCustomRunwaysFile() {
-				return getPluginDataParentPath("Runways")
+				return getPathRelativeToGameData("Runways")
 					+ "customRunways.cfg";
 			}
 
 			public static string getLauncherTextureFile() {
-				return getPluginDataParentPath("Textures/Toolbar")
+				return getPathRelativeToGameData("Textures/Toolbar")
 					+ "toolbarButton3838.png";
-			}
-
-			private static string getPathRelativeToGameData(string subdir) {
-				string path = getPluginDataParentPath(subdir);
-				string startOfRelative = System.IO.Path.DirectorySeparatorChar.ToString() + "gamedata" + System.IO.Path.DirectorySeparatorChar.ToString();
-				int ind = path.ToLower().LastIndexOf(startOfRelative);
-				path = path.Substring(ind + startOfRelative.Length).Replace("\\", "/");
-				return path;
 			}
 
 			//Blizzy's toolbar plugin wants texture path relative to GameData, not in PluginData, separated by / and without extension
@@ -52,7 +51,7 @@ namespace NavUtilLib
 				return getPathRelativeToGameData("Audio");
 			}
 
-			public static string settingsFileURL = getPathFor("settings.cfg");
+			public static string settingsFileURL = getPluginDataParentPath("settings.cfg");
             //public static string gsFileURL = "GameData/KerbalScienceFoundation/NavInstruments/glideslopes.cfg";
 
             public static bool isKSPGUIActive = true;
@@ -329,52 +328,52 @@ namespace NavUtilLib
                 if (GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtilLib: Updating materials...");
                 string texName;
                 texName = "hsi_overlay.png";
-				Materials.Instance.overlay = NavUtilGraphics.loadMaterial(GlobalVariables.Settings.getPluginDataParentPath("Textures") +  texName, Materials.Instance.overlay, 640, 640);
+				Materials.Instance.overlay = NavUtilGraphics.loadMaterial(GlobalVariables.Settings.getPathFor("Textures") +  texName, Materials.Instance.overlay, 640, 640);
 
 				texName = "hsi_gs_pointer.png";
-				Materials.Instance.pointer = NavUtilGraphics.loadMaterial(GlobalVariables.Settings.getPluginDataParentPath("Textures") +  texName, Materials.Instance.pointer, 640, 24);
+				Materials.Instance.pointer = NavUtilGraphics.loadMaterial(GlobalVariables.Settings.getPathFor("Textures") +  texName, Materials.Instance.pointer, 640, 24);
 
 				texName = "hsi_large_heading_card.png";
-				Materials.Instance.headingCard = NavUtilGraphics.loadMaterial(GlobalVariables.Settings.getPluginDataParentPath("Textures") +  texName, Materials.Instance.headingCard, 501, 501);
+				Materials.Instance.headingCard = NavUtilGraphics.loadMaterial(GlobalVariables.Settings.getPathFor("Textures") +  texName, Materials.Instance.headingCard, 501, 501);
 
 				texName = "hsi_NDB_needle.png";
-				Materials.Instance.NDBneedle = NavUtilGraphics.loadMaterial(GlobalVariables.Settings.getPluginDataParentPath("Textures") +  texName, Materials.Instance.NDBneedle, 15, 501);
+				Materials.Instance.NDBneedle = NavUtilGraphics.loadMaterial(GlobalVariables.Settings.getPathFor("Textures") +  texName, Materials.Instance.NDBneedle, 15, 501);
 
 				texName = "hsi_course_needle.png";
-				Materials.Instance.course = NavUtilGraphics.loadMaterial(GlobalVariables.Settings.getPluginDataParentPath("Textures") +  texName, Materials.Instance.course, 221, 481);
+				Materials.Instance.course = NavUtilGraphics.loadMaterial(GlobalVariables.Settings.getPathFor("Textures") +  texName, Materials.Instance.course, 221, 481);
 
 				texName = "hsi_course_deviation_needle.png";
-				Materials.Instance.localizer = NavUtilGraphics.loadMaterial(GlobalVariables.Settings.getPluginDataParentPath("Textures") +  texName, Materials.Instance.localizer, 5, 251);
+				Materials.Instance.localizer = NavUtilGraphics.loadMaterial(GlobalVariables.Settings.getPathFor("Textures") +  texName, Materials.Instance.localizer, 5, 251);
 
 				texName = "hsi_markerIndicator.png";
-				Materials.Instance.mkrbcn = NavUtilGraphics.loadMaterial(GlobalVariables.Settings.getPluginDataParentPath("Textures") +  texName, Materials.Instance.mkrbcn, 175, 180);
+				Materials.Instance.mkrbcn = NavUtilGraphics.loadMaterial(GlobalVariables.Settings.getPathFor("Textures") +  texName, Materials.Instance.mkrbcn, 175, 180);
 
 				texName = "hsi_flags.png";
-				Materials.Instance.flag = NavUtilGraphics.loadMaterial(GlobalVariables.Settings.getPluginDataParentPath("Textures") +  texName, Materials.Instance.flag, 64, 64);
+				Materials.Instance.flag = NavUtilGraphics.loadMaterial(GlobalVariables.Settings.getPathFor("Textures") +  texName, Materials.Instance.flag, 64, 64);
 
 				texName = "hsi_back.png";
-				Materials.Instance.back = NavUtilGraphics.loadMaterial(GlobalVariables.Settings.getPluginDataParentPath("Textures") +  texName, Materials.Instance.back, 32, 32);
+				Materials.Instance.back = NavUtilGraphics.loadMaterial(GlobalVariables.Settings.getPathFor("Textures") +  texName, Materials.Instance.back, 32, 32);
 
 				texName = "white_font.png";
-				Materials.Instance.whiteFont = NavUtilGraphics.loadMaterial(GlobalVariables.Settings.getPluginDataParentPath("Textures") +  texName, Materials.Instance.whiteFont, 256, 256);
+				Materials.Instance.whiteFont = NavUtilGraphics.loadMaterial(GlobalVariables.Settings.getPathFor("Textures") +  texName, Materials.Instance.whiteFont, 256, 256);
 
 				texName = "AI_OVERLAY.png";
-				Materials.Instance.AI_overlay = NavUtilGraphics.loadMaterial(GlobalVariables.Settings.getPluginDataParentPath("Textures") +  texName, Materials.Instance.AI_overlay, 640, 640);
+				Materials.Instance.AI_overlay = NavUtilGraphics.loadMaterial(GlobalVariables.Settings.getPathFor("Textures") +  texName, Materials.Instance.AI_overlay, 640, 640);
 
 				texName = "AI_THROTTLEBAR.png";
-				Materials.Instance.AI_throttleBar = NavUtilGraphics.loadMaterial(GlobalVariables.Settings.getPluginDataParentPath("Textures") +  texName, Materials.Instance.AI_throttleBar,27, 164);
+				Materials.Instance.AI_throttleBar = NavUtilGraphics.loadMaterial(GlobalVariables.Settings.getPathFor("Textures") +  texName, Materials.Instance.AI_throttleBar,27, 164);
 
 				texName = "AI_VSILINE.png";
-				Materials.Instance.AI_VSILine = NavUtilGraphics.loadMaterial(GlobalVariables.Settings.getPluginDataParentPath("Textures") +  texName, Materials.Instance.AI_VSILine, 33, 4);
+				Materials.Instance.AI_VSILine = NavUtilGraphics.loadMaterial(GlobalVariables.Settings.getPathFor("Textures") +  texName, Materials.Instance.AI_VSILine, 33, 4);
 
 				texName = "AI_LADDER.png";
-				Materials.Instance.AI_Ladder = NavUtilGraphics.loadMaterial(GlobalVariables.Settings.getPluginDataParentPath("Textures") +  texName, Materials.Instance.AI_Ladder, 906, 2048);
+				Materials.Instance.AI_Ladder = NavUtilGraphics.loadMaterial(GlobalVariables.Settings.getPathFor("Textures") +  texName, Materials.Instance.AI_Ladder, 906, 2048);
                 
 				texName = "AI_RADAR.png";
-				Materials.Instance.AI_Radar = NavUtilGraphics.loadMaterial(GlobalVariables.Settings.getPluginDataParentPath("Textures") +  texName, Materials.Instance.AI_Radar, 179, 179);
+				Materials.Instance.AI_Radar = NavUtilGraphics.loadMaterial(GlobalVariables.Settings.getPathFor("Textures") +  texName, Materials.Instance.AI_Radar, 179, 179);
 
 				texName = "AI_RADARDIAL.png";
-				Materials.Instance.AI_RadarDial = NavUtilGraphics.loadMaterial(GlobalVariables.Settings.getPluginDataParentPath("Textures") +  texName, Materials.Instance.AI_RadarDial, 86, 39);
+				Materials.Instance.AI_RadarDial = NavUtilGraphics.loadMaterial(GlobalVariables.Settings.getPathFor("Textures") +  texName, Materials.Instance.AI_RadarDial, 86, 39);
 
                 isLoaded = true;
             }
