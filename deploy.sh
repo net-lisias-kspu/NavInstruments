@@ -8,8 +8,8 @@ deploy() {
 	if [ -f "./$PROJECTSDIR/bin/$DLL.dll" ] ; then
 		cp "./$PROJECTSDIR/bin/$DLL.dll" "./GameData/$TARGETDIR/"
 
-		if [ -f "${KSP_DEV}/GameData/$TARGETDIR/" ] ; then
-			cp "./$PROJECTSDIR/bin/$DLL.dll" "${KSP_DEV}/GameData/$TARGETDIR/"
+		if [ -d "${KSP_DEV}/GameData/$TARGETDIR/" ] ; then
+			cp "./$PROJECTSDIR/bin/$DLL.dll" "${KSP_DEV}GameData/$TARGETDIR/"
 		fi
 	fi
 }
