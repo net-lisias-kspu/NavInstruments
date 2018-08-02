@@ -1,6 +1,9 @@
-NavUtilities continued Unofficial :: Change Log
+NavUtilities Unofficial :: Change Log
 =================================
 
+* 2018-0801: v0.7.2.1 (Lisias) for KSP 1.4.x LATEST
+	+ Added KSP-AVC support
+	+ Moved PluginData back to <KSP_ROOT> 
 * 2018-0401: v0.7.2 (SerTheGreat) LATEST OFFICIAL
 	+ KSP 1.4.1 and 1.4.2 compatible
 	+ Fixed marker sounds positioning so they are not muffled by Audio Muffler mod anymore 
