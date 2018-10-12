@@ -6,6 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{0952AB77-FC7F-474E-9EA3-28C295229AD4}</ProjectGuid>
     <OutputType>Library</OutputType>
+    <BaseIntermediateOutputPath>..\..\obj</BaseIntermediateOutputPath>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>AircraftAutoPilot</RootNamespace>
     <AssemblyName>AircraftAutoPilot</AssemblyName>

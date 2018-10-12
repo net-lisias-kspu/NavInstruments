@@ -1,7 +1,12 @@
+.vs
 bin
-**/obj
+obj
+GameData/**/*.dll
+GameData/**/*LICENSE
+GameData/**/NOTICE
 GameData/**/README.md
 GameData/**/CHANGE_LOG.md
+GameData/**/CHANGES.md
 GameData/**/*.version
-GameData/**/Plugins/*.dll
-NavUtilities continued/.vs
+Source/*/Properties/Version.cs
+Source/*/*.user

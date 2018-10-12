@@ -6,6 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{232FA638-F93A-4E4E-B70E-6A6C4ACA6B99}</ProjectGuid>
     <OutputType>Library</OutputType>
+    <BaseIntermediateOutputPath>..\..\obj</BaseIntermediateOutputPath>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>AnalogGauges</RootNamespace>
     <AssemblyName>AnalogGauges</AssemblyName>
@@ -16,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>../../../bin/Debug/</OutputPath>
+    <OutputPath>../../bin/Debug/</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -24,17 +25,17 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>../../../binelease/</OutputPath>
+    <OutputPath>../../binelease/</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\..\..\References\Assembly-CSharp.dll</HintPath>
+      <HintPath>..\..\..\References\Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="NavUtilLib">
-      <HintPath>..\..\..\..\..\OneDrive\Kerbal Space Program\GameData\KerbalScienceFoundation\NavInstruments\NavUtilLib.dll</HintPath>
+      <HintPath>..\..\..\..\OneDrive\Kerbal Space Program\GameData\KerbalScienceFoundation\NavInstruments\NavUtilLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -43,7 +44,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="UnityEngine">
-      <HintPath>..\..\..\..\References\UnityEngine.dll</HintPath>
+      <HintPath>..\..\..\References\UnityEngine.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
