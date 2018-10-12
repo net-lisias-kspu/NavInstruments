@@ -1,14 +1,14 @@
 {
-	"NAME":"NavUtilities Unofficial",
-	"URL":"https://raw.githubusercontent.com/net-lisias-kspu/NavInstruments/master/NavUtilities.version",
-	"DOWNLOAD":"https://github.com/net-lisias-kspu/NavInstruments/releases",
-	"CHANGE_LOG":"https://raw.githubusercontent.com/net-lisias-kspu/NavInstruments/CHANGE_LOG.md",
-	"CHANGE_LOG_URL":"https://raw.githubusercontent.com/net-lisias-kspu/NavInstruments/CHANGES.md",
 	"GITHUB":{
 		"USERNAME":"net-lisias-kspu",
 		"REPOSITORY":"NavInstruments",
 		"ALLOW_PRE_RELEASE":false
 		},
+	"NAME"		: "NavUtilities Unofficial",
+	"URL"		: "https://raw.githubusercontent.com/net-lisias-kspu/NavInstruments/master/NavUtilities.version",
+	"DOWNLOAD"	: "https://github.com/net-lisias-kspu/NavInstruments/releases",
+	"CHANGE_LOG"	: "https://raw.githubusercontent.com/net-lisias-kspu/NavInstruments/CHANGE_LOG.md",
+	"CHANGE_LOG_URL": "https://raw.githubusercontent.com/net-lisias-kspu/NavInstruments/CHANGES.md",
 	"VERSION":{
 		"MAJOR":0,
 		"MINOR":7,
@@ -16,12 +16,17 @@
 		"BUILD":1
 		},
 	"KSP_VERSION":{
-		"MAJOR":1,"MINOR":4,"PATCH":1
+		"MAJOR":1,
+		"MINOR":4
 		},
 	"KSP_VERSION_MIN":{
-		"MAJOR":1,"MINOR":4,"PATCH":1
+		"MAJOR":1,
+		"MINOR":4,
+		"PATCH":1
 		},
 	"KSP_VERSION_MAX":{
-		"MAJOR":1,"MINOR":4,"PATCH":99
+		"MAJOR":1,
+		"MINOR":4,
+		"PATCH":99
 		}
 }
