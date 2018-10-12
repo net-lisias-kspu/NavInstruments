@@ -1,9 +1,4 @@
 {
-	"GITHUB":{
-		"USERNAME":"net-lisias-kspu",
-		"REPOSITORY":"NavInstruments",
-		"ALLOW_PRE_RELEASE":false
-		},
 	"NAME"		: "NavUtilities Unofficial",
 	"URL"		: "https://raw.githubusercontent.com/net-lisias-kspu/NavInstruments/master/NavUtilities.version",
 	"DOWNLOAD"	: "https://github.com/net-lisias-kspu/NavInstruments/releases",
