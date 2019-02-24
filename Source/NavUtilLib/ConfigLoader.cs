@@ -9,58 +9,36 @@ namespace NavInstruments.NavUtilLib
     public static class ConfigLoader
     {
         private static readonly KSPe.IO.Data.ConfigNode SETTINGS = KSPe.IO.Data.ConfigNode.ForType<NavUtilLibApp>("NavUtilSettings", "settings.cfg");
+        private static readonly KSPe.IO.Data.ConfigNode CUSTOM_RUNWAYS = KSPe.IO.Data.ConfigNode.ForType<NavUtilLibApp>("Runways", "customRunways.cfg");
 
         public static System.Collections.Generic.List<Runway> GetRunwayListFromConfig()
         {
-            System.Collections.Generic.List<Runway> runwayList = new System.Collections.Generic.List<Runway>();
+            System.Collections.Generic.List<Runway> r = new System.Collections.Generic.List<Runway>();
+            
+            foreach (ConfigNode node in GameDatabase.Instance.GetConfigNodes("Runway"))
+                r.Add(CreateRunwayFromNode(node));
+            
+            foreach (ConfigNode node in CUSTOM_RUNWAYS.Node.GetNodes("Runway"))
+                r.Add(CreateRunwayFromNode(node));
+                
+            return r;
+        }
 
-            //ConfigNode runways = ConfigNode.Load(sSettingURL);
-            //foreach (ConfigNode node in runways.GetNodes("Runway"))
-			foreach (ConfigNode node in GameDatabase.Instance.GetConfigNodes("Runway"))
+        private static Runway CreateRunwayFromNode(ConfigNode node)
+        {
+            Log.detail("NavUtil: Found Runway Node");
+
+            try
             {
-                Log.detail("NavUtil: Found Runway Node");
-
-                try
-                {
-					Runway rwy = new Runway();
-
-                    rwy.ident = node.GetValue("ident");
-
-                    Log.detail("NavUtil: Loading " + rwy.ident);
-
-                    
-                    rwy.shortID = node.GetValue("shortID");
-                    if (rwy.shortID.Length > 4)
-                        rwy.shortID.Remove(4);
-
-					string customValue = node.GetValue("custom");
-					rwy.custom = customValue != null && bool.Parse(customValue);
-
-                    rwy.hdg = float.Parse(node.GetValue("hdg"));
-                    rwy.body = node.GetValue("body");
-                    rwy.altMSL = float.Parse(node.GetValue("altMSL"));
-                    rwy.gsLatitude = float.Parse(node.GetValue("gsLatitude"));
-                    rwy.gsLongitude = float.Parse(node.GetValue("gsLongitude"));
-                    rwy.locLatitude = float.Parse(node.GetValue("locLatitude"));
-                    rwy.locLongitude = float.Parse(node.GetValue("locLongitude"));
-
-                    rwy.outerMarkerDist = float.Parse(node.GetValue("outerMarkerDist"));
-                    rwy.middleMarkerDist = float.Parse(node.GetValue("middleMarkerDist"));
-                    rwy.innerMarkerDist = float.Parse(node.GetValue("innerMarkerDist"));
-
-                    runwayList.Add(rwy);
-
-                    Log.detail("NavUtil: Found " + rwy.ident);
-                }
-                catch (Exception)
-                {
-                    Log.detail("NavUtil: Error loading runway");
-                    throw;
-                }
-
+                Runway rwy = Runway.createFrom(node);
+                Log.detail("NavUtil: Found " + rwy.ident);              
+                return rwy;
             }
-
-            return runwayList;
+            catch (Exception)
+            {
+                Log.detail("NavUtil: Error loading runway");
+                throw;
+            }
         }
 
         public static void WriteCustomRunwaysToConfig(System.Collections.Generic.List<Runway> runwayList)
@@ -69,7 +47,7 @@ namespace NavInstruments.NavUtilLib
             foreach (Runway r in runwayList)
                 runways.AddNode(r.ToConfigNode(true));
 
-			runways.Save(GlobalVariables.Settings.getCustomRunwaysFile(), "CustomRunways");
+            CUSTOM_RUNWAYS.Save(runways);
         }
 
         public static System.Collections.Generic.List<float> GetGlideslopeListFromConfig()

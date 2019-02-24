@@ -25,21 +25,9 @@ namespace NavInstruments.NavUtilLib
 					       + System.IO.Path.DirectorySeparatorChar.ToString();
 			}
 
-			public static string getPluginDataParentPath(string subdir) {
-				return Path.Combine(
-						Path.Combine(KSPUtil.ApplicationRootPath, "PluginData"),
-						Path.Combine(Assembly.GetExecutingAssembly().GetName().Name, subdir)
-				);
-			}
-
 			private static string getPathRelativeToGameData(string subdir) {
 				string path = getPathFor(subdir);
 				return path + System.IO.Path.DirectorySeparatorChar.ToString();
-			}
-
-			public static string getCustomRunwaysFile() {
-				return getPathRelativeToGameData("Runways")
-					+ "customRunways.cfg";
 			}
 
             //public static string gsFileURL = "GameData/KerbalScienceFoundation/NavInstruments/glideslopes.cfg";
@@ -251,7 +239,7 @@ namespace NavInstruments.NavUtilLib
                     }
 
                     currentVessel = FlightGlobals.ActiveVessel;
-					if (selectedRwy != null) {
+                    if (selectedRwy != null) {
 						bearing = NavUtilLib.Utils.CalcBearingToBeacon(currentVessel, selectedRwy);
 						dme = NavUtilLib.Utils.CalcDistanceToBeacon(currentVessel, selectedRwy);
 						elevationAngle = NavUtilLib.Utils.CalcElevationAngle(currentVessel, selectedRwy);
