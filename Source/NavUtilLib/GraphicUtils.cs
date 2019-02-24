@@ -140,24 +140,26 @@ namespace NavInstruments.NavUtilLib
 		{
             Log.detail("NavUtilLib: Loading Material " + fileName);
 
+            fileName = KSPe.IO.File<KSPeHack>.Asset.Solve(Path.Combine("Textures", fileName));
+
             //Shader unlit = Shader.Find("KSP/Alpha/Unlit Transparent");
 
             Shader unlit = Shader.Find("Sprites/Default");
 
-            mat = new Material(unlit);
-           
-            mat.color = Color.white;
-            mat.mainTexture = loadTexture(fileName, width, height);
+            mat = new Material(unlit)
+            {
+                color = Color.white,
+                mainTexture = loadTexture(fileName, width, height)
+            };
+            
             return mat;
         }
 
-        public static Texture2D loadTexture(string partialPathName, int w, int h)
+        public static Texture2D loadTexture(string resolvedPathName, int w, int h)
         {
             Texture2D t = new Texture2D(w, h);
             t.LoadImage(
-                File.ReadAllBytes(
-                    KSPe.IO.File<NavUtilLibApp>.Asset.Solve(partialPathName)
-                )
+                File.ReadAllBytes(resolvedPathName)
             );
             return t;
         }

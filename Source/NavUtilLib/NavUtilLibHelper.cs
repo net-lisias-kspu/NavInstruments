@@ -290,7 +290,7 @@ namespace NavInstruments.NavUtilLib
 					onAppLaunchEnable,
 					onAppLaunchDisable,
 					KSP.UI.Screens.ApplicationLauncher.AppScenes.FLIGHT,
-					NavUtilGraphics.loadTexture("Toolbar/toolbarButton3838.png", 0, 0)
+					NavUtilGraphics.loadTexture(KSPe.IO.File<KSPeHack>.Asset.Solve("Toolbar/toolbarButton3838.png"), 0, 0)
 				);
 				;
 				app = this;
