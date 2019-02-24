@@ -67,29 +67,7 @@ namespace NavInstruments.NavUtilLib
         {
             ConfigNode runways = new ConfigNode();
             foreach (Runway r in runwayList)
-			{
-				ConfigNode rN = new ConfigNode();
-
-                rN.name = "NavUtilRunway";
-
-				rN.AddValue("custom", true);
-
-                rN.AddValue("ident", r.ident);
-                rN.AddValue("shortID", r.shortID);
-                rN.AddValue("hdg", r.hdg);
-                rN.AddValue("body", r.body);
-                rN.AddValue("altMSL", r.altMSL);
-                rN.AddValue("gsLatitude", r.gsLatitude);
-                rN.AddValue("gsLongitude", r.gsLongitude);
-                rN.AddValue("locLatitude", r.locLatitude);
-                rN.AddValue("locLongitude", r.locLongitude);
-
-                rN.AddValue("outerMarkerDist", r.outerMarkerDist);
-                rN.AddValue("middleMarkerDist", r.middleMarkerDist);
-                rN.AddValue("innerMarkerDist", r.innerMarkerDist);
-
-                runways.AddNode(rN);
-            }
+                runways.AddNode(r.ToConfigNode(true));
 
 			runways.Save(GlobalVariables.Settings.getCustomRunwaysFile(), "CustomRunways");
         }

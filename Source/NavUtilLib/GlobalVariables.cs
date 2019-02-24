@@ -235,16 +235,18 @@ namespace NavInstruments.NavUtilLib
 						}
 
                         //If waypoint is fine then generate fake target runway every time
-                        Runway insTarget = new Runway();
-                        insTarget.isINSTarget = true;
-						insTarget.ident = waypoint != null ? waypoint.name : navWaypoint.name;
-                        insTarget.body = navWaypoint.Body.name;
-                        insTarget.hdg = selectedRwy != null ? selectedRwy.hdg : 0;
-                        insTarget.altMSL = (float)(navWaypoint.Height + navWaypoint.Altitude);
-                        insTarget.locLatitude = (float)navWaypoint.Latitude;
-                        insTarget.locLongitude = (float)navWaypoint.Longitude;
-                        insTarget.gsLatitude = (float)navWaypoint.Latitude;
-                        insTarget.gsLongitude = (float)navWaypoint.Longitude;
+                        Runway insTarget = new Runway
+                        {
+                            isINSTarget = true,
+                            ident = waypoint != null ? waypoint.name : navWaypoint.name,
+                            body = navWaypoint.Body.name,
+                            hdg = selectedRwy != null ? selectedRwy.hdg : 0,
+                            altMSL = (float)(navWaypoint.Height + navWaypoint.Altitude),
+                            locLatitude = (float)navWaypoint.Latitude,
+                            locLongitude = (float)navWaypoint.Longitude,
+                            gsLatitude = (float)navWaypoint.Latitude,
+                            gsLongitude = (float)navWaypoint.Longitude
+                        };
                         selectedRwy = insTarget;
                     }
 
