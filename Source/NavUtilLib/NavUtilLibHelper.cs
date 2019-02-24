@@ -136,7 +136,7 @@ namespace NavInstruments.NavUtilLib
                 NavUtilLib.GlobalVariables.Settings.hsiPosition.x = windowPosition.x;
                 NavUtilLib.GlobalVariables.Settings.hsiPosition.y = windowPosition.y;
 
-                ConfigLoader.SaveSettings(var.Settings.settingsFileURL);
+                ConfigLoader.SaveSettings();
             }
         }
 
@@ -324,7 +324,7 @@ namespace NavInstruments.NavUtilLib
             }
 
             //load settings to config
-            ConfigLoader.LoadSettings(var.Settings.settingsFileURL);
+            ConfigLoader.LoadSettings();
 
             if(NavUtilLib.GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtil: useBlizzy? " + NavUtilLib.GlobalVariables.Settings.useBlizzy78ToolBar);
 
@@ -421,7 +421,7 @@ namespace NavInstruments.NavUtilLib
 
 
                 //save settings to config
-                ConfigLoader.SaveSettings(var.Settings.settingsFileURL);
+                ConfigLoader.SaveSettings();
 
                 NavUtilLib.GlobalVariables.Settings.hsiState = false;
 

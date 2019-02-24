@@ -18,8 +18,7 @@ namespace NavInstruments.NavUtilRPM
 
 
             //load settings from config
-            NavUtilLib.ConfigLoader.LoadSettings(NavUtilLib.GlobalVariables.Settings.settingsFileURL);
-
+            NavUtilLib.ConfigLoader.LoadSettings();
 
             //load navigation data
             if (!NavUtilLib.GlobalVariables.Settings.navAidsIsLoaded)

@@ -51,7 +51,6 @@ namespace NavInstruments.NavUtilLib
 				return getPathRelativeToGameData("Audio");
 			}
 
-			public static string settingsFileURL = getPluginDataParentPath("settings.cfg");
             //public static string gsFileURL = "GameData/KerbalScienceFoundation/NavInstruments/glideslopes.cfg";
 
             public static bool isKSPGUIActive = true;
