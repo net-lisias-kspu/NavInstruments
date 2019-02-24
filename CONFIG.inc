@@ -1,7 +1,7 @@
 source ../CONFIG.inc
 
-PACKAGE=NavUtilities
-TARGETDIR="NavUtilities continued"
+PACKAGE=NavInstruments
+TARGETDIR="net.lisias.ksp/$PACKAGE"
 TARGETBINDIR="$TARGETDIR/Plugins"
 PROJECTSDIR="$PACKAGE/"
 
