@@ -14,7 +14,7 @@ namespace NavUtilLib
 
             //ConfigNode runways = ConfigNode.Load(sSettingURL);
             //foreach (ConfigNode node in runways.GetNodes("Runway"))
-			foreach (ConfigNode node in GameDatabase.Instance.GetConfigNodes("NavUtilRunway"))
+			foreach (ConfigNode node in GameDatabase.Instance.GetConfigNodes("Runway"))
             {
                 if (GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtil: Found Runway Node");
 
