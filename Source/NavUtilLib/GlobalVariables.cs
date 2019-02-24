@@ -12,6 +12,11 @@ namespace NavInstruments.NavUtilLib
 {
     namespace GlobalVariables
     {
+        internal static class Common
+        {
+            internal static readonly KSPe.LocalCache<string> KSPE_CACHE = new KSPe.LocalCache<string>();
+        }
+        
         public static class Settings
         {
 			private static readonly String ROOT = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "..");
@@ -35,10 +40,6 @@ namespace NavInstruments.NavUtilLib
 			public static string getCustomRunwaysFile() {
 				return getPathRelativeToGameData("Runways")
 					+ "customRunways.cfg";
-			}
-
-			public static string getAudioPath() {
-				return getPathRelativeToGameData("Audio");
 			}
 
             //public static string gsFileURL = "GameData/KerbalScienceFoundation/NavInstruments/glideslopes.cfg";
@@ -368,28 +369,16 @@ namespace NavInstruments.NavUtilLib
 
         public class Audio
         {
-            private static Audio instance;
-            private Audio() { }
-
-            public static Audio Instance
-            {
-                get
-                {
-                    if(instance == null)
-                    {
-                        instance = new Audio();
-                    }
-                    return instance;
-                }
-            }
+            private static Audio _instance;
+            public static Audio Instance => _instance ?? (_instance = new Audio());
 
             public static bool isLoaded = false;
             
-            public static GameObject audioplayer; 
-            public static AudioSource markerAudio;
+            public readonly GameObject audioplayer; 
+            public readonly AudioSource markerAudio;
             //public static AudioSource playOnce;
 
-            public static void initializeAudio()
+            private Audio()
             {
                 audioplayer = new GameObject();
                 markerAudio = new AudioSource();
@@ -428,6 +417,22 @@ namespace NavInstruments.NavUtilLib
 
 
                 isLoaded = true;
+            }
+
+            public void PlayOneShot(string name)
+            {
+                this.markerAudio.PlayOneShot(this.getAudio(name));
+            }
+
+            private AudioClip getAudio(string clipName) {
+                return GameDatabase.Instance.GetAudioClip(
+                    KSPe.GameDB.Asset<KSPeHack>.Solve(Path.Combine("Audio", clipName), Common.KSPE_CACHE)
+                );
+            }
+
+            public void Stop()
+            {
+                this.markerAudio.Stop();
             }
         }
     }

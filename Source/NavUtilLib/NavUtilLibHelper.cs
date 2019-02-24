@@ -110,9 +110,6 @@ namespace NavInstruments.NavUtilLib
                 if (!var.Materials.isLoaded)
                     var.Materials.loadMaterials();
 
-                //if (!var.Audio.isLoaded)
-                var.Audio.initializeAudio();
-
                 //load settings to config
                 //ConfigLoader.LoadSettings(var.Settings.settingsFileURL);
 

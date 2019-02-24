@@ -122,10 +122,7 @@ namespace NavInstruments.KSFRPMHSI
             if (!var.Materials.isLoaded)
                 var.Materials.loadMaterials();
 
-            //if (!var.Audio.isLoaded)
-                var.Audio.initializeAudio();
-
-                Log.detail("MLS: Systems started successfully!");
+            Log.detail("MLS: Systems started successfully!");
 
             //doneLoading = true;
         }
