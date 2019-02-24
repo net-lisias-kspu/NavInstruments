@@ -19,17 +19,6 @@ namespace NavInstruments.NavUtilLib
         
         public static class Settings
         {
-			private static readonly String ROOT = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "..");
-			public static string getPathFor(string subdir) {
-				return Path.Combine(ROOT, subdir)
-					       + System.IO.Path.DirectorySeparatorChar.ToString();
-			}
-
-			private static string getPathRelativeToGameData(string subdir) {
-				string path = getPathFor(subdir);
-				return path + System.IO.Path.DirectorySeparatorChar.ToString();
-			}
-
             //public static string gsFileURL = "GameData/KerbalScienceFoundation/NavInstruments/glideslopes.cfg";
 
             public static bool isKSPGUIActive = true;
