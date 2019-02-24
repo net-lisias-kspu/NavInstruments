@@ -37,16 +37,6 @@ namespace NavInstruments.NavUtilLib
 					+ "customRunways.cfg";
 			}
 
-			public static string getLauncherTextureFile() {
-				return getPathRelativeToGameData("Textures/Toolbar")
-					+ "toolbarButton3838.png";
-			}
-
-			//Blizzy's toolbar plugin wants texture path relative to GameData, not in PluginData, separated by / and without extension
-			public static string getToolbarTextureFile() {
-				return getPathRelativeToGameData("Textures/Toolbar") + "toolbarButton";
-			}
-
 			public static string getAudioPath() {
 				return getPathRelativeToGameData("Audio");
 			}

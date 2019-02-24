@@ -151,10 +151,14 @@ namespace NavInstruments.NavUtilLib
             return mat;
         }
 
-        public static Texture2D loadTexture(string fileName, int w, int h)
+        public static Texture2D loadTexture(string partialPathName, int w, int h)
         {
             Texture2D t = new Texture2D(w, h);
-            t.LoadImage(File.ReadAllBytes(fileName));
+            t.LoadImage(
+                File.ReadAllBytes(
+                    KSPe.IO.File<NavUtilLibApp>.Asset.Solve(partialPathName)
+                )
+            );
             return t;
         }
     }

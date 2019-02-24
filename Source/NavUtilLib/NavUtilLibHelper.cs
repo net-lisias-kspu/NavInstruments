@@ -293,7 +293,7 @@ namespace NavInstruments.NavUtilLib
 					onAppLaunchEnable,
 					onAppLaunchDisable,
 					KSP.UI.Screens.ApplicationLauncher.AppScenes.FLIGHT,
-					NavUtilGraphics.loadTexture(GlobalVariables.Settings.getLauncherTextureFile(), 0, 0)
+					NavUtilGraphics.loadTexture("Toolbar/toolbarButton3838.png", 0, 0)
 				);
 				;
 				app = this;
@@ -314,7 +314,7 @@ namespace NavInstruments.NavUtilLib
 			if (NavUtilLib.GlobalVariables.Settings.useBlizzy78ToolBar && ToolbarManager.ToolbarAvailable) {
 				IToolbarManager toolbar = ToolbarManager.Instance;
 				toolbarButton = toolbar.add("NavUtilities", "NavUtilButton");
-				toolbarButton.TexturePath = GlobalVariables.Settings.getToolbarTextureFile();
+				toolbarButton.TexturePath = KSPe.IO.File<NavUtilLibApp>.Asset.Solve("Toolbar/toolbarButton.png");
 				toolbarButton.OnClick += (clickEvent => {
 					isHovering = true;
 					onAppLaunchToggleOn();
