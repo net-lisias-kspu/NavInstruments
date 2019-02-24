@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using KSP;
 
-using var = NavUtilLib.GlobalVariables;
+using var = NavInstruments.NavUtilLib.GlobalVariables;
 
-namespace NavUtilLib
+namespace NavInstruments.NavUtilLib
 {
 
         public static class DisplayData

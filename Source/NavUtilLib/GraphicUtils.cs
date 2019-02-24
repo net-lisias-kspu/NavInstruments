@@ -7,9 +7,9 @@ using UnityEngine;
 using KSP;
 using System.IO;
 
-using mat = NavUtilLib.GlobalVariables.Materials;
+using mat = NavInstruments.NavUtilLib.GlobalVariables.Materials;
 
-namespace NavUtilLib
+namespace NavInstruments.NavUtilLib
 {
     public static class NavUtilGraphics
     {

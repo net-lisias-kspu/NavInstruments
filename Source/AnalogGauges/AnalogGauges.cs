@@ -1,8 +1,8 @@
 ﻿using System;
 using UnityEngine;
-using NavUtilLib;
+using NavInstruments.NavUtilLib;
 
-namespace NavUtilLib.Analog
+namespace NavInstruments.NavUtilLib.Analog
 {
     public class AnalogHSI : InternalModule
     {

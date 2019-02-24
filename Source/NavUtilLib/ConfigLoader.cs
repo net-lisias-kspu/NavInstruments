@@ -4,7 +4,7 @@ using System;
 using KSP;
 using UnityEngine;
 
-namespace NavUtilLib
+namespace NavInstruments.NavUtilLib
 {
     public static class ConfigLoader
     {

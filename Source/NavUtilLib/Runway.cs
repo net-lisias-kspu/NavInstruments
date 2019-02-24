@@ -2,7 +2,7 @@
 
 using System;
 
-namespace NavUtilLib
+namespace NavInstruments.NavUtilLib
 {
 	public class Runway
     {

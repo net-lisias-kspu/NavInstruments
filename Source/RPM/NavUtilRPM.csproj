@@ -46,6 +46,9 @@
     <Compile Include="InfoPartModule.cs" />
     <Compile Include="Instruments.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="..\NavUtilLib\Properties\Version.cs">
+      <Link>Properties\Version.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NavUtilLib\NavUtilLib.csproj">

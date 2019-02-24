@@ -2,7 +2,7 @@
 using UnityEngine;
 using System.Linq;
 
-namespace NavUtilLib.Analog
+namespace NavInstruments.NavUtilLib.Analog
 {
     public class AnalogHSI : InternalModule
     {

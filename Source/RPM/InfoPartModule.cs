@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using KSP;
 using UnityEngine;
-using NavUtilLib.GlobalVariables;
-using NavUtilLib;
+using NavInstruments.NavUtilLib.GlobalVariables;
+using NavInstruments.NavUtilLib;
 
-namespace NavUtilRPM
+namespace NavInstruments.NavUtilRPM
 {
     class ModuleNavUtilsInfo : PartModule
     {

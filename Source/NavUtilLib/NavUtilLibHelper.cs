@@ -4,12 +4,12 @@ using System;
 using UnityEngine;
 using KSP;
 using UnityEngine.UI;
-using NavUtilLib;
-using var = NavUtilLib.GlobalVariables;
+using NavInstruments.NavUtilLib;
+using var = NavInstruments.NavUtilLib.GlobalVariables;
 //using ToolbarWrapper;
 
 
-namespace NavUtilLib
+namespace NavInstruments.NavUtilLib
 {
     [KSPAddon(KSPAddon.Startup.Flight, false)] //used to start up in flight, and be false
     public class NavUtilLibApp : MonoBehaviour

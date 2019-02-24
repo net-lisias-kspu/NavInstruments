@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace NavUtilLib
+namespace NavInstruments.NavUtilLib
 {
 	public class RunwayListGUI
 	{

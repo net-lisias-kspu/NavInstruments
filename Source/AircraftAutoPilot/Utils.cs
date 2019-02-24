@@ -5,7 +5,7 @@
 //using NavUtilLib;
 //using KSP;
 
-//namespace AircraftAutoPilot
+//namespace NavInstruments.AircraftAutoPilot
 //{
 //    [KSPAddon(KSPAddon.Startup.Flight, false)]
 //    public class AutoPilotApp : MonoBehaviour

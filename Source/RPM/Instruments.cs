@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using KSP;
-using NavUtilLib;
-using var = NavUtilLib.GlobalVariables;
+using NavInstruments.NavUtilLib;
+using var = NavInstruments.NavUtilLib.GlobalVariables;
 
-namespace KSFRPMHSI
+namespace NavInstruments.KSFRPMHSI
 {
     public class KSF_MLS : InternalModule
     {

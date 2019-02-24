@@ -4,7 +4,7 @@ using System;
 using UnityEngine;
 using KSP;
 
-namespace NavUtilLib
+namespace NavInstruments.NavUtilLib
 {
     public static class Utils
     {

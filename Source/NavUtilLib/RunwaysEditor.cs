@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
-using Rwy = NavUtilLib.GlobalVariables.FlightData;
+using Rwy = NavInstruments.NavUtilLib.GlobalVariables.FlightData;
 
-namespace NavUtilGUI
+namespace NavInstruments.NavUtilGUI
 {
     public static class RunwaysEditor // : Monobehaviour
 {

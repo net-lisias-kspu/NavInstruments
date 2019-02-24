@@ -8,7 +8,7 @@ using UnityEngine;
 using KSP;
 using FinePrint;
 
-namespace NavUtilLib
+namespace NavInstruments.NavUtilLib
 {
     namespace GlobalVariables
     {

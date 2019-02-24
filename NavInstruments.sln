@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NavUtilToolBar", "Source\St
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NavUtilRPM", "Source\RPM\NavUtilRPM.csproj", "{C2C23187-A2E4-45FC-B0C4-3C0793B8594E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnalogGauges", "Source\AnalogGauges\AnalogGauges.csproj", "{232FA638-F93A-4E4E-B70E-6A6C4ACA6B99}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{C2C23187-A2E4-45FC-B0C4-3C0793B8594E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2C23187-A2E4-45FC-B0C4-3C0793B8594E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2C23187-A2E4-45FC-B0C4-3C0793B8594E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{232FA638-F93A-4E4E-B70E-6A6C4ACA6B99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{232FA638-F93A-4E4E-B70E-6A6C4ACA6B99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{232FA638-F93A-4E4E-B70E-6A6C4ACA6B99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{232FA638-F93A-4E4E-B70E-6A6C4ACA6B99}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
