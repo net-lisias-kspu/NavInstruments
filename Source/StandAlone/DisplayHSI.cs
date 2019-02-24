@@ -29,7 +29,7 @@
 
 //                rt = new RenderTexture((int)windowPosition.width, (int)windowPosition.height, 24, RenderTextureFormat.ARGB32);
 
-//                Debug.Log("ILS: Starting systems...");
+//                Log.info("ILS: Starting systems...");
 //                if (!var.Settings.navAidsIsLoaded)
 //                    var.Settings.loadNavAids();
 
@@ -41,7 +41,7 @@
 
 //                //ConfigureCamera();
 
-//                Debug.Log("ILS: Systems started successfully!");
+//                Log.info("ILS: Systems started successfully!");
 //            }
 //            else
 //            {

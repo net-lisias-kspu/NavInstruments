@@ -45,14 +45,14 @@ namespace NavInstruments.NavUtilLib
 
                 double ret = makeAngle0to360(CalcDegFromRadians(Math.Atan2(northportion, eastportion)) - 90d);
 
-                //Debug.Log ("Old rwy heading: " + currentRwy.hdg.ToString());
-                //Debug.Log ("New rwy heading: " + ret.ToString ());
+                Log.dbg("Old rwy heading: {0}", currentRwy.hdg);
+                Log.dbg("New rwy heading: {0}", ret);
 
                 return ret;
             }
             catch (Exception ex)
             {
-                Debug.LogError(ex.ToString());
+                Log.ex(null,ex);
                 return 0d;
             }
         }
@@ -67,7 +67,7 @@ namespace NavInstruments.NavUtilLib
                     //Old algorithm.
                     double rwyhdg = (double)currentRwy.hdg;
                     double RwyHdgCorrection = 180d - Utils.makeAngle0to360(rwyhdg);
-                    Debug.Log("Old answer: " + (Utils.makeAngle0to360(rwyhdg + RwyHdgCorrection) - Utils.makeAngle0to360(Utils.CalcBearingToBeacon(thisVessel, currentRwy) + RwyHdgCorrection)).ToString());
+                    Log.dbg("Old answer: " + (Utils.makeAngle0to360(rwyhdg + RwyHdgCorrection) - Utils.makeAngle0to360(Utils.CalcBearingToBeacon(thisVessel, currentRwy) + RwyHdgCorrection)).ToString());
                 }
                 */
 
@@ -99,12 +99,12 @@ namespace NavInstruments.NavUtilLib
                 //We are computing the angle that is projected into the surface plane.
                 double ret = -CalcDegFromRadians(Math.Atan2(cldist, fwbackdist));
 
-                //Debug.Log ("new answer: " + ret.ToString ());
+                Log.dbg("new answer: {0}", ret);
                 return ret;
             }
             catch (Exception ex)
             {
-                Debug.LogError(ex.ToString());
+                Log.ex(null, ex);
                 return 0d;
             }
         }

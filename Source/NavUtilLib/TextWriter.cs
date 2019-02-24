@@ -12,7 +12,7 @@ namespace NavInstruments.NavUtilLib
     {
         public static RenderTexture addTextToRT(RenderTexture rt, string Text, Vector2 position, Material mat, float scale)
         {
-            //Debug.Log("Printing: " + Text);
+            Log.dbg("Printing: {0}", Text);
 
             GL.PushMatrix();
             GL.LoadPixelMatrix(0, rt.width, rt.height, 0);

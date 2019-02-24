@@ -53,6 +53,7 @@
     <Compile Include="..\NavUtilLib\Properties\Version.cs">
       <Link>Properties\Version.cs</Link>
     </Compile>
+    <Compile Include="Log.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NavUtilLib\NavUtilLib.csproj">

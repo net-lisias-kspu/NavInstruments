@@ -99,12 +99,7 @@ namespace NavInstruments.NavUtilLib.Analog
             dmeInt[2] = dme[2].transform.localRotation;
             dmeInt[3] = dme[3].transform.localRotation;
 
-
-
-
-
-
-            Debug.Log("MLS: Starting systems...");
+            Log.info("MLS: Starting systems...");
             if (!NavUtilLib.GlobalVariables.Settings.navAidsIsLoaded)
                 NavUtilLib.GlobalVariables.Settings.loadNavAids();
 
@@ -114,7 +109,7 @@ namespace NavInstruments.NavUtilLib.Analog
             //if (!var.Audio.isLoaded)
             NavUtilLib.GlobalVariables.Audio.initializeAudio();
 
-            Debug.Log("MLS: Systems started successfully!");
+            Log.info("MLS: Systems started successfully!");
 
         }
 
@@ -279,8 +274,8 @@ namespace NavInstruments.NavUtilLib.Analog
                     break;
 
                 default:
-                        Debug.Log("NavUtilLib.AnalogGaugeUtils.single_Axis_Rotate: No axis found");
-                        break;
+                    Log.warn("NavUtilLib.AnalogGaugeUtils.single_Axis_Rotate: No axis found");
+                    break;
             }
 
             gameObject.transform.Rotate(axisVector, amountDegs);
@@ -308,7 +303,7 @@ namespace NavInstruments.NavUtilLib.Analog
                     break;
 
                 default:
-                    Debug.Log("NavUtilLib.AnalogGaugeUtils.single_Axis_Translate: No axis found");
+                    Log.warn("NavUtilLib.AnalogGaugeUtils.single_Axis_Translate: No axis found");
                     break;
             }
 

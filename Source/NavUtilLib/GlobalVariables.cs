@@ -79,8 +79,6 @@ namespace NavInstruments.NavUtilLib
 
             public static NavUtilLibApp appReference;
 
-            public static bool enableDebugging = false;
-
 			/*public static void loadNavAids_not_working() {
 				FlightData.rwyList.Clear();
 				ConfigNode[] nodes = GameDatabase.Instance.GetConfigNodes("Runway");
@@ -105,7 +103,7 @@ namespace NavInstruments.NavUtilLib
 
             public static void loadNavAids()
             {
-                if (enableDebugging) Debug.Log("NavUtil: Loading NavAid database...");
+                Log.detail("NavUtil: Loading NavAid database...");
                 FlightData.allRunways.Clear();
                 FlightData.allRunways = ConfigLoader.GetRunwayListFromConfig();
                 FlightData.gsList.Clear();
@@ -137,16 +135,16 @@ namespace NavInstruments.NavUtilLib
                         if ((f.Name.EndsWith("_rwy.cfg") && loadCustom_rwyCFG)|| f.Name.EndsWith(".rwy"))
                         {
 
-                            if (enableDebugging)  Debug.Log("NavUtil: found file " + f.Name.ToString());
+                            if (enableDebugging)  Log.detail("NavUtil: found file " + f.Name.ToString());
 
                             if (f.Name == "custom.rwy" || (f.Name == "custom_rwy.cfg" && GlobalVariables.Settings.loadCustom_rwyCFG))
                             {
                                 FlightData.customRunways.AddRange(NavUtilLib.ConfigLoader.GetRunwayListFromConfig("GameData/KerbalScienceFoundation/NavInstruments/Runways/" + f.Name));
-                                if (enableDebugging)  Debug.Log("NavUtil: Found " + f.Name + " with " + FlightData.customRunways.Count + " runway definitions");
+                                if (enableDebugging)  Log.detail("NavUtil: Found " + f.Name + " with " + FlightData.customRunways.Count + " runway definitions");
 
                             }
 
-                            if (enableDebugging) Debug.Log("NavUtil: Found " + f.Name);
+                            if (enableDebugging) Log.detail("NavUtil: Found " + f.Name);
 
                             FlightData.rwyList.AddRange(NavUtilLib.ConfigLoader.GetRunwayListFromConfig("GameData/KerbalScienceFoundation/NavInstruments/Runways/" + f.Name));
                             //! FlightData.gsList.AddRange(NavUtilLib.ConfigLoader.GetGlideslopeListFromConfig("GameData/KerbalScienceFoundation/NavInstruments/Runways/" + f.Name));
@@ -324,7 +322,7 @@ namespace NavInstruments.NavUtilLib
 
             public static void loadMaterials()
             {
-                if (GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtilLib: Updating materials...");
+                Log.detail("NavUtilLib: Updating materials...");
                 string texName;
                 texName = "hsi_overlay.png";
 				Materials.Instance.overlay = NavUtilGraphics.loadMaterial(GlobalVariables.Settings.getPathFor("Textures") +  texName, Materials.Instance.overlay, 640, 640);
@@ -407,7 +405,7 @@ namespace NavInstruments.NavUtilLib
                 markerAudio = new AudioSource();
                 //playOnce = new AudioSource();
 
-                if (GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtilLib: InitializingAudio...");
+                Log.detail("NavUtilLib: InitializingAudio...");
 
                 try
                 {
@@ -433,7 +431,7 @@ namespace NavInstruments.NavUtilLib
                 }
                 catch (Exception)
                 {
-                    if (NavUtilLib.GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtil: Error Loading Audio");
+                    Log.detail("NavUtil: Error Loading Audio");
 
                     throw;
                 }

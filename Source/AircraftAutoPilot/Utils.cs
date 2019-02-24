@@ -1,15 +1,15 @@
 ﻿//using System;
 //using System.Collections.Generic;
 //using System.Linq;
-//using UnityEngine;
+using UnityEngine;
 //using NavUtilLib;
 //using KSP;
 
-//namespace NavInstruments.AircraftAutoPilot
-//{
+namespace NavInstruments.AircraftAutoPilot
+{
 //    [KSPAddon(KSPAddon.Startup.Flight, false)]
-//    public class AutoPilotApp : MonoBehaviour
-//    {
+    public class AutoPilotApp : MonoBehaviour
+    {
 //        private LineRenderer line = null;
 
 //        [Flags]
@@ -78,7 +78,7 @@
 
 //               if ((CurrentRegime & Regime.LNav) == Regime.LNav)
 //               {
-//                   Debug.Log("LNav Now On");
+//                   Log.info("LNav Now On");
 
 //                   Variables.LNavTarget = (float)FlightGlobals.ship_heading;
 //               }
@@ -90,7 +90,7 @@
 
 //                if((CurrentRegime & Regime.VNav) == Regime.VNav)
 //                {
-//                    Debug.Log("VNav Now On");
+//                    Log.info("VNav Now On");
 
 //                    Variables.VNavTarget = (float)FlightGlobals.ship_altitude;
 //                }
@@ -183,7 +183,7 @@
 //            {
 //                float A = 0;
 
-//                Debug.Log((Airspeed * Airspeed) / Radius / Gee);
+//                Log.info((Airspeed * Airspeed) / Radius / Gee);
 
 //                A = (float)NavUtilLib.Utils.CalcDegFromRadians(Math.Atan((Airspeed * Airspeed) / Radius / Gee));
 
@@ -196,5 +196,5 @@
 //            public static float LNavTarget = 0;
 //            public static float VNavTarget = 0;
 //        }
-    
-//}
+    }    
+}

@@ -16,7 +16,7 @@ namespace NavInstruments.NavUtilLib
     {
         private void OnGUI()
         {
-            //if (NavUtilLib.GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtils: OnGUI()");
+            //Log.detail("NavUtils: OnGUI()");
 
 
             if (NavUtilLib.GlobalVariables.Settings.isKSPGUIActive) // will hide GUI is F2 is pressed
@@ -74,15 +74,13 @@ namespace NavInstruments.NavUtilLib
 
         public void displayHSI()
         {
-            if (NavUtilLib.GlobalVariables.Settings.enableDebugging)
-                Debug.Log("NavUtils: NavUtilLibApp.displayHSI()");
+            Log.detail("NavUtils: NavUtilLibApp.displayHSI()");
 
             if (!NavUtilLib.GlobalVariables.Settings.hsiState)
             {
                 Activate(true);
                 NavUtilLib.GlobalVariables.Settings.hsiState = true;
-                if (NavUtilLib.GlobalVariables.Settings.enableDebugging)
-                    Debug.Log("NavUtils: hsiState = " + NavUtilLib.GlobalVariables.Settings.hsiState);
+                Log.detail("NavUtils: hsiState = " + NavUtilLib.GlobalVariables.Settings.hsiState);
             }
             else
             {
@@ -90,8 +88,7 @@ namespace NavInstruments.NavUtilLib
 
                 NavUtilLib.GlobalVariables.Settings.hsiState = false;
 
-                if (NavUtilLib.GlobalVariables.Settings.enableDebugging)
-                    Debug.Log("NavUtils: hsiState = " + NavUtilLib.GlobalVariables.Settings.hsiState);
+                Log.detail("NavUtils: hsiState = " + NavUtilLib.GlobalVariables.Settings.hsiState);
             }
         }
 
@@ -99,17 +96,14 @@ namespace NavInstruments.NavUtilLib
 
 		public void Activate(bool state)
 		{
-            if (NavUtilLib.GlobalVariables.Settings.enableDebugging)
-            {
-                Debug.Log("NavUtils: NavUtilLibApp.Activate()");
-            }
+            Log.detail("NavUtils: NavUtilLibApp.Activate()");
 
             if (state)
             {
                 rt = new RenderTexture(640, 640, 24, RenderTextureFormat.ARGB32);
                 rt.Create();
 
-                if (GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtil: Starting systems...");
+                Log.detail("NavUtil: Starting systems...");
                 if (!var.Settings.navAidsIsLoaded)
                     var.Settings.loadNavAids();
 
@@ -127,7 +121,7 @@ namespace NavInstruments.NavUtilLib
                 windowPosition.y = NavUtilLib.GlobalVariables.Settings.hsiPosition.y;
 
 
-                if (GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtil: Systems started successfully!");
+                Log.detail("NavUtil: Systems started successfully!");
             }
             else
             {
@@ -142,35 +136,30 @@ namespace NavInstruments.NavUtilLib
 
         private void OnDraw()
         {
-            if (NavUtilLib.GlobalVariables.Settings.enableDebugging)
-            {
-                Debug.Log("NavUtils: NavUtilLibApp.OnDraw()");
-            }
+            Log.detail("NavUtils: NavUtilLibApp.OnDraw()");
 
-            //Debug.Log("HSI: OnDraw()");
-                if (CameraManager.Instance.currentCameraMode == CameraManager.CameraMode.Flight || ((CameraManager.Instance.currentCameraMode == CameraManager.CameraMode.Internal || CameraManager.Instance.currentCameraMode == CameraManager.CameraMode.IVA) && GlobalVariables.Settings.enableWindowsInIVA))
-                {
+            Log.dbg("HSI: OnDraw()");
+            if (CameraManager.Instance.currentCameraMode == CameraManager.CameraMode.Flight || ((CameraManager.Instance.currentCameraMode == CameraManager.CameraMode.Internal || CameraManager.Instance.currentCameraMode == CameraManager.CameraMode.IVA) && GlobalVariables.Settings.enableWindowsInIVA))
+            {
                 if ((windowPosition.xMin + windowPosition.width) < 20) windowPosition.xMin = 20 - windowPosition.width;
                 if (windowPosition.yMin + windowPosition.height < 20) windowPosition.yMin = 20 - windowPosition.height;
                 if (windowPosition.xMin > Screen.width - 20) windowPosition.xMin = Screen.width - 20;
                 if (windowPosition.yMin > Screen.height - 20) windowPosition.yMin = Screen.height - 20;
 
                 windowPosition = new Rect(windowPosition.x,
-             windowPosition.y,
-             (int)(NavUtilLib.GlobalVariables.Settings.hsiPosition.width * NavUtilLib.GlobalVariables.Settings.hsiGUIscale),
-             (int)(NavUtilLib.GlobalVariables.Settings.hsiPosition.height * NavUtilLib.GlobalVariables.Settings.hsiGUIscale));
+                     windowPosition.y,
+                     (int)(NavUtilLib.GlobalVariables.Settings.hsiPosition.width * NavUtilLib.GlobalVariables.Settings.hsiGUIscale),
+                     (int)(NavUtilLib.GlobalVariables.Settings.hsiPosition.height * NavUtilLib.GlobalVariables.Settings.hsiGUIscale)
+                     );
 
                 windowPosition = GUI.Window(-471466245, windowPosition, OnWindow, "Horizontal Situation Indicator");
-        }
-            //Debug.Log(windowPosition.ToString());
+            }
+            Log.dbg("{0}", windowPosition);
         }
 
         private void DrawGauge(RenderTexture screen)
         {
-            if (NavUtilLib.GlobalVariables.Settings.enableDebugging)
-            {
-                Debug.Log("NavUtils: NavUtilLibApp.DrawGauge()");
-            }
+            Log.detail("NavUtils: NavUtilLibApp.DrawGauge()");
 
             NavUtilLib.GlobalVariables.FlightData.updateNavigationData();
 
@@ -205,12 +194,9 @@ namespace NavInstruments.NavUtilLib
 
         private void OnWindow(int WindowID)
         {
-            if (NavUtilLib.GlobalVariables.Settings.enableDebugging)
-            {
-                Debug.Log("NavUtils: NavUtilLibApp.OnWindow()");
-            }
+            Log.detail("NavUtils: NavUtilLibApp.OnWindow()");
 
-            //Debug.Log("HSI: OnWindow()");
+            Log.dbg("HSI: OnWindow()");
 
 
 
@@ -232,7 +218,7 @@ namespace NavInstruments.NavUtilLib
             if (GUI.Button(closeBtn, new GUIContent("CloseBtn", "closeOn")))
             {
                 //displayHSI();
-                //Debug.Log("CloseHSI");
+                Log.dbg("CloseHSI");
                 appButton.SetFalse(true);
                 //goto CloseWindow;
             }
@@ -318,15 +304,12 @@ namespace NavInstruments.NavUtilLib
 
         void Awake()
 		{
-            if (NavUtilLib.GlobalVariables.Settings.enableDebugging)
-            {
-                Debug.Log("NavUtils: NavUtilLibApp.Awake()");
-            }
+            Log.detail("NavUtils: NavUtilLibApp.Awake()");
 
             //load settings to config
             ConfigLoader.LoadSettings();
 
-            if(NavUtilLib.GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtil: useBlizzy? " + NavUtilLib.GlobalVariables.Settings.useBlizzy78ToolBar);
+            Log.detail("NavUtil: useBlizzy? " + NavUtilLib.GlobalVariables.Settings.useBlizzy78ToolBar);
 
 			if (NavUtilLib.GlobalVariables.Settings.useBlizzy78ToolBar && ToolbarManager.ToolbarAvailable) {
 				IToolbarManager toolbar = ToolbarManager.Instance;
@@ -411,13 +394,13 @@ namespace NavInstruments.NavUtilLib
 
         public void dEstroy(GameScenes g)
         {
-            //Debug.Log("NavUtils: Destorying App 1");
+            //Log.dbg("NavUtils: Destorying App 1");
 
             GameEvents.onGUIApplicationLauncherReady.Remove(AddButton);
 
             if (appButton != null)
             {
-                //Debug.Log("NavUtils: Destorying App 2");
+                //Log.dbg("NavUtils: Destorying App 2");
 
 
                 //save settings to config
@@ -433,10 +416,7 @@ namespace NavInstruments.NavUtilLib
 
         //void OnGUIReady()
         //{
-        //    if (NavUtilLib.GlobalVariables.Settings.enableDebugging)
-        //    {
-        //        Debug.Log("NavUtils: NavUtilLibApp.OnGUIReady()");
-        //    }
+        //    Log.dbg("NavUtils: NavUtilLibApp.OnGUIReady()");
 
         //    if (KSP.UI.Screens.ApplicationLauncher.Ready && !NavUtilLib.GlobalVariables.Settings.useBlizzy78ToolBar)
         //    {
@@ -465,7 +445,7 @@ namespace NavInstruments.NavUtilLib
 
         void onAppLaunchToggleOn()
         {
-            if (NavUtilLib.GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtils: onAppLaunchToggleOn");
+            Log.detail("NavUtils: onAppLaunchToggleOn");
             if(isHovering)
             {
                 if (Event.current.alt)
@@ -478,16 +458,14 @@ namespace NavInstruments.NavUtilLib
 
         Finish:
             ;
-            ////Debug.Log("onAppLaunchToggleOn");
+            ////Log.dbg("onAppLaunchToggleOn");
 
-            //Debug.Log(appButton.GetAnchor().ToString());
-            ////Debug.Log("State: " + appButton.State);
-            ////Debug.Log(appButton.transform.ToString());
-            //Debug.Log(appButton.transform.position.ToString());
-            //Debug.Log();
+            //Log.dbg("{0}", appButton.GetAnchor());
+            //Log.dbg("State: {0}", appButton.State);
+            //Log.dbg("{0}", appButton.transform);
+            //Log.dbg("{0}", appButton.transform.position);
 
-
-        if (NavUtilLib.GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtils: onAppLaunchToggleOn End");
+            Log.detail("NavUtils: onAppLaunchToggleOn End");
         }
 
 
@@ -495,7 +473,7 @@ namespace NavInstruments.NavUtilLib
 
         void onAppLaunchToggleOff()
         {
-            if (NavUtilLib.GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtils: onAppLaunchToggleOff");
+            Log.detail("NavUtils: onAppLaunchToggleOff");
             if (isHovering)
             {
                 if (Event.current.alt)
@@ -513,22 +491,22 @@ namespace NavInstruments.NavUtilLib
         }
         void onAppLaunchHoverOn()
         {
-            if (NavUtilLib.GlobalVariables.Settings.enableDebugging) Debug.Log("onHover");
+            Log.detail("onHover");
 
             isHovering = true;
         }
         void onAppLaunchHoverOff()
         {
-            if (NavUtilLib.GlobalVariables.Settings.enableDebugging) Debug.Log("offHover");
+            Log.detail("offHover");
             isHovering = false;
         }
         void onAppLaunchEnable()
         {
-            if (NavUtilLib.GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtils: onAppLaunchEnable");
+            Log.detail("NavUtils: onAppLaunchEnable");
         }
         void onAppLaunchDisable()
         {
-            if (NavUtilLib.GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtils: onAppLaunchDisable");
+            Log.detail("NavUtils: onAppLaunchDisable");
         }
 
         bool isApplicationTrue()

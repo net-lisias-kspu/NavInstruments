@@ -18,7 +18,7 @@ namespace NavInstruments.NavUtilLib
             //foreach (ConfigNode node in runways.GetNodes("Runway"))
 			foreach (ConfigNode node in GameDatabase.Instance.GetConfigNodes("Runway"))
             {
-                if (GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtil: Found Runway Node");
+                Log.detail("NavUtil: Found Runway Node");
 
                 try
                 {
@@ -26,7 +26,7 @@ namespace NavInstruments.NavUtilLib
 
                     rwy.ident = node.GetValue("ident");
 
-                    if (GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtil: Loading " + rwy.ident);
+                    Log.detail("NavUtil: Loading " + rwy.ident);
 
                     
                     rwy.shortID = node.GetValue("shortID");
@@ -50,11 +50,11 @@ namespace NavInstruments.NavUtilLib
 
                     runwayList.Add(rwy);
 
-                    if (GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtil: Found " + rwy.ident);
+                    Log.detail("NavUtil: Found " + rwy.ident);
                 }
                 catch (Exception)
                 {
-                    if (GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtil: Error loading runway");
+                    Log.detail("NavUtil: Error loading runway");
                     throw;
                 }
 
@@ -107,7 +107,7 @@ namespace NavInstruments.NavUtilLib
 
         public static void LoadSettings()
         {
-            Debug.Log("NavUtil: Loading Settings");
+            Log.info("NavUtil: Loading Settings");
             if (SETTINGS.IsLoadable) SETTINGS.Load();
             
             KSPe.ConfigNodeWithSteroids settings = SETTINGS.NodeWithSteroids;

@@ -95,24 +95,24 @@ namespace NavInstruments.NavUtilLib.Analog
 
         public override void OnAwake()
         {
-            if (NavUtilLib.GlobalVariables.Settings.enableDebugging)
+            if (Log.debuglevel > 3)
             {
                 Transform[] t1 = internalProp.FindModelComponents<Transform>();
                 foreach (Transform t0 in t1)
                 {
-                    if (NavUtilLib.GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtil: found " + t0.name);
+                    Log.detail("NavUtil: found {0}", t0.name);
                 }
             }
 
-            if (NavUtilLib.GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtil: Before compassObject");
+            Log.detail("NavUtil: Before compassObject");
             compass = internalProp.FindModelTransform(compassObject);
             compassInit = compass.transform.localRotation;
 
-            if (NavUtilLib.GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtil: Before brgObject");
+            Log.detail("NavUtil: Before brgObject");
             brgBug = internalProp.FindModelTransform(brgObject);
             brgBugInt = brgBug.transform.localRotation;
 
-            if (NavUtilLib.GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtil: Before locNeedleObject");
+            Log.detail("NavUtil: Before locNeedleObject");
             locNeedle = internalProp.FindModelTransform(locNeedleObject);
 
             locNeedle.parent = brgBug;
@@ -122,11 +122,11 @@ namespace NavInstruments.NavUtilLib.Analog
 
 
 
-            if (NavUtilLib.GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtil: Before gsNeedleObject");
+            Log.detail("NavUtil: Before gsNeedleObject");
             gsNeedle = internalProp.FindModelTransform(gsNeedleObject);
             gsInit = gsNeedle.transform.localPosition;
 
-            if (NavUtilLib.GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtil: Before crsRotObject");
+            Log.detail("NavUtil: Before crsRotObject");
             crsBug = internalProp.FindModelTransform(crsRotObject);
             crsBugInt = crsBug.transform.localRotation;
 
@@ -161,7 +161,7 @@ namespace NavInstruments.NavUtilLib.Analog
 
 
 
-            if (GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtil: Starting systems...");
+            Log.detail("NavUtil: Starting systems...");
             if (!NavUtilLib.GlobalVariables.Settings.navAidsIsLoaded)
                 NavUtilLib.GlobalVariables.Settings.loadNavAids();
 
@@ -170,7 +170,7 @@ namespace NavInstruments.NavUtilLib.Analog
 
 
 
-            if (GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtil: Systems started successfully!");
+            Log.detail("NavUtil: Systems started successfully!");
 
         }
 
@@ -187,7 +187,7 @@ namespace NavInstruments.NavUtilLib.Analog
 
             float rotAmt = ((float)NavUtilLib.GlobalVariables.FlightData.rwyIdx / (float)NavUtilLib.GlobalVariables.FlightData.currentBodyRunways.Count()) * 360;
 
-            //if (GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtil: hdgKnob Rot " + rotAmt);
+            Log.detail("NavUtil: hdgKnob Rot " + rotAmt);
 
             hdgKnob.localRotation = hdgKnobInit * Quaternion.AngleAxis(rotAmt, Vector3.forward);
 
@@ -213,14 +213,14 @@ namespace NavInstruments.NavUtilLib.Analog
         private void RunOnce()
         {
             //find internallabel
-            if (NavUtilLib.GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtil: iM look");
+            Log.detail("NavUtil: iM look");
             var iM = internalProp.internalModules.First(m => m.GetType() == typeof(InternalLabel));
 
-            if (NavUtilLib.GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtil: iM found, casting...");
+            Log.detail("NavUtil: iM found, casting...");
 
             rwyLabel = (InternalLabel)iM;
 
-            if (NavUtilLib.GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtil: iM Cast!");
+            Log.detail("NavUtil: iM Cast!");
 
             rwyLabel.SetText(NavUtilLib.GlobalVariables.FlightData.currentBodyRunways[NavUtilLib.GlobalVariables.FlightData.rwyIdx].shortID);
 
@@ -237,7 +237,7 @@ namespace NavInstruments.NavUtilLib.Analog
             //NavUtilLib.GlobalVariables.Audio.initializeAudio(); //we don't even play audio, so screw initializing it when all it'll do is cause errors
 
 
-            //Debug.Log("NavUtil: pos " + rwyIDObject.transform.localPosition);
+            //Log.info("NavUtil: pos " + rwyIDObject.transform.localPosition);
 
             //rwyIDObject.transform.localRotation.SetEulerRotation(rwyIDObject.transform.localRotation.eulerAngles.x + 1,
             //    rwyIDObject.transform.localRotation.eulerAngles.y + 2,
@@ -384,9 +384,9 @@ namespace NavInstruments.NavUtilLib.Analog
     //    {
 
 
-    ////        Debug.Log("NavUtil: NavUtilRadioStack OnAwake()");
+    ////        Log.fino("NavUtil: NavUtilRadioStack OnAwake()");
 
-    ////        Debug.Log("NavUtil: Looking for "+ nRwyObjectName);
+    ////        Log.info("NavUtil: Looking for {0}", nRwyObjectName);
 
     ////        // = this.internalProp.FindModelTransform(nRwyObjectName);
 
@@ -394,26 +394,26 @@ namespace NavInstruments.NavUtilLib.Analog
 
     ////        //Transform[] t2 = InternalModel.FindObjectsOfType<Transform>();
 
-    ////        //Debug.Log("NavUtil: " + internalModel.FindModelTransform("nRwyObjectName").name);
+    ////        //Log.info("NavUtil: " + internalModel.FindModelTransform("nRwyObjectName").name);
 
             
 
 
     //////        foreach (Transform t in t2)
     //////{
-    //////                    Debug.Log("NavUtil: " + t.name);
+    //////                    Log.info("NavUtil: {0}", t.name);
     //////}
 
 
     ////        //Transform[] t1 = internalProp.FindModelTransforms();
 
-    ////        Debug.Log("NavUtil: Added some to array " + t1.Count());
+    ////        Log.info("NavUtil: Added some to array " + t1.Count());
 
     ////       // Transform t;
 
     ////        foreach (Transform t0 in t1)
     ////        {
-    ////            Debug.Log("NavUtil: found " + t0.name);
+    ////            Log.info("NavUtil: found {0}", t0.name);
 
     ////            if (t0.name == nRwyObjectName)
     ////            {
@@ -422,7 +422,7 @@ namespace NavInstruments.NavUtilLib.Analog
 
 
 
-    ////                Debug.Log("NavUtil: transform location " + t0.position);
+    ////                Log.info("NavUtil: transform location {0}", t0.position);
 
     ////                bool b = false;
 
@@ -431,19 +431,19 @@ namespace NavInstruments.NavUtilLib.Analog
     ////                if (t0.gameObject == null)
     ////                    b = true;
 
-    ////                Debug.Log("NavUtil: gameObject null? " + b);
+    ////                Log.info("NavUtil: gameObject null? {0}", b);
 
     ////                InternalButton nRwy = InternalButton.Create(t0.gameObject);
 
-    ////                Debug.Log("NavUtil: After .Create()");
-    ////                //Debug.Log("NavUtil: Found " + nRwyObjectName +" hh");
+    ////                Log.info("NavUtil: After .Create()");
+    ////                //Log.info("NavUtil: Found {0} hh", nRwyObjectName);
 
     ////                //nRwy = new InternalButton();
 
 
 
 
-    ////                //Debug.Log("NavUtil: initilized button");
+    ////                //Log.info("NavUtil: initilized button");
 
 
 
@@ -465,7 +465,7 @@ namespace NavInstruments.NavUtilLib.Analog
 
     //    private void nRwyClick()
     //    {
-    //        Debug.Log("NavUtil: nRwyClick()");
+    //        Log.info("NavUtil: nRwyClick()");
     //    }
         
     //}
@@ -515,8 +515,8 @@ namespace NavInstruments.NavUtilLib.Analog
                     break;
 
                 default:
-                        Debug.Log("NavUtilLib.AnalogGaugeUtils.single_Axis_Rotate: No axis found");
-                        break;
+                    Log.warn("NavUtilLib.AnalogGaugeUtils.single_Axis_Rotate: No axis found");
+                    break;
             }
 
             gameObject.transform.Rotate(axisVector, amountDegs);
@@ -544,7 +544,7 @@ namespace NavInstruments.NavUtilLib.Analog
                     break;
 
                 default:
-                    Debug.Log("NavUtilLib.AnalogGaugeUtils.single_Axis_Translate: No axis found");
+                    Log.warn("NavUtilLib.AnalogGaugeUtils.single_Axis_Translate: No axis found");
                     break;
             }
 

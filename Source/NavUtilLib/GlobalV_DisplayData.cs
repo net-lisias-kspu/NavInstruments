@@ -45,7 +45,7 @@ namespace NavInstruments.NavUtilLib
 
             public static void DrawHSI2(RenderTexture screen, float aspectRatio) // a testing method
             {
-                if (NavUtilLib.GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtils: DrawHSI() (Test)");
+                Log.detail("NavUtils: DrawHSI() (Test)");
                 
                 
                 
@@ -54,21 +54,21 @@ namespace NavInstruments.NavUtilLib
                 GL.Viewport(new Rect(0, 0, screen.width, screen.height));
                 GL.Clear(true, true, Color.green);
 
-                if (NavUtilLib.GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtils: DrawHSI() (Test)" + var.Materials.Instance.overlay.color);
-                if (NavUtilLib.GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtils: " + screen.height + " " + screen.width);
+                Log.detail("NavUtils: DrawHSI() (Test)" + var.Materials.Instance.overlay.color);
+                Log.detail("NavUtils: " + screen.height + " " + screen.width);
 
-                if (NavUtilLib.GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtils: " + var.Materials.Instance.overlay.mainTexture.height + " " + var.Materials.Instance.overlay.mainTexture.width);
+                Log.detail("NavUtils: " + var.Materials.Instance.overlay.mainTexture.height + " " + var.Materials.Instance.overlay.mainTexture.width);
 
                 screen = NavUtilLib.NavUtilGraphics.drawMovedImage(var.Materials.Instance.overlay, screen, new Vector2(0, 0), false, false);
 
                 GL.PopMatrix();
 
-                if (NavUtilLib.GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtils: End DrawHSI() (Test)");
+                Log.detail("NavUtils: End DrawHSI() (Test)");
             }
 
             public static void DrawHSI(RenderTexture screen, float aspectRatio) //DrawHSI
             {
-                if (NavUtilLib.GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtils: DrawHSI()");
+                Log.detail("NavUtils: DrawHSI()");
 
                 var.FlightData.updateNavigationData();
 
@@ -86,7 +86,7 @@ namespace NavInstruments.NavUtilLib
                     bcFlag = true;
                 }
 
-                if (NavUtilLib.GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtils: DrawHSI() PushMatrix");
+                Log.detail("NavUtils: DrawHSI() PushMatrix");
 
                 GL.PushMatrix();
 
@@ -94,14 +94,14 @@ namespace NavInstruments.NavUtilLib
                 GL.Viewport(new Rect(0, 0, screen.width, screen.height));
                 GL.Clear(true, true, Color.black);
 
-                if (NavUtilLib.GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtils: DrawHSI() EndGL");
+                Log.detail("NavUtils: DrawHSI() EndGL");
 
                 screen = NavUtilLib.NavUtilGraphics.drawMovedImage(var.Materials.Instance.back, screen, new Vector2(0, 0), false, true);
                 screen = NavUtilLib.NavUtilGraphics.drawCenterRotatedImage(360 - FlightGlobals.ship_heading, new Vector2(.5f, .5f), var.Materials.Instance.headingCard, screen, 0, 0);
                 screen = NavUtilLib.NavUtilGraphics.drawCenterRotatedImage(360 - FlightGlobals.ship_heading + (float)var.FlightData.bearing, new Vector2(.5f, .5f), var.Materials.Instance.NDBneedle, screen, 0, 0);
                 screen = NavUtilLib.NavUtilGraphics.drawCenterRotatedImage(360 - FlightGlobals.ship_heading + (float)var.FlightData.selectedRwy.hdg, new Vector2(.5f, .5f), var.Materials.Instance.course, screen, 0, 0);
 
-                if (NavUtilLib.GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtils: DrawHSI() EndBasicDraws");
+                Log.detail("NavUtils: DrawHSI() EndBasicDraws");
 
                 bool fineLoc = false;
 
@@ -178,7 +178,7 @@ namespace NavInstruments.NavUtilLib
                     if (!var.FlightData.isINSMode() && (Math.Abs(gsHorDev) < 25) && (var.FlightData.dme < 120000))
                         gsFlag = false;
 
-                    if (NavUtilLib.GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtils: DrawHSI() Start MkrBcn");
+                    Log.detail("NavUtils: DrawHSI() Start MkrBcn");
                     //checkmkrbcn
                     lastBcnCode = bcnCode;
 
@@ -211,7 +211,7 @@ namespace NavInstruments.NavUtilLib
 
                     var deltaTime = Planetarium.GetUniversalTime() - timer;
 
-                    if (NavUtilLib.GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtils: DrawHSI() Bcn Case");
+                    Log.detail("NavUtils: DrawHSI() Bcn Case");
 
                     switch (bcnCode)
                     {
@@ -238,7 +238,7 @@ namespace NavInstruments.NavUtilLib
                             break;
                     }
 
-                    if (NavUtilLib.GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtils: DrawHSI() PreMarkerBcn");
+                    Log.detail("NavUtils: DrawHSI() PreMarkerBcn");
 
                     if (drawUnlit || bcnCode == 0)
                     {
@@ -270,7 +270,7 @@ namespace NavInstruments.NavUtilLib
                     screen = NavUtilLib.NavUtilGraphics.drawMovedImagePortion(var.Materials.Instance.mkrbcn, .75f, 1, 0, 1, screen, new Vector2(.046875f, .0203125f), false);
                 }
 
-                if (NavUtilLib.GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtils: DrawHSI() PreGS");
+                Log.detail("NavUtils: DrawHSI() PreGS");
 
                 //find vertical location of pointer
                 float yO = -0.3125f * var.FlightData.gsDeviation;
@@ -279,7 +279,7 @@ namespace NavInstruments.NavUtilLib
                 yO += 0.3609375f;
 
 
-                if (NavUtilLib.GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtils: DrawHSI() PreGS Flag");
+                Log.detail("NavUtils: DrawHSI() PreGS Flag");
 
                 if (gsFlag)
                     screen = NavUtilLib.NavUtilGraphics.drawMovedImagePortion(var.Materials.Instance.flag, .65625f, 1, 0, 1, screen, new Vector2(.821875f, 0.2390625f), false);
@@ -288,7 +288,7 @@ namespace NavInstruments.NavUtilLib
 
                 GL.PopMatrix();
 
-                if (NavUtilLib.GlobalVariables.Settings.enableDebugging) Debug.Log("NavUtils: End DrawHSI()");
+                Log.detail("NavUtils: End DrawHSI()");
             }
 
 
@@ -388,20 +388,20 @@ namespace NavInstruments.NavUtilLib
 
                 //DigitalAlt
                 NavUtilLib.TextWriter.addTextToRT(
-    screen,
-    string.Format("{0:F0}", (float)var.FlightData.currentVessel.altitude),
-    new Vector2(464 + 2, 305 + 2),
-    NavUtilLib.GlobalVariables.Materials.Instance.whiteFont,
-    .5f);
+                    screen,
+                    string.Format("{0:F0}", (float)var.FlightData.currentVessel.altitude),
+                    new Vector2(464 + 2, 305 + 2),
+                    NavUtilLib.GlobalVariables.Materials.Instance.whiteFont,
+                    .5f);
 
                 //RdrAlt
                 float rdrAlt = 0;
                 //rdrAlt = Mathf.Max(0, (float)var.FlightData.currentVessel.pqsAltitude);
-                //int counter = 0;
+                int counter = 0;
 
                 rdrAlt = (float)var.FlightData.currentVessel.altitude;
                 rdrAlt -= (var.FlightData.currentVessel.terrainAltitude > 0) ? (float)var.FlightData.currentVessel.terrainAltitude : 0;
-                //Debug.Log("AI rdrAlt: " + rdrAlt);
+                Log.detail("AI rdrAlt: {0}", rdrAlt);
                 if (rdrAlt < 750)
                 {
                     float dialRot = 90;
@@ -409,45 +409,43 @@ namespace NavInstruments.NavUtilLib
                     if (rdrAlt <= 10)
                     {
                         dialRot += rdrAlt * 4.5f;
-                        //counter += 1;
+                        counter += 1;
                     }
                     else
 
                         if (rdrAlt <= 50)
                         {
                             dialRot += rdrAlt * 1.125f + 33.75f;
-                            //counter += 10;
+                            counter += 10;
                         }
                         else
                             if (rdrAlt <= 100)
                             {
                                 dialRot += rdrAlt * 0.9f + 45;
-                                //counter += 100;
+                                counter += 100;
                             }
                             else
                                 if (rdrAlt <= 200)
                                 {
                                     dialRot += rdrAlt * 0.45f + 90;
-                                    //counter += 1000;
+                                    counter += 1000;
                                 }
                                 else
                                     if (rdrAlt <= 500)
                                     {
                                         dialRot += rdrAlt * 0.3f + 120;
-                                        //counter += 10000;
+                                        counter += 10000;
                                     }
                                     else
                                     {
                                         dialRot = 0;
-                                        //counter += 100000;
+                                        counter += 100000;
                                     }
 
-                    //Debug.Log("AI rdrAlt: " + rdrAlt.ToString() + " Ctr: " + counter.ToString() + " Rot: " + dialRot.ToString());
+                    Log.detail("AI rdrAlt: {0} Ctr: {0} Rot: {0}", rdrAlt,  counter, dialRot);
 
                     screen = NavUtilLib.NavUtilGraphics.drawMovedImage(var.Materials.Instance.AI_Radar, screen, new Vector2(partImgPer * 461, partImgPer * 2), false, false);
                     screen = NavUtilLib.NavUtilGraphics.drawCenterRotatedImage(dialRot, new Vector2(partImgPer * 549, partImgPer * 91), var.Materials.Instance.AI_RadarDial, screen, partImgPer * -26, partImgPer * 0);
-                    ;
-                    
                 }
 
                 

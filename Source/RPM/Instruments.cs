@@ -101,10 +101,10 @@ namespace NavInstruments.KSFRPMHSI
             //{
             //    var v = var.FlightData.currentVessel;
             //    var r = var.FlightData.selectedRwy;
-            //    Debug.Log("Lat: " + v.latitude + " Lon: " + v.longitude + " GCD: " + NavUtilLib.Utils.CalcGreatCircleDistance(v.latitude, v.longitude, r.gsLatitude, r.gsLongitude, r.body));
+            //    Log.detail("Lat: " + v.latitude + " Lon: " + v.longitude + " GCD: " + NavUtilLib.Utils.CalcGreatCircleDistance(v.latitude, v.longitude, r.gsLatitude, r.gsLongitude, r.body));
             //}
 
-            //Debug.Log("ButtonID: " + buttonID);
+            //Log.detail("ButtonID: " + buttonID);
 
             var.FlightData.rwyIdx = Utils.indexChecker(var.FlightData.rwyIdx, var.FlightData.currentBodyRunways.Count - 1, 0);
             var.FlightData.gsIdx = Utils.indexChecker(var.FlightData.gsIdx, var.FlightData.gsList.Count - 1, 0);
@@ -115,7 +115,7 @@ namespace NavInstruments.KSFRPMHSI
 
         public void Start()
         {
-            if (var.Settings.enableDebugging) Debug.Log("MLS: Starting systems...");
+            Log.detail("MLS: Starting systems...");
             if (!var.Settings.navAidsIsLoaded)
                 var.Settings.loadNavAids();
 
@@ -125,7 +125,7 @@ namespace NavInstruments.KSFRPMHSI
             //if (!var.Audio.isLoaded)
                 var.Audio.initializeAudio();
 
-                if (var.Settings.enableDebugging) Debug.Log("MLS: Systems started successfully!");
+                Log.detail("MLS: Systems started successfully!");
 
             //doneLoading = true;
         }
@@ -154,12 +154,12 @@ namespace NavInstruments.KSFRPMHSI
 
         public void Start()
         {
-            if (var.Settings.enableDebugging) Debug.Log("NavUtils AI: Starting systems...");
+            Log.detail("NavUtils AI: Starting systems...");
 
             if (!var.Materials.isLoaded)
                 var.Materials.loadMaterials();
 
-            if (var.Settings.enableDebugging) Debug.Log("NavUtils AI: Systems started successfully!");
+            Log.detail("NavUtils AI: Systems started successfully!");
 
         }
     }

@@ -13,9 +13,7 @@ namespace NavInstruments.NavUtilRPM
     {
         new public void OnAwake()
         {
-            if (NavUtilLib.GlobalVariables.Settings.enableDebugging)
-                Debug.Log("NavUtils: ModuleNavUtilsInfo.OnAwake()");
-
+            Log.detail("NavUtils: ModuleNavUtilsInfo.OnAwake()");
 
             //load settings from config
             NavUtilLib.ConfigLoader.LoadSettings();
@@ -33,8 +31,7 @@ namespace NavInstruments.NavUtilRPM
         //selectedGlideSlope, bearing, dme, elevationAngle, locDeviation, gsDeviation, runwayHeading
         public object NavInfo(string s)
         {
-            if (NavUtilLib.GlobalVariables.Settings.enableDebugging)
-                Debug.Log("NavUtils: ModuleNavUtilsInfo.NavInfo() " + s);
+            Log.detail("NavUtils: ModuleNavUtilsInfo.NavInfo() " + s);
 
             FlightData.updateNavigationData();
 
