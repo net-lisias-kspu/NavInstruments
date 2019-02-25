@@ -130,7 +130,11 @@ namespace NavInstruments.NavUtilLib
             //GlobalVariables.Settings.settingsGUI.width = settings.GetValue<float>("settingsGUIWidth", ???f);
             //GlobalVariables.Settings.settingsGUI.height = settings.GetValue<float>("settingsGUIHeight", ???f);
             {
+#if DEBUG
+                bool debugMode = settings.GetValue<bool>("debug", true);
+#else
                 bool debugMode = settings.GetValue<bool>("debug", false);
+#endif                
                 Log.debuglevel = debugMode ? 5 : 3;
             }
         }
