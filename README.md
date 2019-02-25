@@ -1,14 +1,18 @@
-NavUtilities Unofficial
-=================================
+# NavInstruments (Archive)
 
-This is a continuation of NavInstruments mod by kujuman. This is an **unofficial** fork by Lisias.
+Adds a horizontal situation indicator with integrated ILS functionality to a popup window or your RPM cockpit.
+
+Unofficial fork by Lisias.
 
 
-In a Hurry
-----------
-Propeller plane and helicopter part modules for Kerbal Space Program.
+## In a Hurry
 
-* [Binaries](./Archive)
-	+ [Latest Release](https://github.com/net-lisias-kspu/NavUtilities/releases)
-* [Source](https://github.com/net-lisias-kspu/NavUtilities)
-* [Change Log](./CHANGE_LOG.md)
+* [Latest Release](https://github.com/net-lisias-kspu/NavInstruments/releases)
+	+ [Binaries](https://github.com/net-lisias-kspu/NavInstruments/tree/Archive)
+* [Source](https://github.com/net-lisias-kspu/NavInstruments)
+* Documentation
+	+ [Project's README](https://github.com/net-lisias-kspu/NavInstruments/blob/master/README.md)
+	+ [Install Instructions](https://github.com/net-lisias-kspu/NavInstruments/blob/master/INSTALL.md)
+	+ [Tech Docs](https://github.com/net-lisias-kspu/NavInstruments/blob/master/Docs/index.md)
+	+ [Change Log](./CHANGE_LOG.md)
+
