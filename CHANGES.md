@@ -1,5 +1,4 @@
-NavUtilities Unofficial :: Change Log
-=================================
+# NavInstruments /L Unofficial :: Changes
 
 * 2018-0726: v0.7.2.1 (Lisias) for KSP 1.4.x LATEST
 	+ Added KSP-AVC support
