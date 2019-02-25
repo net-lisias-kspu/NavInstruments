@@ -8,6 +8,10 @@ using NavInstruments.NavUtilLib;
 using var = NavInstruments.NavUtilLib.GlobalVariables;
 //using ToolbarWrapper;
 
+namespace NavInstruments
+{ 
+    public class KSPeHack { }
+}
 
 namespace NavInstruments.NavUtilLib
 {
@@ -311,7 +315,7 @@ namespace NavInstruments.NavUtilLib
 			if (NavUtilLib.GlobalVariables.Settings.useBlizzy78ToolBar && ToolbarManager.ToolbarAvailable) {
 				IToolbarManager toolbar = ToolbarManager.Instance;
 				toolbarButton = toolbar.add("NavUtilities", "NavUtilButton");
-				toolbarButton.TexturePath = KSPe.IO.File<NavUtilLibApp>.Asset.Solve("Toolbar/toolbarButton.png");
+				toolbarButton.TexturePath = KSPe.IO.File<KSPeHack>.Asset.Solve("Toolbar/toolbarButton.png");
 				toolbarButton.OnClick += (clickEvent => {
 					isHovering = true;
 					onAppLaunchToggleOn();

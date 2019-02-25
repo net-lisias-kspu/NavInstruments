@@ -8,8 +8,8 @@ namespace NavInstruments.NavUtilLib
 {
     public static class ConfigLoader
     {
-        private static readonly KSPe.IO.Data.ConfigNode SETTINGS = KSPe.IO.Data.ConfigNode.ForType<NavUtilLibApp>("NavUtilSettings", "settings.cfg");
-        private static readonly KSPe.IO.Data.ConfigNode CUSTOM_RUNWAYS = KSPe.IO.Data.ConfigNode.ForType<NavUtilLibApp>("Runways", "customRunways.cfg");
+        private static readonly KSPe.IO.Data.ConfigNode SETTINGS = KSPe.IO.Data.ConfigNode.ForType<KSPeHack>("NavUtilSettings", "settings.cfg");
+        private static readonly KSPe.IO.Data.ConfigNode CUSTOM_RUNWAYS = KSPe.IO.Data.ConfigNode.ForType<KSPeHack>("Runways", "customRunways.cfg");
 
         public static System.Collections.Generic.List<Runway> GetRunwayListFromConfig()
         {

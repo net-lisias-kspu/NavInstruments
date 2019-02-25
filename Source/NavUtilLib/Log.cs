@@ -7,7 +7,7 @@ namespace NavInstruments.NavUtilLib
 {
     public static class Log
     {
-        private static readonly Logger LOG = Logger.CreateForType<NavUtilLibApp>();
+        private static readonly Logger LOG = Logger.CreateForType<KSPeHack>();
 
         public static int debuglevel {
             get => (int)LOG.level;

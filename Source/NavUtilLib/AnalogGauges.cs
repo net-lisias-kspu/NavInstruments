@@ -156,19 +156,13 @@ namespace NavInstruments.NavUtilLib.Analog
             dmeInt[2] = dme[2].transform.localRotation;
             dmeInt[3] = dme[3].transform.localRotation;
 
-
-
-
-
-
             Log.detail("NavUtil: Starting systems...");
+            
             if (!NavUtilLib.GlobalVariables.Settings.navAidsIsLoaded)
                 NavUtilLib.GlobalVariables.Settings.loadNavAids();
 
             if (!NavUtilLib.GlobalVariables.Materials.isLoaded)
                 NavUtilLib.GlobalVariables.Materials.loadMaterials();
-
-
 
             Log.detail("NavUtil: Systems started successfully!");
 
