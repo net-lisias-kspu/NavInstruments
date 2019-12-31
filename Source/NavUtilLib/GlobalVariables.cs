@@ -367,15 +367,39 @@ namespace NavInstruments.NavUtilLib
                 isLoaded = true;
             }
 
-            public void PlayOneShot(string name)
+            public void PlayClick()
             {
-                this.markerAudio.PlayOneShot(this.getAudio(name));
+                Log.detail("Click!");
+                this.PlayOneShot("click", 0.33f);
+            }
+
+            public void PlayOuter()
+            {
+                Log.detail("DME outer");
+                this.PlayOneShot("outer", 0.8f);
+            }
+
+            public void PlayMiddle()
+            {
+                Log.detail("DME middle");
+                this.PlayOneShot("middle", 0.5f);
+            }
+
+            public void PlayInner()
+            {
+                Log.detail("DME inner");
+                this.PlayOneShot("inner", 0.25f);
+            }
+
+            private void PlayOneShot(string name, float volume)
+            {
+                this.markerAudio.PlayOneShot(this.getAudio(name), volume);
             }
 
             private AudioClip getAudio(string clipName) {
-                return GameDatabase.Instance.GetAudioClip(
-                    KSPe.GameDB.Asset<KSPeHack>.Solve(Path.Combine("Audio", clipName), Common.KSPE_CACHE)
-                );
+                string path = KSPe.GameDB.Asset<KSPeHack>.Solve(Path.Combine("Audio", clipName), Common.KSPE_CACHE);
+                Log.dbg(path);
+                return GameDatabase.Instance.GetAudioClip(path);
             }
 
             public void Stop()

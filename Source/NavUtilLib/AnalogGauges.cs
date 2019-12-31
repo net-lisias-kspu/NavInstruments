@@ -187,7 +187,7 @@ namespace NavInstruments.NavUtilLib.Analog
 
             rwyLabel.SetText(NavUtilLib.GlobalVariables.FlightData.currentBodyRunways[NavUtilLib.GlobalVariables.FlightData.rwyIdx].shortID);
 
-			NavUtilLib.GlobalVariables.Audio.Instance.PlayOneShot("click");
+			NavUtilLib.GlobalVariables.Audio.Instance.PlayClick();
         }
 
         private void OnCrsBtnClick()
@@ -201,7 +201,7 @@ namespace NavInstruments.NavUtilLib.Analog
 
             crsKnob.localRotation = crsKnobInit * Quaternion.AngleAxis(((float)NavUtilLib.GlobalVariables.FlightData.gsIdx / (float)NavUtilLib.GlobalVariables.FlightData.gsList.Count()) * 360, Vector3.forward);
 
-			NavUtilLib.GlobalVariables.Audio.Instance.PlayOneShot("click");
+			NavUtilLib.GlobalVariables.Audio.Instance.PlayClick();
         }
 
         private void RunOnce()

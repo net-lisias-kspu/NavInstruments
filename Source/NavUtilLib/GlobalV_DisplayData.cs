@@ -193,15 +193,15 @@ namespace NavInstruments.NavUtilLib
                         switch (bcnCode)
                         {
                             case 1:
-						        var.Audio.Instance.PlayOneShot("outer");
+						        var.Audio.Instance.PlayOuter();
                                 break;
 
                             case 2:
-						        var.Audio.Instance.PlayOneShot("middle");
+						        var.Audio.Instance.PlayMiddle();
                                 break;
 
                             case 3:
-						        var.Audio.Instance.PlayOneShot("inner");
+						        var.Audio.Instance.PlayInner();
                                 break;
 
                             default:
