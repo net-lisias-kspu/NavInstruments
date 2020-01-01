@@ -12,7 +12,7 @@ namespace NavInstruments.NavUtilLib
         /// <returns>double in degrees</returns>
         public static double CalcBearingToBeacon(Vessel thisVessel, Runway currentRwy)
         {
-            var lonDelta = currentRwy.locLongitude - thisVessel.longitude;
+            double lonDelta = currentRwy.locLongitude - thisVessel.longitude;
             return Utils.CalcBearingTo(Utils.CalcRadiansFromDeg(lonDelta), Utils.CalcRadiansFromDeg(thisVessel.latitude), Utils.CalcRadiansFromDeg(currentRwy.locLatitude));
         }
 
@@ -124,7 +124,7 @@ namespace NavInstruments.NavUtilLib
         /// <returns>float in degrees</returns>
         public static float CalcLocalizerDeviation(double bearingToLoc, Runway currentRwy)
         {
-            var RwyHdgCorrection = 180 - Utils.makeAngle0to360(currentRwy.hdg);
+            double RwyHdgCorrection = 180 - Utils.makeAngle0to360(currentRwy.hdg);
             
             return (float) (Utils.makeAngle0to360(currentRwy.hdg + RwyHdgCorrection) - Utils.makeAngle0to360(bearingToLoc + RwyHdgCorrection));
 
@@ -155,22 +155,22 @@ namespace NavInstruments.NavUtilLib
         #region relative position calculators
         public static double CalcDistance(double lat1, double lon1, double altMSL1, double lat2, double lon2, double altMSL2, string bodyName)
         {
-            var cBody = FlightGlobals.Bodies.Find(body => body.name == bodyName);
+            CelestialBody cBody = FlightGlobals.Bodies.Find(body => body.name == bodyName);
 
-            var x = cBody.GetWorldSurfacePosition(lat1, lon1, altMSL1);
-            var y = cBody.GetWorldSurfacePosition(lat2, lon2, altMSL2);
+            Vector3d x = cBody.GetWorldSurfacePosition(lat1, lon1, altMSL1);
+            Vector3d y = cBody.GetWorldSurfacePosition(lat2, lon2, altMSL2);
 
-            var dist = Vector3d.Distance(x, y);
+            double dist = Vector3d.Distance(x, y);
 
             return dist;
         }
 
         public static double CalcElevationFrom(double lat1, double lon1, double altMSL1, double lat2, double lon2, double altMSL2, string bodyName)
         {
-            var cBody = FlightGlobals.Bodies.Find(body => body.name == bodyName);
+            CelestialBody cBody = FlightGlobals.Bodies.Find(body => body.name == bodyName);
 
-            var x = cBody.GetWorldSurfacePosition(lat1, lon1, altMSL1);
-            var y = cBody.GetWorldSurfacePosition(lat2, lon2, altMSL2);
+            Vector3d x = cBody.GetWorldSurfacePosition(lat1, lon1, altMSL1);
+            Vector3d y = cBody.GetWorldSurfacePosition(lat2, lon2, altMSL2);
 
             Vector3d targetDir = y - x;
 
@@ -185,11 +185,11 @@ namespace NavInstruments.NavUtilLib
 
         public static double CalcBearingTo(double deltaLon, double startLat, double endLat)
         {
-            var y = Math.Sin(deltaLon) * Math.Cos(endLat);
+            double y = Math.Sin(deltaLon) * Math.Cos(endLat);
 
-            var x = (Math.Cos(startLat) * Math.Sin(endLat)) - (Math.Sin(startLat) * Math.Cos(endLat) * Math.Cos(deltaLon));
+            double x = (Math.Cos(startLat) * Math.Sin(endLat)) - (Math.Sin(startLat) * Math.Cos(endLat) * Math.Cos(deltaLon));
 
-            var brng = Math.Atan2(y, x);
+            double brng = Math.Atan2(y, x);
 
             brng = CalcDegFromRadians(brng);
 
@@ -200,31 +200,31 @@ namespace NavInstruments.NavUtilLib
 
         public static double CalcGreatCircleDistance(double lat1, double lon1, double lat2, double lon2, string bodyName)
         {
-            var φ1 = CalcRadiansFromDeg(lat1);
-            var φ2 = CalcRadiansFromDeg(lat2);
-            var Δφ = CalcRadiansFromDeg(lat2 - lat1);
-            var Δλ = CalcRadiansFromDeg(lon2 - lon1);
+            double φ1 = CalcRadiansFromDeg(lat1);
+            double φ2 = CalcRadiansFromDeg(lat2);
+            double Δφ = CalcRadiansFromDeg(lat2 - lat1);
+            double Δλ = CalcRadiansFromDeg(lon2 - lon1);
 
-            var a = Math.Sin(Δφ / 2) * Math.Sin(Δφ / 2) +
+            double a = Math.Sin(Δφ / 2) * Math.Sin(Δφ / 2) +
                 Math.Cos(φ1) * Math.Cos(φ2) *
                 Math.Sin(Δλ / 2) * Math.Sin(Δλ / 2);
-            var c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+            double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
 
             return c * FlightGlobals.Bodies.Find(body => body.name == bodyName).Radius;
         }
 
         public static Vector2d CalcCoordinatesFromInitialPointBearingDistance(Vector2d initPoint, double bearingDeg, double distMeters, double bodyRadius)
         {
-            var φ1 = CalcRadiansFromDeg(initPoint.x);
-            var λ1 = CalcRadiansFromDeg(initPoint.y);
+            double φ1 = CalcRadiansFromDeg(initPoint.x);
+            double λ1 = CalcRadiansFromDeg(initPoint.y);
 
             bearingDeg = makeAngle0to360(bearingDeg);
 
             bearingDeg = CalcRadiansFromDeg(bearingDeg);
 
-            var φ2 = Math.Asin(Math.Sin(φ1) * Math.Cos(distMeters / bodyRadius) +
+            double φ2 = Math.Asin(Math.Sin(φ1) * Math.Cos(distMeters / bodyRadius) +
                     Math.Cos(φ1) * Math.Sin(distMeters / bodyRadius) * Math.Cos(bearingDeg));
-            var λ2 = λ1 + Math.Atan2(Math.Sin(bearingDeg) * Math.Sin(distMeters / bodyRadius) * Math.Cos(φ1),
+            double λ2 = λ1 + Math.Atan2(Math.Sin(bearingDeg) * Math.Sin(distMeters / bodyRadius) * Math.Cos(φ1),
                                      Math.Cos(distMeters / bodyRadius) - Math.Sin(φ1) * Math.Sin(φ2));
 
             return new Vector2d(CalcDegFromRadians(φ2), CalcDegFromRadians(λ2));

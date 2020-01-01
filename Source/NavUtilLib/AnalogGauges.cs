@@ -208,7 +208,7 @@ namespace NavInstruments.NavUtilLib.Analog
         {
             //find internallabel
             Log.detail("NavUtil: iM look");
-            var iM = internalProp.internalModules.First(m => m.GetType() == typeof(InternalLabel));
+            InternalModule iM = internalProp.internalModules.First(m => m.GetType() == typeof(InternalLabel));
 
             Log.detail("NavUtil: iM found, casting...");
 

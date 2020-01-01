@@ -17,7 +17,7 @@ namespace NavInstruments.NavUtilLib
             GL.PushMatrix();
             GL.LoadPixelMatrix(0, rt.width, rt.height, 0);
             GL.Viewport(new Rect(0, 0, rt.width, rt.height));
-            var s = Text;
+            string s = Text;
             s = s.ToUpper();
             float xOff = position.x;
 

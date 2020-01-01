@@ -201,7 +201,7 @@ namespace NavInstruments.NavUtilGUI
                     tempRwy.gsLatitude = (float)FlightGlobals.ship_latitude;
                     tempRwy.gsLongitude = (float)FlightGlobals.ship_longitude;
 
-                    var loc = NavUtilLib.Utils.CalcCoordinatesFromInitialPointBearingDistance(new Vector2d(tempRwy.gsLatitude, tempRwy.gsLongitude), tempRwy.hdg, 1000, FlightGlobals.currentMainBody.Radius);
+                    Vector2d loc = NavUtilLib.Utils.CalcCoordinatesFromInitialPointBearingDistance(new Vector2d(tempRwy.gsLatitude, tempRwy.gsLongitude), tempRwy.hdg, 1000, FlightGlobals.currentMainBody.Radius);
 
                     tempRwy.locLatitude = (float)loc.x;
                     tempRwy.locLongitude = (float)loc.y;
