@@ -69,7 +69,7 @@ namespace NavInstruments.NavUtilLib
 
             public static void loadNavAids()
             {
-                Log.detail("NavUtil: Loading NavAid database...");
+                Log.dbg("NavUtil: Loading NavAid database...");
                 FlightData.allRunways.Clear();
                 FlightData.allRunways = ConfigLoader.GetRunwayListFromConfig();
                 FlightData.gsList.Clear();
@@ -356,7 +356,7 @@ namespace NavInstruments.NavUtilLib
                 }
                 catch (Exception)
                 {
-                    Log.detail("NavUtil: Error Loading Audio");
+                    Log.err("NavUtil: Error Loading Audio");
 
                     throw;
                 }
@@ -396,7 +396,7 @@ namespace NavInstruments.NavUtilLib
 
             private AudioClip getAudio(string clipName) {
                 string path = KSPe.GameDB.Asset<KSPeHack>.Solve(Path.Combine("Audio", clipName), Common.KSPE_CACHE);
-                Log.dbg(path);
+                Log.dbg("Getting {0} from {1}", clipName, path);
                 return GameDatabase.Instance.GetAudioClip(path);
             }
 
