@@ -1,9 +1,7 @@
 ﻿//NavUtilities by kujuman, © 2014. All Rights Reserved.
 
 using System;
-using System.Collections.Generic;
 using UnityEngine;
-using KSP;
 
 using var = NavInstruments.NavUtilLib.GlobalVariables;
 

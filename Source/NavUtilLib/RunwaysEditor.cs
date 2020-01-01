@@ -1,10 +1,9 @@
 ﻿//NavUtilities by kujuman, © 2014. All Rights Reserved.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UnityEngine;
+
+using var = NavInstruments.NavUtilLib.GlobalVariables;
 using Rwy = NavInstruments.NavUtilLib.GlobalVariables.FlightData;
 
 namespace NavInstruments.NavUtilGUI
@@ -24,23 +23,23 @@ namespace NavInstruments.NavUtilGUI
 
         public static void startGUI()
         {
-            if (!NavUtilLib.GlobalVariables.Settings.rwyEditorState)
+            if (!var.Settings.rwyEditorState)
             {
-                windowPos = NavUtilLib.GlobalVariables.Settings.rwyEditorGUI;
+                windowPos = var.Settings.rwyEditorGUI;
 
-                if (!NavUtilLib.GlobalVariables.Settings.navAidsIsLoaded)
+                if (!var.Settings.navAidsIsLoaded)
                 {
-                    NavUtilLib.GlobalVariables.Settings.loadNavAids();
+                    var.Settings.loadNavAids();
                 }
             }
             else
             {
-                NavUtilLib.GlobalVariables.Settings.rwyEditorGUI = windowPos;
+                var.Settings.rwyEditorGUI = windowPos;
 
                 //DestroyAfterTime.DestroyObject(this);
             }
 
-            NavUtilLib.GlobalVariables.Settings.rwyEditorState = !NavUtilLib.GlobalVariables.Settings.rwyEditorState;
+            var.Settings.rwyEditorState = !var.Settings.rwyEditorState;
         }
 
         public static void OnDraw()
@@ -248,9 +247,9 @@ namespace NavInstruments.NavUtilGUI
 
         public static void WriteCustomRwys()
         {
-            NavUtilLib.ConfigLoader.WriteCustomRunwaysToConfig(NavUtilLib.GlobalVariables.FlightData.customRunways);
+            NavUtilLib.ConfigLoader.WriteCustomRunwaysToConfig(var.FlightData.customRunways);
 
-            NavUtilLib.GlobalVariables.FlightData.updateNavigationData();
+            var.FlightData.updateNavigationData();
         }
 
     }

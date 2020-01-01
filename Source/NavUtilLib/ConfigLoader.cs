@@ -1,8 +1,6 @@
 ﻿//NavUtilities by kujuman, © 2014. All Rights Reserved.
 
 using System;
-using KSP;
-using UnityEngine;
 
 namespace NavInstruments.NavUtilLib
 {

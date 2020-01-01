@@ -1,12 +1,7 @@
 ﻿//NavUtilities by kujuman, © 2014. All Rights Reserved.
 
-using System;
 using UnityEngine;
-using KSP;
-using UnityEngine.UI;
-using NavInstruments.NavUtilLib;
 using var = NavInstruments.NavUtilLib.GlobalVariables;
-//using ToolbarWrapper;
 
 namespace NavInstruments
 { 
@@ -23,11 +18,11 @@ namespace NavInstruments.NavUtilLib
             //Log.detail("NavUtils: OnGUI()");
 
 
-            if (NavUtilLib.GlobalVariables.Settings.isKSPGUIActive) // will hide GUI is F2 is pressed
+            if (var.Settings.isKSPGUIActive) // will hide GUI is F2 is pressed
             {
-                if (NavUtilLib.GlobalVariables.Settings.hsiState) OnDraw();
+                if (var.Settings.hsiState) OnDraw();
                 if (NavUtilLib.SettingsGUI.isActive) NavUtilLib.SettingsGUI.OnDraw();
-                if (NavUtilLib.GlobalVariables.Settings.rwyEditorState) NavUtilGUI.RunwaysEditor.OnDraw();
+                if (var.Settings.rwyEditorState) NavUtilGUI.RunwaysEditor.OnDraw();
 				if (RunwayListGUI.isActive)	RunwayListGUI.OnDraw();
             }
         }
@@ -80,17 +75,17 @@ namespace NavInstruments.NavUtilLib
         {
             Log.detail("NavUtils: NavUtilLibApp.displayHSI()");
 
-            if (!NavUtilLib.GlobalVariables.Settings.hsiState)
+            if (!var.Settings.hsiState)
             {
                 Activate(true);
-                NavUtilLib.GlobalVariables.Settings.hsiState = true;
                 Log.detail("NavUtils: hsiState = " + NavUtilLib.GlobalVariables.Settings.hsiState);
+                var.Settings.hsiState = true;
             }
             else
             {
                 Activate(false);
 
-                NavUtilLib.GlobalVariables.Settings.hsiState = false;
+                var.Settings.hsiState = false;
 
                 Log.detail("NavUtils: hsiState = " + NavUtilLib.GlobalVariables.Settings.hsiState);
             }
@@ -118,8 +113,8 @@ namespace NavInstruments.NavUtilLib
                 //ConfigLoader.LoadSettings(var.Settings.settingsFileURL);
 
                 //ConfigureCamera();
-                windowPosition.x = NavUtilLib.GlobalVariables.Settings.hsiPosition.x;
-                windowPosition.y = NavUtilLib.GlobalVariables.Settings.hsiPosition.y;
+                windowPosition.x = var.Settings.hsiPosition.x;
+                windowPosition.y = var.Settings.hsiPosition.y;
 
 
                 Log.detail("NavUtil: Systems started successfully!");
@@ -128,8 +123,8 @@ namespace NavInstruments.NavUtilLib
             {
                 state = false;
                 //RenderingManager.RemoveFromPostDrawQueue(3, OnDraw); //close the GUI
-                NavUtilLib.GlobalVariables.Settings.hsiPosition.x = windowPosition.x;
-                NavUtilLib.GlobalVariables.Settings.hsiPosition.y = windowPosition.y;
+                var.Settings.hsiPosition.x = windowPosition.x;
+                var.Settings.hsiPosition.y = windowPosition.y;
 
                 ConfigLoader.SaveSettings();
             }
@@ -149,8 +144,8 @@ namespace NavInstruments.NavUtilLib
 
                 windowPosition = new Rect(windowPosition.x,
                      windowPosition.y,
-                     (int)(NavUtilLib.GlobalVariables.Settings.hsiPosition.width * NavUtilLib.GlobalVariables.Settings.hsiGUIscale),
-                     (int)(NavUtilLib.GlobalVariables.Settings.hsiPosition.height * NavUtilLib.GlobalVariables.Settings.hsiGUIscale)
+                     (int)(var.Settings.hsiPosition.width * var.Settings.hsiGUIscale),
+                     (int)(var.Settings.hsiPosition.height * var.Settings.hsiGUIscale)
                      );
 
                 windowPosition = GUI.Window(-471466245, windowPosition, OnWindow, "Horizontal Situation Indicator");
@@ -162,7 +157,7 @@ namespace NavInstruments.NavUtilLib
         {
             Log.detail("NavUtils: NavUtilLibApp.DrawGauge()");
 
-            NavUtilLib.GlobalVariables.FlightData.updateNavigationData();
+            var.FlightData.updateNavigationData();
 
             RenderTexture pt = RenderTexture.active;
             RenderTexture.active = screen;
@@ -172,23 +167,23 @@ namespace NavInstruments.NavUtilLib
             //write text to screen
             //write runway info
 
-            string runwayText = (var.FlightData.isINSMode() ? "INS" : "Runway") + ": " + NavUtilLib.GlobalVariables.FlightData.selectedRwy.ident;
-            string glideslopeText = var.FlightData.isINSMode() ? ""	: "Glideslope: " + string.Format("{0:F1}", NavUtilLib.GlobalVariables.FlightData.selectedGlideSlope) + "°  ";
-            string elevationText = (var.FlightData.isINSMode() ? "Alt MSL" : "Elevation") + ": " + string.Format("{0:F0}", NavUtilLib.GlobalVariables.FlightData.selectedRwy.altMSL) + "m";
+            string runwayText = (var.FlightData.isINSMode() ? "INS" : "Runway") + ": " + var.FlightData.selectedRwy.ident;
+            string glideslopeText = var.FlightData.isINSMode() ? ""	: "Glideslope: " + string.Format("{0:F1}", var.FlightData.selectedGlideSlope) + "°  ";
+            string elevationText = (var.FlightData.isINSMode() ? "Alt MSL" : "Elevation") + ": " + string.Format("{0:F0}", var.FlightData.selectedRwy.altMSL) + "m";
             
             runwayText = (rwyHover ? "→" : " ") + runwayText;
             glideslopeText = (gsHover ? "→" : " ") + glideslopeText;
             
-	        NavUtilLib.TextWriter.addTextToRT(screen, runwayText, new Vector2(20, screen.height - 40), NavUtilLib.GlobalVariables.Materials.Instance.whiteFont, .64f);
-	        NavUtilLib.TextWriter.addTextToRT(screen, glideslopeText + elevationText, new Vector2(20, screen.height - 64), NavUtilLib.GlobalVariables.Materials.Instance.whiteFont, .64f);
+	        NavUtilLib.TextWriter.addTextToRT(screen, runwayText, new Vector2(20, screen.height - 40), var.Materials.Instance.whiteFont, .64f);
+	        NavUtilLib.TextWriter.addTextToRT(screen, glideslopeText + elevationText, new Vector2(20, screen.height - 64), var.Materials.Instance.whiteFont, .64f);
 
-            NavUtilLib.TextWriter.addTextToRT(screen, NavUtilLib.Utils.numberFormatter((float)NavUtilLib.Utils.makeAngle0to360(FlightGlobals.ship_heading), true).ToString(), new Vector2(584, screen.height - 102), NavUtilLib.GlobalVariables.Materials.Instance.whiteFont, .64f);
-            NavUtilLib.TextWriter.addTextToRT(screen, NavUtilLib.Utils.numberFormatter((float)NavUtilLib.Utils.makeAngle0to360(NavUtilLib.GlobalVariables.FlightData.bearing), true).ToString(), new Vector2(584, screen.height - 131), NavUtilLib.GlobalVariables.Materials.Instance.whiteFont, .64f);
-            NavUtilLib.TextWriter.addTextToRT(screen, NavUtilLib.Utils.numberFormatter((float)NavUtilLib.Utils.makeAngle0to360(NavUtilLib.GlobalVariables.FlightData.selectedRwy.hdg), true).ToString(), new Vector2(35, screen.height - 124), NavUtilLib.GlobalVariables.Materials.Instance.whiteFont, .64f);
-            NavUtilLib.TextWriter.addTextToRT(screen, NavUtilLib.Utils.numberFormatter((float)NavUtilLib.GlobalVariables.FlightData.dme / 1000, false).ToString(), new Vector2(45, screen.height - 563), NavUtilLib.GlobalVariables.Materials.Instance.whiteFont, .64f);
+            NavUtilLib.TextWriter.addTextToRT(screen, NavUtilLib.Utils.numberFormatter((float)NavUtilLib.Utils.makeAngle0to360(FlightGlobals.ship_heading), true).ToString(), new Vector2(584, screen.height - 102), var.Materials.Instance.whiteFont, .64f);
+            NavUtilLib.TextWriter.addTextToRT(screen, NavUtilLib.Utils.numberFormatter((float)NavUtilLib.Utils.makeAngle0to360(var.FlightData.bearing), true).ToString(), new Vector2(584, screen.height - 131), var.Materials.Instance.whiteFont, .64f);
+            NavUtilLib.TextWriter.addTextToRT(screen, NavUtilLib.Utils.numberFormatter((float)NavUtilLib.Utils.makeAngle0to360(var.FlightData.selectedRwy.hdg), true).ToString(), new Vector2(35, screen.height - 124), var.Materials.Instance.whiteFont, .64f);
+            NavUtilLib.TextWriter.addTextToRT(screen, NavUtilLib.Utils.numberFormatter((float)var.FlightData.dme / 1000, false).ToString(), new Vector2(45, screen.height - 563), var.Materials.Instance.whiteFont, .64f);
 
             if (closeHover)
-                NavUtilLib.TextWriter.addTextToRT(screen, "    Close HSI", new Vector2(340, 15), NavUtilLib.GlobalVariables.Materials.Instance.whiteFont, .64f);
+                NavUtilLib.TextWriter.addTextToRT(screen, "    Close HSI", new Vector2(340, 15), var.Materials.Instance.whiteFont, .64f);
 
             RenderTexture.active = pt;
         }
@@ -201,20 +196,20 @@ namespace NavInstruments.NavUtilLib
 
 
 
-            Rect rwyBtn = new Rect(20 * NavUtilLib.GlobalVariables.Settings.hsiGUIscale,
-                13 * NavUtilLib.GlobalVariables.Settings.hsiGUIscale,
-                200 * NavUtilLib.GlobalVariables.Settings.hsiGUIscale,
-                20 * NavUtilLib.GlobalVariables.Settings.hsiGUIscale);
+            Rect rwyBtn = new Rect(20 * var.Settings.hsiGUIscale,
+                13 * var.Settings.hsiGUIscale,
+                200 * var.Settings.hsiGUIscale,
+                20 * var.Settings.hsiGUIscale);
 
-            Rect gsBtn = new Rect(20 * NavUtilLib.GlobalVariables.Settings.hsiGUIscale,
-        38 * NavUtilLib.GlobalVariables.Settings.hsiGUIscale,
-        200 * NavUtilLib.GlobalVariables.Settings.hsiGUIscale,
-        20 * NavUtilLib.GlobalVariables.Settings.hsiGUIscale);
+            Rect gsBtn = new Rect(20 * var.Settings.hsiGUIscale,
+        38 * var.Settings.hsiGUIscale,
+        200 * var.Settings.hsiGUIscale,
+        20 * var.Settings.hsiGUIscale);
 
-            Rect closeBtn = new Rect(330 * NavUtilLib.GlobalVariables.Settings.hsiGUIscale,
-                580 * NavUtilLib.GlobalVariables.Settings.hsiGUIscale,
-                300 * NavUtilLib.GlobalVariables.Settings.hsiGUIscale,
-                50 * NavUtilLib.GlobalVariables.Settings.hsiGUIscale);
+            Rect closeBtn = new Rect(330 * var.Settings.hsiGUIscale,
+                580 * var.Settings.hsiGUIscale,
+                300 * var.Settings.hsiGUIscale,
+                50 * var.Settings.hsiGUIscale);
 
             if (GUI.Button(closeBtn, new GUIContent("CloseBtn", "closeOn")))
             {
@@ -237,12 +232,12 @@ namespace NavInstruments.NavUtilLib
 				} else {
 
 					if (Event.current.button == 0) {
-						NavUtilLib.GlobalVariables.FlightData.rwyIdx++;
+						var.FlightData.rwyIdx++;
 					} else {
-						NavUtilLib.GlobalVariables.FlightData.rwyIdx--;
+						var.FlightData.rwyIdx--;
 					}
 
-					NavUtilLib.GlobalVariables.FlightData.rwyIdx = NavUtilLib.Utils.indexChecker(NavUtilLib.GlobalVariables.FlightData.rwyIdx, NavUtilLib.GlobalVariables.FlightData.currentBodyRunways.Count - 1, 0);
+					var.FlightData.rwyIdx = NavUtilLib.Utils.indexChecker(var.FlightData.rwyIdx, var.FlightData.currentBodyRunways.Count - 1, 0);
 				}
             }
 
@@ -256,14 +251,14 @@ namespace NavInstruments.NavUtilLib
             {
                 if (Event.current.button == 0)
                 {
-                    NavUtilLib.GlobalVariables.FlightData.gsIdx++;
+                    var.FlightData.gsIdx++;
                 }
                 else
                 {
-                    NavUtilLib.GlobalVariables.FlightData.gsIdx--;
+                    var.FlightData.gsIdx--;
                 }
 
-                NavUtilLib.GlobalVariables.FlightData.gsIdx = NavUtilLib.Utils.indexChecker(NavUtilLib.GlobalVariables.FlightData.gsIdx, NavUtilLib.GlobalVariables.FlightData.gsList.Count - 1, 0);
+                var.FlightData.gsIdx = NavUtilLib.Utils.indexChecker(var.FlightData.gsIdx, var.FlightData.gsList.Count - 1, 0);
             }
 
             if (GUI.tooltip == "gsOn")
@@ -312,7 +307,7 @@ namespace NavInstruments.NavUtilLib
 
             Log.detail("NavUtil: useBlizzy? " + NavUtilLib.GlobalVariables.Settings.useBlizzy78ToolBar);
 
-			if (NavUtilLib.GlobalVariables.Settings.useBlizzy78ToolBar && ToolbarManager.ToolbarAvailable) {
+			if (var.Settings.useBlizzy78ToolBar && ToolbarManager.ToolbarAvailable) {
 				IToolbarManager toolbar = ToolbarManager.Instance;
 				toolbarButton = toolbar.add("NavUtilities", "NavUtilButton");
 				toolbarButton.TexturePath = KSPe.IO.File<KSPeHack>.Asset.Solve("Toolbar/toolbarButton.png");
@@ -327,8 +322,8 @@ namespace NavInstruments.NavUtilLib
 
                 if (appButton == null)
                 GameEvents.onGUIApplicationLauncherReady.Add(AddButton);
-                GameEvents.onGUIApplicationLauncherUnreadifying.Add(dEstroy);
-                GameEvents.onGameSceneLoadRequested.Add(dEstroy);
+                GameEvents.onGUIApplicationLauncherUnreadifying.Add(onDestroy);
+                GameEvents.onGameSceneLoadRequested.Add(onDestroy);
 
                 GameEvents.onShowUI.Add(ShowGUI);
                 GameEvents.onHideUI.Add(HideGUI);
@@ -336,8 +331,8 @@ namespace NavInstruments.NavUtilLib
 
 
 
-            NavUtilLib.GlobalVariables.Settings.appInstance = this.GetInstanceID();
-            NavUtilLib.GlobalVariables.Settings.appReference = this;
+            var.Settings.appInstance = this.GetInstanceID();
+            var.Settings.appReference = this;
 
         }
 
@@ -382,18 +377,18 @@ namespace NavInstruments.NavUtilLib
 
         void ShowGUI()
         {
-            NavUtilLib.GlobalVariables.Settings.isKSPGUIActive = true;
+            var.Settings.isKSPGUIActive = true;
         }
 
         void HideGUI()
         {
-            NavUtilLib.GlobalVariables.Settings.isKSPGUIActive = false;
+            var.Settings.isKSPGUIActive = false;
         }
 
 
 
 
-        public void dEstroy(GameScenes g)
+        public void onDestroy(GameScenes g)
         {
             //Log.dbg("NavUtils: Destorying App 1");
 
@@ -407,7 +402,7 @@ namespace NavInstruments.NavUtilLib
                 //save settings to config
                 ConfigLoader.SaveSettings();
 
-                NavUtilLib.GlobalVariables.Settings.hsiState = false;
+                var.Settings.hsiState = false;
 
                 KSP.UI.Screens.ApplicationLauncher.Instance.RemoveModApplication(appButton);
             }
@@ -419,7 +414,7 @@ namespace NavInstruments.NavUtilLib
         //{
         //    Log.dbg("NavUtils: NavUtilLibApp.OnGUIReady()");
 
-        //    if (KSP.UI.Screens.ApplicationLauncher.Ready && !NavUtilLib.GlobalVariables.Settings.useBlizzy78ToolBar)
+        //    if (KSP.UI.Screens.ApplicationLauncher.Ready && !var.Settings.useBlizzy78ToolBar)
         //    {
         //        appButton = KSP.UI.Screens.ApplicationLauncher.Instance.AddModApplication(
         //            onAppLaunchToggleOn,
