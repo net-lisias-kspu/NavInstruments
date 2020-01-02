@@ -14,7 +14,7 @@ namespace NavInstruments.NavUtilLib
             set => LOG.level = (KSPe.Util.Log.Level)(value % 6);
         }
 
-        public static void log(string format, params object[] @parms)
+        public static void force(string format, params object[] @parms)
         {
             LOG.force(format, parms);
         }

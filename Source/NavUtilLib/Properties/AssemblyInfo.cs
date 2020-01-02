@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("NavUtilLib")]
 [assembly: AssemblyDescription("A library of tools for land based navigation in Kerbal Space Program")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("L Aerospace KSP Division")]
 [assembly: AssemblyProduct("NavUtilLib")]
 [assembly: AssemblyCopyright("Copyright © 2018-2020 LisiasT")]
 [assembly: AssemblyTrademark("NavInstruments by LisiasT")]
