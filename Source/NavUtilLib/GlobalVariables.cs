@@ -10,11 +10,7 @@ namespace NavInstruments.NavUtilLib
 {
     namespace GlobalVariables
     {
-        internal static class Common
-        {
-            internal static readonly KSPe.LocalCache<string> KSPE_CACHE = new KSPe.LocalCache<string>();
-        }
-        
+       
         public static class Settings
         {
             //public static string gsFileURL = "GameData/KerbalScienceFoundation/NavInstruments/glideslopes.cfg";
@@ -292,22 +288,22 @@ namespace NavInstruments.NavUtilLib
             {
                 Log.detail("NavUtilLib: Updating materials...");
 
-				Materials.Instance.overlay = NavUtilGraphics.loadMaterial("hsi_overlay.png", Materials.Instance.overlay, 640, 640);
-				Materials.Instance.pointer = NavUtilGraphics.loadMaterial("hsi_gs_pointer.png", Materials.Instance.pointer, 640, 24);
-				Materials.Instance.headingCard = NavUtilGraphics.loadMaterial("hsi_large_heading_card.png", Materials.Instance.headingCard, 501, 501);
-				Materials.Instance.NDBneedle = NavUtilGraphics.loadMaterial("hsi_NDB_needle.png", Materials.Instance.NDBneedle, 15, 501);
-				Materials.Instance.course = NavUtilGraphics.loadMaterial("hsi_course_needle.png", Materials.Instance.course, 221, 481);
-				Materials.Instance.localizer = NavUtilGraphics.loadMaterial("hsi_course_deviation_needle.png", Materials.Instance.localizer, 5, 251);
-				Materials.Instance.mkrbcn = NavUtilGraphics.loadMaterial("hsi_markerIndicator.png", Materials.Instance.mkrbcn, 175, 180);
-				Materials.Instance.flag = NavUtilGraphics.loadMaterial("hsi_flags.png", Materials.Instance.flag, 64, 64);
-				Materials.Instance.back = NavUtilGraphics.loadMaterial("hsi_back.png", Materials.Instance.back, 32, 32);
-				Materials.Instance.whiteFont = NavUtilGraphics.loadMaterial("white_font.png", Materials.Instance.whiteFont, 256, 256);
-				Materials.Instance.AI_overlay = NavUtilGraphics.loadMaterial("AI_OVERLAY.png", Materials.Instance.AI_overlay, 640, 640);
-				Materials.Instance.AI_throttleBar = NavUtilGraphics.loadMaterial("AI_THROTTLEBAR.png", Materials.Instance.AI_throttleBar,27, 164);
-				Materials.Instance.AI_VSILine = NavUtilGraphics.loadMaterial("AI_VSILINE.png", Materials.Instance.AI_VSILine, 33, 4);
-				Materials.Instance.AI_Ladder = NavUtilGraphics.loadMaterial("AI_LADDER.png", Materials.Instance.AI_Ladder, 906, 2048);
-				Materials.Instance.AI_Radar = NavUtilGraphics.loadMaterial("AI_RADAR.png", Materials.Instance.AI_Radar, 179, 179);
-				Materials.Instance.AI_RadarDial = NavUtilGraphics.loadMaterial("AI_RADARDIAL.png", Materials.Instance.AI_RadarDial, 86, 39);
+				Materials.Instance.overlay          = NavUtilGraphics.loadMaterial("hsi_overlay", 640, 640);
+				Materials.Instance.pointer          = NavUtilGraphics.loadMaterial("hsi_gs_pointer", 640, 24);
+				Materials.Instance.headingCard      = NavUtilGraphics.loadMaterial("hsi_large_heading_card", 501, 501);
+				Materials.Instance.NDBneedle        = NavUtilGraphics.loadMaterial("hsi_NDB_needle", 15, 501);
+				Materials.Instance.course           = NavUtilGraphics.loadMaterial("hsi_course_needle", 221, 481);
+				Materials.Instance.localizer        = NavUtilGraphics.loadMaterial("hsi_course_deviation_needle", 5, 251);
+				Materials.Instance.mkrbcn           = NavUtilGraphics.loadMaterial("hsi_markerIndicator", 175, 180);
+				Materials.Instance.flag             = NavUtilGraphics.loadMaterial("hsi_flags", 64, 64);
+				Materials.Instance.back             = NavUtilGraphics.loadMaterial("hsi_back", 32, 32);
+				Materials.Instance.whiteFont        = NavUtilGraphics.loadMaterial("white_font", 256, 256);
+				Materials.Instance.AI_overlay       = NavUtilGraphics.loadMaterial("AI_OVERLAY", 640, 640);
+				Materials.Instance.AI_throttleBar   = NavUtilGraphics.loadMaterial("AI_THROTTLEBAR", 27, 164);
+				Materials.Instance.AI_VSILine       = NavUtilGraphics.loadMaterial("AI_VSILINE", 33, 4);
+				Materials.Instance.AI_Ladder        = NavUtilGraphics.loadMaterial("AI_LADDER", 906, 2048);
+				Materials.Instance.AI_Radar         = NavUtilGraphics.loadMaterial("AI_RADAR", 179, 179);
+				Materials.Instance.AI_RadarDial     = NavUtilGraphics.loadMaterial("AI_RADARDIAL", 86, 39);
 
                 isLoaded = true;
             }
@@ -323,36 +319,33 @@ namespace NavInstruments.NavUtilLib
             public readonly GameObject audioplayer; 
             public readonly AudioSource markerAudio;
             //public static AudioSource playOnce;
+            private readonly AudioClip audio_click;
+            private readonly AudioClip audio_outer;
+            private readonly AudioClip audio_middle;
+            private readonly AudioClip audio_inner;
 
             private Audio()
             {
+                Log.detail("InitializingAudio...");
+
                 audioplayer = new GameObject();
                 markerAudio = new AudioSource();
                 //playOnce = new AudioSource();
-
-                Log.detail("NavUtilLib: InitializingAudio...");
+                this.audio_click = this.getAudio("click");
+                this.audio_outer = this.getAudio("outer");
+                this.audio_middle = this.getAudio("middle");
+                this.audio_inner = this.getAudio("inner");
 
                 try
                 {
-                markerAudio = audioplayer.AddComponent<AudioSource>();
-                markerAudio.volume = GameSettings.UI_VOLUME;
-                markerAudio.panStereo = 0;
-                markerAudio.dopplerLevel = 0;
-                markerAudio.bypassEffects = true;
-                markerAudio.loop = true;
-                markerAudio.rolloffMode = AudioRolloffMode.Linear;
-                //markerAudio.transform.SetParent(FlightCamera.fetch.mainCamera.transform);
-
-                //playOnce = audioplayer.AddComponent<AudioSource>();
-                //playOnce.volume = GameSettings.VOICE_VOLUME;
-                //playOnce.pan = 0;
-                //playOnce.dopplerLevel = 0;
-                //playOnce.bypassEffects = true;
-                //playOnce.loop = false;
-                //playOnce.rolloffMode = AudioRolloffMode.Linear;
-                //playOnce.transform.SetParent(FlightCamera.fetch.mainCamera.transform);
-
-                
+                    markerAudio = audioplayer.AddComponent<AudioSource>();
+                    markerAudio.volume = GameSettings.UI_VOLUME;
+                    markerAudio.panStereo = 0;
+                    markerAudio.dopplerLevel = 0;
+                    markerAudio.bypassEffects = true;
+                    markerAudio.loop = true;
+                    markerAudio.rolloffMode = AudioRolloffMode.Linear;
+                    //markerAudio.transform.SetParent(FlightCamera.fetch.mainCamera.transform);
                 }
                 catch (Exception e)
                 {
@@ -360,41 +353,35 @@ namespace NavInstruments.NavUtilLib
                     Log.ex(this, e);
                 }
 
-
                 isLoaded = true;
             }
 
             public void PlayClick()
             {
                 Log.detail("Click!");
-                this.PlayOneShot("click", 0.33f);
+                this.markerAudio.PlayOneShot(this.audio_click, 0.5f);
             }
 
             public void PlayOuter()
             {
                 Log.detail("DME outer");
-                this.PlayOneShot("outer", 0.8f);
+                this.markerAudio.PlayOneShot(this.audio_outer, 0.8f);
             }
 
             public void PlayMiddle()
             {
                 Log.detail("DME middle");
-                this.PlayOneShot("middle", 0.5f);
+                this.markerAudio.PlayOneShot(this.audio_middle, 0.5f);
             }
 
             public void PlayInner()
             {
                 Log.detail("DME inner");
-                this.PlayOneShot("inner", 0.25f);
-            }
-
-            private void PlayOneShot(string name, float volume)
-            {
-                this.markerAudio.PlayOneShot(this.getAudio(name), volume);
+                this.markerAudio.PlayOneShot(this.audio_inner, 0.5f);
             }
 
             private AudioClip getAudio(string clipName) {
-                string path = KSPe.GameDB.Asset<KSPeHack>.Solve(Path.Combine("Audio", clipName), Common.KSPE_CACHE);
+                string path = KSPe.GameDB.Asset<KSPeHack>.Solve("Audio", clipName);
                 Log.dbg("Getting {0} from {1}", clipName, path);
                 return GameDatabase.Instance.GetAudioClip(path);
             }

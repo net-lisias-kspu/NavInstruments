@@ -2,8 +2,7 @@
 
 
 using UnityEngine;
-using System.IO;
-
+using Asset = KSPe.IO.Asset<NavInstruments.KSPeHack>;
 using mat = NavInstruments.NavUtilLib.GlobalVariables.Materials;
 
 namespace NavInstruments.NavUtilLib
@@ -133,32 +132,20 @@ namespace NavInstruments.NavUtilLib
 
         
 
-        public static Material loadMaterial(string fileName, Material mat, int width, int height)
+        public static Material loadMaterial(string name, int width, int height)
 		{
-            Log.detail("NavUtilLib: Loading Material " + fileName);
-
-            fileName = KSPe.IO.File<KSPeHack>.Asset.Solve(Path.Combine("Textures", fileName));
+            Log.detail("NavUtilLib: Loading Material " + name);
 
             //Shader unlit = Shader.Find("KSP/Alpha/Unlit Transparent");
-
             Shader unlit = Shader.Find("Sprites/Default");
 
-            mat = new Material(unlit)
+            Material mat = new Material(unlit)
             {
                 color = Color.white,
-                mainTexture = loadTexture(fileName, width, height)
+                mainTexture = Asset.Texture2D.LoadFromFile(width, height, "Textures", name)
             };
             
             return mat;
-        }
-
-        public static Texture2D loadTexture(string resolvedPathName, int w, int h)
-        {
-            Texture2D t = new Texture2D(w, h);
-            t.LoadImage(
-                File.ReadAllBytes(resolvedPathName)
-            );
-            return t;
         }
     }
 }

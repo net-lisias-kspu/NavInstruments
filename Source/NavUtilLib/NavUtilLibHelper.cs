@@ -1,6 +1,7 @@
 ﻿//NavUtilities by kujuman, © 2014. All Rights Reserved.
 
 using UnityEngine;
+using Asset = KSPe.IO.Asset<NavInstruments.KSPeHack>;
 using var = NavInstruments.NavUtilLib.GlobalVariables;
 
 namespace NavInstruments
@@ -289,9 +290,8 @@ namespace NavInstruments.NavUtilLib
 					onAppLaunchEnable,
 					onAppLaunchDisable,
 					KSP.UI.Screens.ApplicationLauncher.AppScenes.FLIGHT,
-					NavUtilGraphics.loadTexture(KSPe.IO.File<KSPeHack>.Asset.Solve("Toolbar/toolbarButton3838.png"), 0, 0)
+                    Asset.Texture2D.LoadFromFile("Toolbar", "toolbarButton3838")
 				);
-				;
 				app = this;
 			}
         }
