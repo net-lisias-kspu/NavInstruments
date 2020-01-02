@@ -31,6 +31,7 @@ check
 cp $VERSIONFILE "./GameData/$TARGETDIR"
 cp CHANGE_LOG.md "./GameData/$TARGETDIR"
 cp README.md  "./GameData/$TARGETDIR"
+cp INSTALL.md  "./GameData/$TARGETDIR"
 cp LICENSE "./GameData/$TARGETDIR"
 cp NOTICE "./GameData/$TARGETDIR"
 for dll in NavUtilLib NavUtilRPM ; do

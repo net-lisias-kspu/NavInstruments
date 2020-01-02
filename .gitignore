@@ -5,6 +5,7 @@ GameData/**/*.dll
 GameData/**/*LICENSE
 GameData/**/NOTICE
 GameData/**/README.md
+GameData/**/INSTALL.md
 GameData/**/CHANGE_LOG.md
 GameData/**/CHANGES.md
 GameData/**/*.version
