@@ -44,6 +44,11 @@ namespace NavInstruments.NavUtilLib
             LOG.error(offended, e);
         }
 
+        public static void ex(object offended, System.Exception e)
+        {
+            LOG.error(offended, e);
+        }
+
         [Conditional("DEBUG")]
         public static void dbg(string format, params object[] @parms)
         {

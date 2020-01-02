@@ -354,11 +354,10 @@ namespace NavInstruments.NavUtilLib
 
                 
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
-                    Log.err("NavUtil: Error Loading Audio");
-
-                    throw;
+                    Log.err("Error Loading Audio");
+                    Log.ex(this, e);
                 }
 
 
