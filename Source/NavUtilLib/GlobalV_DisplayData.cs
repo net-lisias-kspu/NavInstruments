@@ -103,7 +103,7 @@ namespace NavInstruments.NavUtilLib
 
                 bool fineLoc = false;
 
-			if (!locFlag && !GlobalVariables.FlightData.fallback)
+				if (!locFlag && !GlobalVariables.FlightData.fallback)
                 {
 
                     if (NavUtilLib.GlobalVariables.Settings.enableFineLoc && NavUtilLib.GlobalVariables.FlightData.dme < 7500)
@@ -203,7 +203,7 @@ namespace NavInstruments.NavUtilLib
                                 break;
 
                             default:
-                                break;
+								break;
                         }
                     }
 
@@ -232,8 +232,8 @@ namespace NavInstruments.NavUtilLib
                             break;
 
                         default:
-                            var.Audio.Instance.Stop();
-                            break;
+							var.Audio.Instance.Stop();
+							break;
                     }
 
                     Log.detail("NavUtils: DrawHSI() PreMarkerBcn");

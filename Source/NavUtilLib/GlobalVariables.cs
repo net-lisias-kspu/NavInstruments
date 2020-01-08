@@ -324,6 +324,8 @@ namespace NavInstruments.NavUtilLib
             private readonly AudioClip audio_middle;
             private readonly AudioClip audio_inner;
 
+			private bool isPlaying = false;
+
             private Audio()
             {
                 Log.detail("InitializingAudio...");
@@ -360,25 +362,28 @@ namespace NavInstruments.NavUtilLib
             {
                 Log.detail("Click!");
                 this.markerAudio.PlayOneShot(this.audio_click, 0.5f);
-            }
+			}
 
-            public void PlayOuter()
+			public void PlayOuter()
             {
                 Log.detail("DME outer");
                 this.markerAudio.PlayOneShot(this.audio_outer, 0.8f);
-            }
+				this.isPlaying = true;
+			}
 
-            public void PlayMiddle()
+			public void PlayMiddle()
             {
                 Log.detail("DME middle");
                 this.markerAudio.PlayOneShot(this.audio_middle, 0.5f);
-            }
+				this.isPlaying = true;
+			}
 
-            public void PlayInner()
+			public void PlayInner()
             {
                 Log.detail("DME inner");
                 this.markerAudio.PlayOneShot(this.audio_inner, 0.5f);
-            }
+				this.isPlaying = true;
+			}
 
             private AudioClip getAudio(string clipName) {
                 string path = KSPe.GameDB.Asset<KSPeHack>.Solve("Audio", clipName);
@@ -386,9 +391,13 @@ namespace NavInstruments.NavUtilLib
                 return GameDatabase.Instance.GetAudioClip(path);
             }
 
-            public void Stop()
+			public void Stop()
             {
-                this.markerAudio.Stop();
+				if (this.isPlaying)
+				{
+					this.markerAudio.Stop();
+					this.isPlaying = false;
+				}
             }
         }
     }
