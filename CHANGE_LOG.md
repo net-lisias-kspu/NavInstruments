@@ -1,5 +1,8 @@
 # NavInstruments /L Unofficial :: Change Log
 
+* 2020-0811: v0.7.2.4 (Lisias) for >= KSP 1.4
+	+ Moving on-demand loading assets into PluginData, saving a bit of time on KSP loading (as they would be loaded again anyway)
+	+ Removed rogue files left behind on the last version packaging (shame on me...)
 * 2020-0108: v0.7.2.3 (Lisias) for >= KSP 1.4
 	+ Fixing a weird issue that was provoking the "Matrix stack full depth reached" bug from Unity.
 	+ Adding Dessert Airfield runway, as suggested by [Sppion1](https://forum.kerbalspaceprogram.com/index.php?/profile/198924-sppion1/) [here](https://forum.kerbalspaceprogram.com/index.php?/topic/162967-140-181-navutilities-continued-ft-hsi-instrument-landing-system-v072-2018-apr-1/&do=findComment&comment=3716551). 
