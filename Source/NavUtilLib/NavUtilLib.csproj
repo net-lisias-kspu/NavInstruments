@@ -82,6 +82,7 @@
     </Compile>
     <Compile Include="Log.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Properties\LegalMamboJambo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

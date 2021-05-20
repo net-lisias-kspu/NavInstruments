@@ -8,10 +8,10 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("NavUtilLib")]
 [assembly: AssemblyDescription("A library of tools for land based navigation in Kerbal Space Program")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("L Aerospace KSP Division")]
-[assembly: AssemblyProduct("NavUtilLib")]
-[assembly: AssemblyCopyright("Copyright © 2018-2020 LisiasT")]
-[assembly: AssemblyTrademark("NavInstruments by LisiasT")]
+[assembly: AssemblyCompany(NavInstruments.LegalMamboJambo.Company)]
+[assembly: AssemblyProduct(NavInstruments.LegalMamboJambo.Product)]
+[assembly: AssemblyCopyright(NavInstruments.LegalMamboJambo.Copyight)]
+[assembly: AssemblyTrademark(NavInstruments.LegalMamboJambo.Trademark)]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 

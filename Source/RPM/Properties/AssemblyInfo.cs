@@ -8,10 +8,10 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("RPMHSI")]
 [assembly: AssemblyDescription("Addon for Kerbal Space Program to interface with RasterPropMonitor")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("RPMHSI")]
-[assembly: AssemblyCopyright("Copyright ©  2014-2018")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCompany(NavInstruments.LegalMamboJambo.Company)]
+[assembly: AssemblyProduct(NavInstruments.LegalMamboJambo.Product)]
+[assembly: AssemblyCopyright(NavInstruments.LegalMamboJambo.Copyight)]
+[assembly: AssemblyTrademark(NavInstruments.LegalMamboJambo.Trademark)]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
