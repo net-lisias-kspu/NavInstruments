@@ -106,9 +106,6 @@ namespace NavInstruments.NavUtilLib.Analog
             if (!NavUtilLib.GlobalVariables.Materials.isLoaded)
                 NavUtilLib.GlobalVariables.Materials.loadMaterials();
 
-            //if (!var.Audio.isLoaded)
-            NavUtilLib.GlobalVariables.Audio.initializeAudio();
-
             Log.info("MLS: Systems started successfully!");
 
         }
