@@ -1,5 +1,8 @@
 # NavInstruments /L Unofficial :: Change Log
 
+* 2021-0520: v0.7.2.5 (Lisias) for >= KSP 1.4
+	+ (finally) Fixed the Dessert Airfield `shortId` as [suggested](https://github.com/SerTheGreat/NavInstruments/pull/1#pullrequestreview-341004160) by [MatthieuLemaile](https://github.com/MatthieuLemaile)
+	+ Added (proper) Module Manager support, needed as I moved the thing into the `net-lisias-kspu` file system hierarchy
 * 2020-0811: v0.7.2.4 (Lisias) for >= KSP 1.4
 	+ Moving on-demand loading assets into PluginData, saving a bit of time on KSP loading (as they would be loaded again anyway)
 	+ Removed rogue files left behind on the last version packaging (shame on me...)
