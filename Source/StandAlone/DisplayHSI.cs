@@ -3,6 +3,10 @@
 //using System;
 //using UnityEngine;
 //using KSP;
+
+using GUI = KSPe.UI.GUI;
+using GUILayout = KSPe.UI.GUILayout;
+
 //using NavUtilLib;
 //using var = NavUtilLib.GlobalVariables;
 

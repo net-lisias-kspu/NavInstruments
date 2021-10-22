@@ -2,8 +2,12 @@
 
 using KSPe.Annotations;
 using UnityEngine;
+
 using Asset = KSPe.IO.Asset<NavInstruments.KSPeHack>;
 using Toolbar = KSPe.UI.Toolbar;
+using GUI = KSPe.UI.GUI;
+using GUILayout = KSPe.UI.GUILayout;
+
 using var = NavInstruments.NavUtilLib.GlobalVariables;
 
 namespace NavInstruments

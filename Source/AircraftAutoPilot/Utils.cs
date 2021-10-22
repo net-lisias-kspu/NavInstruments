@@ -5,6 +5,9 @@ using UnityEngine;
 //using NavUtilLib;
 //using KSP;
 
+using GUI = KSPe.UI.GUI;
+using GUILayout = KSPe.UI.GUILayout;
+
 namespace NavInstruments.AircraftAutoPilot
 {
 //    [KSPAddon(KSPAddon.Startup.Flight, false)]

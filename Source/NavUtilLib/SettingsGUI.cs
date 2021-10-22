@@ -3,6 +3,9 @@
 using System.Linq;
 using UnityEngine;
 
+using GUI = KSPe.UI.GUI;
+using GUILayout = KSPe.UI.GUILayout;
+
 namespace NavInstruments.NavUtilLib
 {
     public static class SettingsGUI
