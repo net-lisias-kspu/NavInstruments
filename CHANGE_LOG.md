@@ -1,4 +1,4 @@
-# NavInstruments /L Unofficial :: Change Log
+# NavInstruments /L Unleashed :: Change Log
 
 * 2021-0520: v0.7.2.5 (Lisias) for >= KSP 1.4
 	+ (finally) Fixed the Dessert Airfield `shortId` as [suggested](https://github.com/SerTheGreat/NavInstruments/pull/1#pullrequestreview-341004160) by [MatthieuLemaile](https://github.com/MatthieuLemaile)

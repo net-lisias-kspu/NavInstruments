@@ -1,8 +1,8 @@
-# NavInstruments /L Unofficial
+# NavInstruments /L Unleashed
 
 Adds a horizontal situation indicator with integrated ILS functionality to a popup window or your RPM cockpit.
 
-Unofficial fork by Lisias.
+[Unleashed](https://ksp.lisias.net/add-ons-unleashed/) fork by Lisias.
 
 
 ## In a Hurry
@@ -20,7 +20,7 @@ Unofficial fork by Lisias.
 
 ## Description
 
-Adds a horizontal situation indicator with integrated ILS functionality to a popup window or your RPM cockpit.﻿
+Adds a horizontal situation indicator with integrated ILS functionality to a popup window or your RPM cockpit.
 
 The standalone version can be accessed (along with the options page and custom runway page, for controlling the current runway and GUI scale) via the App Launcher.
 
