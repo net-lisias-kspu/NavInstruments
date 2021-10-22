@@ -1,5 +1,8 @@
 # NavInstruments /L Unleashed :: Change Log
 
+* 2021-1027: v0.7.2.6 (Lisias) for >= KSP 1.3.1
+	+ Updating KSPe services to 2.4, including the new KSPe.UI.Toolbar .
+	+ Lowers the bar to KSP 1.3.1 ! **#HURRAY!!**
 * 2021-0520: v0.7.2.5 (Lisias) for >= KSP 1.4
 	+ (finally) Fixed the Dessert Airfield `shortId` as [suggested](https://github.com/SerTheGreat/NavInstruments/pull/1#pullrequestreview-341004160) by [MatthieuLemaile](https://github.com/MatthieuLemaile)
 	+ Added (proper) Module Manager support, needed as I moved the thing into the `net-lisias-kspu` file system hierarchy
