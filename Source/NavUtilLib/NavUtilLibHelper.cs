@@ -1,7 +1,9 @@
 ﻿//NavUtilities by kujuman, © 2014. All Rights Reserved.
 
+using KSPe.Annotations;
 using UnityEngine;
 using Asset = KSPe.IO.Asset<NavInstruments.KSPeHack>;
+using Toolbar = KSPe.UI.Toolbar;
 using var = NavInstruments.NavUtilLib.GlobalVariables;
 
 namespace NavInstruments
@@ -14,6 +16,7 @@ namespace NavInstruments.NavUtilLib
     [KSPAddon(KSPAddon.Startup.Flight, false)] //used to start up in flight, and be false
     public class NavUtilLibApp : MonoBehaviour
     {
+        [UsedImplicitly]
         private void OnGUI()
         {
             //Log.detail("NavUtils: OnGUI()");
@@ -28,10 +31,15 @@ namespace NavInstruments.NavUtilLib
             }
         }
 
+		[UsedImplicitly]
+		private void OnDestroy()
+		{
+			ToolbarController.Instance.Destroy();
+		}
 
-        //this class is to help load textures via GameDatabase since we cannot use static classes
+		//this class is to help load textures via GameDatabase since we cannot use static classes
 
-        NavUtilLibApp app;
+		NavUtilLibApp app;
 
         KSP.UI.Screens.ApplicationLauncherButton appButton;
 
@@ -61,7 +69,7 @@ namespace NavInstruments.NavUtilLib
 
 
 
-		private IButton toolbarButton = null;
+		private Toolbar.Button toolbarButton = null;
         private Rect windowPosition;
         private RenderTexture rt;
 
@@ -307,17 +315,20 @@ namespace NavInstruments.NavUtilLib
 
             Log.dbg("NavUtil: useBlizzy? " + var.Settings.useBlizzy78ToolBar);
 
-			if (var.Settings.useBlizzy78ToolBar && ToolbarManager.ToolbarAvailable) {
-				IToolbarManager toolbar = ToolbarManager.Instance;
-				toolbarButton = toolbar.add("NavUtilities", "NavUtilButton");
-				toolbarButton.TexturePath = KSPe.IO.File<KSPeHack>.Asset.Solve("Toolbar/toolbarButton.png");
-				toolbarButton.OnClick += (clickEvent => {
-					isHovering = true;
-					onAppLaunchToggleOn();
-				});
-				toolbarButton.Visible = true;
-				toolbarButton.ToolTip = "NavUtilities HSI / Hold Alt to open settings";
-			} else {
+			if (var.Settings.useBlizzy78ToolBar) {
+				toolbarButton = Toolbar.Button.Create(this
+						, KSP.UI.Screens.ApplicationLauncher.AppScenes.FLIGHT
+						, Asset.Texture2D.LoadFromFile("Toobar", "toolbarButton.png")
+						, Asset.Texture2D.LoadFromFile("Toobar", "toolbarButton.png")
+						, "NavUtilities HSI / Hold Alt to open settings"
+					);
+
+				toolbarButton.Toolbar.Add(Toolbar.Button.ToolbarEvents.Kind.Active
+						, new Toolbar.Button.Event(this.onToobarButtonPressed, this.onToobarButtonPressed)
+					);
+				ToolbarController.Instance.Add(toolbarButton);
+			}
+			else {
                 //GameEvents.onGUIApplicationLauncherReady.Add(OnGUIReady);
 
                 if (appButton == null)
@@ -398,6 +409,7 @@ namespace NavInstruments.NavUtilLib
             {
                 Log.dbg("NavUtils: Destorying App 2");
 
+                ToolbarController.Instance.Destroy();
 
                 //save settings to config
                 ConfigLoader.SaveSettings();
@@ -410,36 +422,42 @@ namespace NavInstruments.NavUtilLib
 
 
 
-        //void OnGUIReady()
-        //{
-        //    Log.dbg("NavUtils: NavUtilLibApp.OnGUIReady()");
+		//void OnGUIReady()
+		//{
+		//    Log.dbg("NavUtils: NavUtilLibApp.OnGUIReady()");
 
-        //    if (KSP.UI.Screens.ApplicationLauncher.Ready && !var.Settings.useBlizzy78ToolBar)
-        //    {
-        //        appButton = KSP.UI.Screens.ApplicationLauncher.Instance.AddModApplication(
-        //            onAppLaunchToggleOn,
-        //            onAppLaunchToggleOff,
-        //            onAppLaunchHoverOn,
-        //            onAppLaunchHoverOff,
-        //            onAppLaunchEnable,
-        //            onAppLaunchDisable,
-        //            KSP.UI.Screens.ApplicationLauncher.AppScenes.FLIGHT,
-        //            (Texture)GameDatabase.Instance.GetTexture("KerbalScienceFoundation/NavInstruments/CommonTextures/toolbarButton3838", false)
-        //          );
-        //        ;
-        //    }
+		//    if (KSP.UI.Screens.ApplicationLauncher.Ready && !var.Settings.useBlizzy78ToolBar)
+		//    {
+		//        appButton = KSP.UI.Screens.ApplicationLauncher.Instance.AddModApplication(
+		//            onAppLaunchToggleOn,
+		//            onAppLaunchToggleOff,
+		//            onAppLaunchHoverOn,
+		//            onAppLaunchHoverOff,
+		//            onAppLaunchEnable,
+		//            onAppLaunchDisable,
+		//            KSP.UI.Screens.ApplicationLauncher.AppScenes.FLIGHT,
+		//            (Texture)GameDatabase.Instance.GetTexture("KerbalScienceFoundation/NavInstruments/CommonTextures/toolbarButton3838", false)
+		//          );
+		//        ;
+		//    }
 
-        //    app = this;
+		//    app = this;
 
-        //    //panel = new UIInteractivePanel();
-        //    //panel.draggable = true;
-        //    //panel.index = 1;
+		//    //panel = new UIInteractivePanel();
+		//    //panel.draggable = true;
+		//    //panel.index = 1;
 
 
 
-        //}
+		//}
 
-        void onAppLaunchToggleOn()
+		void onToobarButtonPressed()
+		{
+			this.isHovering = true;
+			this.onAppLaunchToggleOn();
+		}
+
+		void onAppLaunchToggleOn()
         {
             Log.dbg("NavUtils: onAppLaunchToggleOn");
             if(isHovering)
